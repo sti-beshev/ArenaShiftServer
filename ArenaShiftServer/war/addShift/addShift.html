@@ -1,0 +1,87 @@
+<!-- addShift.html -->
+
+<div ng-app="addShiftModule">
+	
+	<h3 style="margin-left:100px;">Добави смяна</h3><br><br>
+	
+	<div ng-controller="AddShiftController" style="width:900px; margin:0 auto;">
+		
+		<form>
+			<input type="checkbox" ng-model="addShift.year.changeYear">
+			<input type="text" ng-model="addShift.year.name" ng-disabled="addShift.year.changeYear == false">
+			&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+			
+			<select ng-model="addShift.month.name" 
+				ng-init="addShift.month.name = addShift.months[0]"
+				ng-options="month.name for month in addShift.months">
+			</select>&nbsp; &nbsp; &nbsp; &nbsp;
+			
+			<select ng-model="addShift.day.number"
+				ng-init="addShift.day.number = addShift.days[0]"
+				ng-options="day.number for day in addShift.days">
+			</select><br><br><br><br>
+			
+			<label>Панорама Мол</label><br><br>
+			<label>Киномеханик :</label>
+			<select ng-model="addShift.panMehanik.name" 
+				ng-change="addShift.checkMehanikForRepeat()"
+				ng-class="{'valid' : addShift.panMehanik.valid, 'notValid' : !addShift.panMehanik.valid}"  
+				ng-options="mehanik.name for mehanik in addShift.mehanicy">			
+			</select><br><br><br>
+			
+			<label>Касиерка 1 :</label>
+			<select ng-model="addShift.panKasaOne.name"  
+				ng-change="addShift.panKasaOne.validate()"
+				ng-class="{'valid' : addShift.panKasaOne.valid, 'notValid' : !addShift.panKasaOne.valid}" 
+				ng-options="kasa.name for kasa in addShift.kasierky">
+			</select>&nbsp; &nbsp; &nbsp; &nbsp;
+			
+			<label>Касиерка 2 :</label>
+			<select ng-model="addShift.panKasaTwo.name"  
+				ng-change="addShift.panKasaTwo.validate()"
+				ng-class="{'valid' : addShift.panKasaTwo.valid, 'notValid' : !addShift.panKasaTwo.valid}" 
+				ng-options="kasa.name for kasa in addShift.kasierky">
+			</select>&nbsp; &nbsp; &nbsp; &nbsp;
+			
+			<label>Касиерка 3 :</label>
+			<select ng-model="addShift.panKasaThree.name"  
+				ng-change="addShift.panKasaThree.validate()"
+				ng-class="{'valid' : addShift.panKasaThree.valid, 'notValid' : !addShift.panKasaThree.valid}" 
+				ng-options="kasa.name for kasa in addShift.kasierkyTreta">
+			</select><br><br><br>
+			
+			
+			
+			<label>Разпоредител 1 :</label>
+			<select ng-model="addShift.razporeditelOne.name" 
+				ng-change="addShift.checkRazporeditelForRepeat()"
+				ng-class="{'valid' : addShift.razporeditelOne.valid, 'notValid' : !addShift.razporeditelOne.valid}"  
+				ng-options="razporeditel.name for razporeditel in addShift.razporeditely">
+			</select>&nbsp; &nbsp; &nbsp; &nbsp;
+			
+			<label>Разпоредител 2 :</label>
+			<select ng-model="addShift.razporeditelTwo.name" 
+				ng-change="addShift.checkRazporeditelForRepeat()"
+				ng-class="{'valid' : addShift.razporeditelTwo.valid, 'notValid' : !addShift.razporeditelTwo.valid}"  
+				ng-options="razporeditel.name for razporeditel in addShift.razporeditely">
+			</select>
+			<br><br><br><br>
+			<label>Централ Мол</label><br><br>
+			<label>Киномеханик :</label>
+			<select ng-model="addShift.cenMehanik.name" 
+				ng-change="addShift.checkMehanikForRepeat()"
+				ng-class="{'valid' : addShift.cenMehanik.valid, 'notValid' : !addShift.cenMehanik.valid}"  
+				ng-options="mehanik.name for mehanik in addShift.mehanicy">
+			</select><br><br><br>
+			
+			<label>Касиерка :</label>
+			<select ng-model="addShift.cenKasa.name"  
+				ng-change="addShift.cenKasa.validate()"
+				ng-class="{'valid' : addShift.cenKasa.valid, 'notValid' : !addShift.cenKasa.valid}" 
+				ng-options="kasa.name for kasa in addShift.kasierky">
+			</select><br><br><br>
+			
+			<button style="margin-left:500px;" ng-click="addShift.saveShift()">Добави</button>
+		</form>
+	</div>
+</div>

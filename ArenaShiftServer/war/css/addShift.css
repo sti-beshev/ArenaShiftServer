@@ -1,0 +1,13 @@
+/*
+	addShift.css
+*/
+
+.valid {
+	
+	background-color: #c3ffae;
+}
+
+.notValid {
+	
+	background-color: #ffb9ae;
+}
