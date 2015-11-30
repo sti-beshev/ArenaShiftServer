@@ -2,9 +2,10 @@
  * AddShiftController.js
  */
 
-addShiftModule.controller("AddShiftController", ['$scope', function($scope) {
+addShiftModule.controller("AddShiftController", ['$scope', '$http', '$q', function($scope, $http, $q) {
 	
 	$scope.addShift = addShift = {};
+	$scope.addShift.shiftStatus = "Not saved yet";
 	$scope.addShift.yearChange = false;
 	
 	$scope.addShift.months = [
@@ -36,18 +37,9 @@ addShiftModule.controller("AddShiftController", ['$scope', function($scope) {
 			changeYear: false
 	};
 	
-	$scope.addShift.month = {	name: null,};
+	$scope.addShift.month = {	name: null};
 	
-	$scope.addShift.day = {
-		
-			number: null,
-			validate: function() {
-				if(this.number === null) 
-					return false;
-				else
-					return true;
-		}
-	};
+	$scope.addShift.day = {number: null};
 	
 	$scope.addShift.panMehanik = {
 		
@@ -280,7 +272,25 @@ $scope.addShift.checkRazporeditelForRepeat = function () {
 			shiftToSave.cenMehanik = $scope.addShift.cenMehanik.name.name;
 			shiftToSave.cenKasa = $scope.addShift.cenKasa.name.name;
 			
-			console.log(shiftToSave);
+			var deferred = $q.defer();
+			
+			$http.post("/AddShiftServlet", shiftToSave).success(function(data) {
+						
+				deferred.resolve(data);
+				
+				deferred.promise.then(function(result) {
+					
+					$scope.addShift.shiftStatus = result.message;
+				}),
+				function(err) {
+					
+					console.log(err);
+				};
+				
+			}).error(function(reason) {
+				
+				deferred.reject(reason);
+			});
 			
 		} else {
 			window.alert("Грешно поле !!!");

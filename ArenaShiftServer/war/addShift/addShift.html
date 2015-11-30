@@ -5,7 +5,8 @@
 	<h3 style="margin-left:100px;">Добави смяна</h3><br><br>
 	
 	<div ng-controller="AddShiftController" style="width:900px; margin:0 auto;">
-		
+	
+		<label ng-bind="addShift.shiftStatus"></label><br><br><br>
 		<form>
 			<input type="checkbox" ng-model="addShift.year.changeYear">
 			<input type="text" ng-model="addShift.year.name" ng-disabled="addShift.year.changeYear == false">

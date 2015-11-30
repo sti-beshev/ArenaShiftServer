@@ -5,12 +5,20 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
-		<servlet-name>ArenaShiftServer</servlet-name>
-		<servlet-class>com.beshev.arenashiftserver.ArenaShiftServerServlet</servlet-class>
+		<servlet-name>AddShiftServlet</servlet-name>
+		<servlet-class>com.beshev.arenashiftserver.servlets.AddShiftServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ArenaShiftServer</servlet-name>
-		<url-pattern>/arenashiftserver</url-pattern>
+		<servlet-name>AddShiftServlet</servlet-name>
+		<url-pattern>/AddShiftServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>GetShiftServlet</servlet-name>
+		<servlet-class>com.beshev.arenashiftserver.servlets.GetShiftServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetShiftServlet</servlet-name>
+		<url-pattern>/GetShiftServlet</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

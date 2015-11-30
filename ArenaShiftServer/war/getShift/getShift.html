@@ -1,0 +1,45 @@
+<!-- getShift.html -->
+
+<div ng-app="getShiftModule">
+	
+	<h3 style="margin-left:100px;">Провери смяна</h3><br><br>
+	
+	<div  ng-controller="GetShiftController" style="width:900px; margin:0 auto;">
+		
+		<form>
+			<input type="checkbox" ng-model="getShift.year.changeYear">
+			<input type="text" ng-model="getShift.year.name" ng-disabled="getShift.year.changeYear == false">
+			&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+			
+			<select ng-model="getShift.month.name" 
+				ng-init="getShift.month.name = getShift.months[0]"
+				ng-options="month.name for month in getShift.months">
+			</select>&nbsp; &nbsp; &nbsp; &nbsp;
+			
+			<select ng-model="getShift.day.number"
+				ng-init="getShift.day.number = getShift.days[0]"
+				ng-options="day.number for day in getShift.days">
+			</select>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+			<button ng-click="getShift.showShift()">Покажи</button><br><br><br><br>
+		</form>
+		
+		<div ng-hide="getShift.showShiftDiv == false">
+		
+			<h4>Панорама Мол</h4><br><br>
+			<label ng-bind="getShift.shiftToShow.panMehanik"></label><br><br>
+			<label ng-bind="getShift.shiftToShow.panKasaOne"></label>&nbsp; &nbsp; &nbsp; &nbsp;
+			<label ng-bind="getShift.shiftToShow.panKasaTwo"></label>&nbsp; &nbsp; &nbsp; &nbsp;
+			<label ng-bind="getShift.shiftToShow.panKasaThree"></label><br><br>
+			<label ng-bind="getShift.shiftToShow.razporeditelOne"></label>&nbsp; &nbsp; &nbsp; &nbsp;
+			<label ng-bind="getShift.shiftToShow.razporeditelTwo"></label><br><br><br><br>
+			
+			<h4>Централ Мол</h4><br><br>
+			<label ng-bind="getShift.shiftToShow.cenMehanik"></label><br><br>
+			<label ng-bind="getShift.shiftToShow.cenKasa"></label><br><br>
+					
+		</div>
+		
+		<h4 ng-hide="getShift.showShiftDiv == true">Този ден е празен</h4>
+		
+	</div>
+</div>
