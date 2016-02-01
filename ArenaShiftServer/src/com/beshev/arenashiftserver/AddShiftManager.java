@@ -13,9 +13,9 @@ public class AddShiftManager {
 		
 	}
 	
-	public boolean saveShift(Shift shift) {
+	public String saveShift(Shift shift) {
 		
-		boolean status = false;
+		String status = "Смяна за този ден съществува вече";
 		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		
@@ -57,7 +57,7 @@ public class AddShiftManager {
 			dayEntity.setProperty("cenKasa", shift.getCenKasa());
 			datastore.put(dayEntity);
 			
-			status = true;
+			status = "Смяната е запаметена";
 		}
 		
 		return status;

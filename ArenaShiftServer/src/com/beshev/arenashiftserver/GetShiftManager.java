@@ -15,6 +15,8 @@ public class GetShiftManager {
 	
 	public Shift getShift(ShiftDate shiftDate) {
 		
+		/* Важно е да е null защото ако не намери смяна ще върне, null който е нужен
+		 * на клиента за да знае че няма таква смяна. */
 		Shift shift = null;
 		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -23,6 +25,7 @@ public class GetShiftManager {
 		.addChild("Month", shiftDate.getMonth())
 		.addChild("Day", shiftDate.getDay())
 		.getKey();
+	
 	
 		try {
 		

@@ -2,7 +2,7 @@
  * index.js
  */
 
-var arenaShiftModule = angular.module("arenaShift", ['ngRoute', 'getShiftModule', 'addShiftModule']);
+var arenaShiftModule = angular.module("arenaShift", ['ngRoute', 'directivesModule', 'getShiftModule', 'addShiftModule', 'changeShiftModule']);
 
 arenaShiftModule.controller("MainController", ['$scope', function($scope) {
 }]);
@@ -20,6 +20,12 @@ arenaShiftModule.config(["$routeProvider", function($routeProvider) {
 			
 			templateUrl : "/addShift/addShift.html",
 			controller : 'AddShiftController'
+		
+		})
+		.when("/changeShift", {
+			
+			templateUrl : "/changeShift/changeShift.html",
+			controller : 'ChangeShiftController'
 		
 		})
 		.otherwise({

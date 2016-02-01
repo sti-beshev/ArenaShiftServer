@@ -6,21 +6,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.beshev.arenashiftserver.AddShiftManager;
+import com.beshev.arenashiftserver.ChangeShiftManager;
 import com.beshev.arenashiftserver.Shift;
 import com.beshev.arenashiftserver.ShiftStatus;
 import com.google.gson.Gson;
 
 
 @SuppressWarnings("serial")
-public class AddShiftServlet extends HttpServlet {
+public class ChangeShiftServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		Shift shift = new Gson().fromJson(req.getReader(), Shift.class);
 		
-		AddShiftManager addShiftManager = new AddShiftManager();
-		String status = addShiftManager.saveShift(shift);
+		ChangeShiftManager changeShiftManager = new ChangeShiftManager();
+		String status = changeShiftManager.changeShift(shift);
 		
 		resp.setContentType("application/json");
 	    resp.setCharacterEncoding("UTF-8");
