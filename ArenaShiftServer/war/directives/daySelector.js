@@ -26,18 +26,16 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', f
 	}
 	$scope.daySelector.yearChange = false;
 	
-	$scope.daySelector.months = [
-		                         "Януари", "Февуари", "Март", "Април", "Май", "Юни","Юли", 
-		                         "Август","Септември", "Октомври", "Ноември", "Декември"
-		                         ];
+	$scope.daySelector.months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+	
 	$scope.daySelector.days = [
-		                        "1", "2", "3", "4", "5", "6", "7", 
-		                        "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-		                        "21","22", "23", "24", "25", "26", "27", "28", "29", "30", "31"
+		                        1, 2, 3, 4, 5, 6, 7, 
+		                        8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+		                        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
 		                        ];			
 	$scope.daySelector.year = {
 				
-			name: "2016",
+			name: 2016,
 			changeYear: false
 	};
 	
@@ -61,17 +59,15 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', f
 			
 			deferred.promise.then(function(result) {
 				
-				if(result !== null) {
-					
+				if(result !== null) {		
 					$scope.daySelector.shiftStatus="";	// Няма грешка за изписване.
-					
-					/* Изпраща на всеки, който го интересува получената смяна. 
-					 * Конкретно 'peopleSelector'.*/
-					$scope.$broadcast('newShift', result);
-					
 				}else{
 					$scope.daySelector.shiftStatus="Тази смяна е празна....";
 				}
+				
+				/* Изпраща на всеки, който го интересува получената смяна. 
+				 * Конкретно 'peopleSelector'.*/
+				$scope.$broadcast('newShift', result);
 							
 			}),
 			function(err) {

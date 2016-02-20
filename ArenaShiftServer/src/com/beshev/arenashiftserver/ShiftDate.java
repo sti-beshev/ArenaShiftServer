@@ -2,35 +2,35 @@ package com.beshev.arenashiftserver;
 
 public class ShiftDate {
 	
-	private String year;
-	private String month;
-	private String day;
+	private int year;
+	private int month;
+	private int day;
 	
 	public ShiftDate() {
 		
 	}
 
-	public String getYear() {
+	public int getYear() {
 		return year;
 	}
 
-	public void setYear(String year) {
+	public void setYear(int year) {
 		this.year = year;
 	}
 
-	public String getMonth() {
+	public int getMonth() {
 		return month;
 	}
 
-	public void setMonth(String month) {
+	public void setMonth(int month) {
 		this.month = month;
 	}
 
-	public String getDay() {
+	public int getDay() {
 		return day;
 	}
 
-	public void setDay(String day) {
+	public void setDay(int day) {
 		this.day = day;
 	}
 }

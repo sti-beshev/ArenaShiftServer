@@ -391,23 +391,31 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 	 * и когато стане попълва полетата с нея. */
 	$scope.$on('newShift', function(event, newShift) {
 		
-		peopleSelector.panMehanik.name = newShift.panMehanik;
-		peopleSelector.panKasaOne.name = newShift.panKasaOne;
-		peopleSelector.panKasaTwo.name = newShift.panKasaTwo;
-		peopleSelector.panKasaThree.name = newShift.panKasaThree;
-		peopleSelector.razporeditelOne.name = newShift.razporeditelOne;
-		peopleSelector.razporeditelTwo.name = newShift.razporeditelTwo;
-		peopleSelector.cenMehanik.name = newShift.cenMehanik;
-		peopleSelector.cenKasa.name = newShift.cenKasa;
+		if(newShift !== null) {
+			
+			peopleSelector.panMehanik.name = newShift.panMehanik;
+			peopleSelector.panKasaOne.name = newShift.panKasaOne;
+			peopleSelector.panKasaTwo.name = newShift.panKasaTwo;
+			peopleSelector.panKasaThree.name = newShift.panKasaThree;
+			peopleSelector.razporeditelOne.name = newShift.razporeditelOne;
+			peopleSelector.razporeditelTwo.name = newShift.razporeditelTwo;
+			peopleSelector.cenMehanik.name = newShift.cenMehanik;
+			peopleSelector.cenKasa.name = newShift.cenKasa;
+			
+			peopleSelector.checkMehanikForRepeat(false);
+			peopleSelector.checkRazporeditelForRepeat(false);
+			peopleSelector.panKasaOne.validate(false);
+			peopleSelector.panKasaTwo.validate(false);
+			peopleSelector.panKasaThree.validate(false);
+			peopleSelector.cenKasa.validate(false);
+			
+			$scope.peopleSelector.hideShift = false;
+			
+		} else {
+			$scope.peopleSelector.hideShift = true;
+		}
 		
-		peopleSelector.checkMehanikForRepeat(false);
-		peopleSelector.checkRazporeditelForRepeat(false);
-		peopleSelector.panKasaOne.validate(false);
-		peopleSelector.panKasaTwo.validate(false);
-		peopleSelector.panKasaThree.validate(false);
-		peopleSelector.cenKasa.validate(false);
 		
-		$scope.peopleSelector.hideShift = false;
 		
 	});
 	
