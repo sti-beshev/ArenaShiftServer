@@ -270,6 +270,14 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 		}				
 	};
 	
+	$scope.peopleSelector.checkKasaForRepeat = function(notFirstCheck) {
+		
+		$scope.peopleSelector.panKasaOne.validate(notFirstCheck);
+		$scope.peopleSelector.panKasaTwo.validate(notFirstCheck);
+		$scope.peopleSelector.panKasaThree.validate(notFirstCheck);
+		$scope.peopleSelector.cenKasa.validate(notFirstCheck);
+	}
+	
 	$scope.peopleSelector.checkRazporeditelForRepeat = function (notFirstCheck) {
 
 		/* Ако е първатя проверка няма смисъл да се сменя статуса защото e получено от
@@ -404,10 +412,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			
 			peopleSelector.checkMehanikForRepeat(false);
 			peopleSelector.checkRazporeditelForRepeat(false);
-			peopleSelector.panKasaOne.validate(false);
-			peopleSelector.panKasaTwo.validate(false);
-			peopleSelector.panKasaThree.validate(false);
-			peopleSelector.cenKasa.validate(false);
+			peopleSelector.checkKasaForRepeat(false);
 			
 			$scope.peopleSelector.hideShift = false;
 			

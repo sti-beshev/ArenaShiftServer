@@ -15,7 +15,7 @@
 			
 	<label>Касиерка 1 :</label>
 	<select ng-model="peopleSelector.panKasaOne.name"  
-				 ng-change="peopleSelector.panKasaOne.validate(true)"
+				 ng-change="peopleSelector.checkKasaForRepeat(true)"
 				 ng-class="{'valid' : peopleSelector.panKasaOne.valid, 'notValid' : !peopleSelector.panKasaOne.valid}" 
 				 ng-options="kasa for kasa in peopleSelector.kasierky"
 				 ng-disabled="viewOnly">
@@ -23,7 +23,7 @@
 			
 	<label>Касиерка 2 :</label>
 	<select ng-model="peopleSelector.panKasaTwo.name"  
-				 ng-change="peopleSelector.panKasaTwo.validate(true)"
+				 ng-change="peopleSelector.checkKasaForRepeat(true)"
 				 ng-class="{'valid' : peopleSelector.panKasaTwo.valid, 'notValid' : !peopleSelector.panKasaTwo.valid}" 
 				 ng-options="kasa for kasa in peopleSelector.kasierky"
 				 ng-disabled="viewOnly">
@@ -31,7 +31,7 @@
 			
 	<label>Касиерка 3 :</label>
 	<select ng-model="peopleSelector.panKasaThree.name"  
-				 ng-change="peopleSelector.panKasaThree.validate(true)"
+				 ng-change="peopleSelector.checkKasaForRepeat(true)"
 				 ng-class="{'valid' : peopleSelector.panKasaThree.valid, 'notValid' : !peopleSelector.panKasaThree.valid}" 
 				 ng-options="kasa for kasa in peopleSelector.kasierkyTreta"
 				 ng-disabled="viewOnly">
@@ -64,7 +64,7 @@
 			
 	<label>Касиерка :</label>
 	<select ng-model="peopleSelector.cenKasa.name"  
-				 ng-change="peopleSelector.cenKasa.validate(true)"
+				 ng-change="peopleSelector.checkKasaForRepeat(true)"
 				 ng-class="{'valid' : peopleSelector.cenKasa.valid, 'notValid' : !peopleSelector.cenKasa.valid}" 
 				 ng-options="kasa for kasa in peopleSelector.kasierky"
 				 ng-disabled="viewOnly">
