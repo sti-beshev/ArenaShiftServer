@@ -8,16 +8,17 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 public class AddShiftManager {
+	
+	DatastoreService datastore;
 
 	public AddShiftManager() {
 		
+		datastore = DatastoreServiceFactory.getDatastoreService();
 	}
 	
 	public String saveShift(Shift shift) {
 		
 		String status = "Смяна за този ден съществува вече";
-		
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		
 		Key yearKey = KeyFactory.createKey("Year", shift.getYear());
 		
@@ -57,10 +58,15 @@ public class AddShiftManager {
 			dayEntity.setProperty("cenKasa", shift.getCenKasa());
 			datastore.put(dayEntity);
 			
+			ChangeManager changeManager = new ChangeManager();
+			changeManager.addChange(dayKey);
+			
 			status = "Смяната е запаметена";
 		}
 		
 		return status;
 	}
+	
+	
 
 }

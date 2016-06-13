@@ -39,8 +39,8 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 	}
 	
 	$scope.peopleSelector.mehanicy = ["Александър", "Венци", "Иван", "Стилиян"];
-	$scope.peopleSelector.kasierky = ["Гергана", "Деси", "Елица", "Жана", "Катя", "Наталия","Цветелина"];
-	$scope.peopleSelector.kasierkyTreta = ["няма", "Гергана", "Деси", "Елица", "Жана", "Катя", "Наталия","Цветелина"];
+	$scope.peopleSelector.kasierky = ["Гергана", "Елица", "Жана", "Катя", "Наталия","Цветелина"];
+	$scope.peopleSelector.kasierkyTreta = ["няма", "Гергана", "Елица", "Жана", "Катя", "Наталия","Цветелина"];
 	$scope.peopleSelector.razporeditely = ["Бинка", "Дафина", "Наталия", "Цеца"];
 	
 	$scope.peopleSelector.panMehanik = {

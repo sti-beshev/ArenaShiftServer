@@ -29,6 +29,10 @@ public class ChangeShiftManager {
 		dayEntity.setProperty("cenKasa", shift.getCenKasa());
 		datastore.put(dayEntity);
 		
+		ChangeManager changeManager = new ChangeManager();
+		changeManager.addChange(dayEntity.getKey());
+		
+		
 		return "Смяната е променена и запаметена";
 	}
 
