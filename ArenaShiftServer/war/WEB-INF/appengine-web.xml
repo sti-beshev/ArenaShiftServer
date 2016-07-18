@@ -27,5 +27,9 @@
     stale session data. For details, see
     http://code.google.com/appengine/docs/java/config/appconfig.html#Enabling_Sessions
   -->
+  
+  <env-variables>
+    <env-var name="DEFAULT_ENCODING" value="UTF-8" />
+</env-variables>
 
 </appengine-web-app>

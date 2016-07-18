@@ -2,6 +2,7 @@ package com.beshev.arenashiftserver;
 
 public class Shift {
 	
+
 	private int year;
 	private int month;
 	private int day;
@@ -17,6 +18,23 @@ public class Shift {
 	public Shift() {
 		
 	}
+	
+	public Shift(int year, int month, int day, String panMehanik, String panKasaOne, String panKasaTwo,
+			String panKasaThree, String razporeditelOne, String razporeditelTwo, String cenMehanik, String cenKasa) {
+		
+		this.year = year;
+		this.month = month;
+		this.day = day;
+		this.panMehanik = panMehanik;
+		this.panKasaOne = panKasaOne;
+		this.panKasaTwo = panKasaTwo;
+		this.panKasaThree = panKasaThree;
+		this.razporeditelOne = razporeditelOne;
+		this.razporeditelTwo = razporeditelTwo;
+		this.cenMehanik = cenMehanik;
+		this.cenKasa = cenKasa;
+	}
+
 	
 	public int getYear() {
 		return year;

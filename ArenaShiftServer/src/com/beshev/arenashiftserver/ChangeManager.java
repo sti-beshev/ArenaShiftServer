@@ -1,18 +1,22 @@
 package com.beshev.arenashiftserver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class ChangeManager {
 	
-	DatastoreService datastore;
+	private DatastoreService datastore;
 
 	public ChangeManager() {
 		
@@ -20,15 +24,9 @@ public class ChangeManager {
 		
 	}
 	
-public void addChange(Key dayKey) {
+	public void addChange(Key dayKey) {
 		
-		Query q = new Query("Change").addSort("changeVersion", SortDirection.DESCENDING);
-		
-		List<Entity> pq = datastore.prepare(q).asList(FetchOptions.Builder.withLimit(1));
-		Entity oldChange = null;
-		try {
-			oldChange = pq.get(0);
-		} catch (IndexOutOfBoundsException e) {}
+		Entity oldChange = getLastChange();
 		
 		if(oldChange != null) {
 			
@@ -40,10 +38,68 @@ public void addChange(Key dayKey) {
 		} else {
 			
 			Entity newChange = new Entity("Change");
-			newChange.setProperty("changeVersion", 0);
+			newChange.setProperty("changeVersion", 1);
 			newChange.setProperty("dayKey", dayKey);
 			datastore.put(newChange);
 		}
+	}
+	
+	public Entity getLastChange() {
+		
+		Entity lastChange = null;
+		
+		Query q = new Query("Change").addSort("changeVersion", SortDirection.DESCENDING);
+		
+		List<Entity> pq = datastore.prepare(q).asList(FetchOptions.Builder.withLimit(1));
+		
+		try {	
+			lastChange = pq.get(0);
+		} catch (IndexOutOfBoundsException e) {}
+		
+		return lastChange;
+	}
+	
+	public UpdateResponse getShiftList(long clientDBversion) {
+		
+		long dbLastVersion = 0;
+		List<Shift> shiftList = new ArrayList<Shift>();
+		
+		Query q = new Query("Change").setFilter(new FilterPredicate("changeVersion", FilterOperator.GREATER_THAN, clientDBversion));
+		q.addSort("changeVersion", SortDirection.ASCENDING);
+		
+		List<Entity> changeList = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+		
+		if(!(changeList.isEmpty())) {
+			
+			// Това ще запише, коя е последната версия.
+			dbLastVersion = (Long)changeList.get(changeList.size() -1).getProperty("changeVersion");
+			
+			for(Entity entity : changeList) {
+				
+				Entity shiftEntity;
+				
+				try {
+					
+					shiftEntity = datastore.get((Key)entity.getProperty("dayKey"));
+					
+					Shift shift = new Shift();
+					
+					shift.setPanMehanik((String)shiftEntity.getProperty("panMehanik"));
+					shift.setPanKasaOne((String)shiftEntity.getProperty("panKasaOne"));
+					shift.setPanKasaTwo((String)shiftEntity.getProperty("panKasaTwo"));
+					shift.setPanKasaThree((String)shiftEntity.getProperty("panKasaThree"));
+					shift.setRazporeditelOne((String)shiftEntity.getProperty("razporeditelOne"));
+					shift.setRazporeditelTwo((String)shiftEntity.getProperty("razporeditelTwo"));
+					shift.setCenMehanik((String)shiftEntity.getProperty("cenMehanik"));
+					shift.setCenKasa((String)shiftEntity.getProperty("cenKasa"));
+					
+					shiftList.add(shift);
+					
+				} catch (EntityNotFoundException e) {}
+			}
+		}
+		
+		return new UpdateResponse(dbLastVersion, shiftList);
 	}
 
 }
