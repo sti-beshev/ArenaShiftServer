@@ -84,6 +84,10 @@ public class ChangeManager {
 					
 					Shift shift = new Shift();
 					
+					Long month = (Long)shiftEntity.getProperty("Month");
+					shift.setMonth(month.intValue());
+					Long day = (Long)shiftEntity.getProperty("Day");
+					shift.setDay(day.intValue());
 					shift.setPanMehanik((String)shiftEntity.getProperty("panMehanik"));
 					shift.setPanKasaOne((String)shiftEntity.getProperty("panKasaOne"));
 					shift.setPanKasaTwo((String)shiftEntity.getProperty("panKasaTwo"));
