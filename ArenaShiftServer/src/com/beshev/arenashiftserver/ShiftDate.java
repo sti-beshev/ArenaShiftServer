@@ -6,8 +6,17 @@ public class ShiftDate {
 	private int month;
 	private int day;
 	
+
 	public ShiftDate() {
 		
+	}
+	
+	public ShiftDate(int year, int month, int day) {
+		super();
+		
+		this.year = year;
+		this.month = month;
+		this.day = day;
 	}
 
 	public int getYear() {

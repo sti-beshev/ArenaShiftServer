@@ -7,6 +7,7 @@ public class UpdateClientManager {
 	private UpdateRequest updateRequest;
 	private ChangeManager changeManager;
 	
+	/*  Този клас не се тества защото е прост. Ако бъде променен трябва да се напише тест.*/
 	public UpdateClientManager(UpdateRequest updateRequest) {
 		
 		this.updateRequest = updateRequest;

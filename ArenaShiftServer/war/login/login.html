@@ -1,0 +1,19 @@
+<!-- login.html -->
+
+<div ng-app="loginModule">
+	
+	<h3 style="margin-left:100px;">Log In</h3><br><br>
+	
+	<div  ng-controller="LoginController" style="width:900px; margin:0 auto;">
+	
+		<b><label ng-bind="loginManager.errorStatus"></label></b><br><br>
+		
+		<form name="form">
+			<label>Username</label><br>
+			<input ng-model="loginManager.username" type="text" required><br><br>
+			<label>Password</label><br>
+			<input ng-model="loginManager.password" type="password" required><br><br>
+			<button ng-click="loginManager.login()" ng-disabled="form.$invalid">Login</button>
+		</form>
+		
+</div>

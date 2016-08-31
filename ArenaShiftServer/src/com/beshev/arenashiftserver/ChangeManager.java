@@ -84,6 +84,8 @@ public class ChangeManager {
 					
 					Shift shift = new Shift();
 					
+					Long year = (Long)shiftEntity.getProperty("Year");
+					shift.setYear(year.intValue());
 					Long month = (Long)shiftEntity.getProperty("Month");
 					shift.setMonth(month.intValue());
 					Long day = (Long)shiftEntity.getProperty("Day");

@@ -51,7 +51,7 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', f
 		$scope.shiftToShow.year = $scope.daySelector.year.name;
 		$scope.shiftToShow.month = $scope.daySelector.month.name;
 		$scope.shiftToShow.day = $scope.daySelector.day.number;
-		var deferred = $q.defer()
+		var deferred = $q.defer();
 		
 		$http.post("/GetShiftServlet", $scope.shiftToShow).success(function(data) {
 			

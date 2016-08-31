@@ -13,6 +13,11 @@ import com.beshev.arenashiftserver.AddShiftManager;
 import com.beshev.arenashiftserver.ChangeManager;
 import com.beshev.arenashiftserver.Shift;
 import com.beshev.arenashiftserver.UpdateResponse;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
@@ -37,6 +42,45 @@ public class ChangeManagerTest {
 		    helper.tearDown();
 		  }
 		  
+		  /* За сега се тества от 'getShiftListTest()'. */
+		  @Test
+		  public void addChangeTest() {
+			  			  
+		  }
+		  
+		  @Test
+		  public void getLastChangeTest() {
+			  
+			  Long lastChangeNumber = (Long)changeManager.getLastChange().getProperty("changeVersion");
+			  Key lastChangeKey = (Key)changeManager.getLastChange().getProperty("dayKey");
+			  
+			  DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+			  
+			  Entity shiftEntity;
+			  Shift shift = new Shift();
+			  try {
+				  
+				  shiftEntity = datastore.get(lastChangeKey);
+				  
+				  Long year = (Long)shiftEntity.getProperty("Year");
+				  shift.setYear(year.intValue());
+				  Long month = (Long)shiftEntity.getProperty("Month");
+				  shift.setMonth(month.intValue());
+				  Long day = (Long)shiftEntity.getProperty("Day");
+				  shift.setDay(day.intValue());
+				  shift.setPanMehanik((String)shiftEntity.getProperty("panMehanik"));
+				  shift.setPanKasaOne((String)shiftEntity.getProperty("panKasaOne"));
+				  
+			  } catch (EntityNotFoundException e) {}
+			  
+			  assertEquals(3, lastChangeNumber.longValue());
+			  assertEquals(2016, shift.getYear());
+			  assertEquals(1, shift.getMonth());
+			  assertEquals(3, shift.getDay());
+			  assertEquals("Александър", shift.getPanMehanik());
+			  assertEquals("Наталия", shift.getPanKasaOne());
+		  }
+		  
 		  @Test
 		  public void getShiftListTest() {
 			  
@@ -45,6 +89,7 @@ public class ChangeManagerTest {
 			 List<Shift> shiftList = updateResponse.getChangesList();
 			 Shift shiftOne = shiftList.get(0);
 			 Shift shiftTwo = shiftList.get(1);
+			 Shift shiftThree = shiftList.get(2);
 			 
 			 assertEquals(3, shiftList.size());
 			 assertEquals(3, updateResponse.getDbVersion());
@@ -52,6 +97,8 @@ public class ChangeManagerTest {
 			 assertEquals("Цвети", shiftOne.getPanKasaOne());
 			 assertEquals("Венци", shiftTwo.getPanMehanik());
 			 assertEquals("Елица", shiftTwo.getPanKasaOne());
+			 assertEquals("Александър", shiftThree.getPanMehanik());
+			 assertEquals("Наталия", shiftThree.getPanKasaOne());
 			 
 		  }
 		  
