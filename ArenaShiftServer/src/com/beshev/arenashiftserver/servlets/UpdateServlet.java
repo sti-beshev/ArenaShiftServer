@@ -27,7 +27,7 @@ public class UpdateServlet  extends HttpServlet {
 		
 		try {
 			
-			bufferedReader = new BufferedReader(new InputStreamReader(req.getInputStream()));
+			bufferedReader = req.getReader();
 			String textLine = "";
 			String endMSG = "";
 			
@@ -43,7 +43,7 @@ public class UpdateServlet  extends HttpServlet {
 			
 			resp.setContentType("application/json");
 			resp.setCharacterEncoding("UTF-8");
-			bufferedWriter = new BufferedWriter(new OutputStreamWriter(resp.getOutputStream()));
+			bufferedWriter = new BufferedWriter(resp.getWriter());
 			bufferedWriter.write(new Gson().toJson(updateResponse));
 		    bufferedWriter.flush();
 		    bufferedWriter.close();
