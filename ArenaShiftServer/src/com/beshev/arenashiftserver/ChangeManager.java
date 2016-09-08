@@ -28,6 +28,7 @@ public class ChangeManager {
 		
 		Entity oldChange = getLastChange();
 		
+		/* Ако това е първата промяна ще върне 'null' и затова проверявам. */
 		if(oldChange != null) {
 			
 			Entity newChange = new Entity("Change");

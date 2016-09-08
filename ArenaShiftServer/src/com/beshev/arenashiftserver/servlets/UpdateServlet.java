@@ -37,6 +37,8 @@ public class UpdateServlet  extends HttpServlet {
 			
 			updateReques = new Gson().fromJson(endMSG, UpdateRequest.class);
 			
+			System.out.println("Clien DB version : " + updateReques.getDbVersion());
+			
 			bufferedReader.close();
 			
 			updateResponse = new UpdateClientManager(updateReques).getUpdateResponse();

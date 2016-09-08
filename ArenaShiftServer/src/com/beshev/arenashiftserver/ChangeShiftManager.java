@@ -19,6 +19,9 @@ public class ChangeShiftManager {
 		Key monthKey = new KeyFactory.Builder("Year", shift.getYear()).addChild("Month", shift.getMonth()).getKey();
 		
 		Entity dayEntity = new Entity("Day", shift.getDay(), monthKey);
+		dayEntity.setProperty("Year", shift.getYear());
+		dayEntity.setProperty("Month", shift.getMonth());
+		dayEntity.setProperty("Day", shift.getDay());
 		dayEntity.setProperty("panMehanik", shift.getPanMehanik());
 		dayEntity.setProperty("panKasaOne", shift.getPanKasaOne());
 		dayEntity.setProperty("panKasaTwo", shift.getPanKasaTwo());
