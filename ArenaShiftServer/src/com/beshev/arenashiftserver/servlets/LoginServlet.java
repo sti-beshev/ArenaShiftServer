@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 	    
 	    Boolean result = false;
 	    
-	    if(loginInfo.getUsername().equals("admin") && loginInfo.getPassword().equals("26dib26shift")) {
+	    if(loginInfo.getUsername().equals("admin") && loginInfo.getPassword().equals("26dib26are")) {
 	    	result = true;
 	    }
 	    

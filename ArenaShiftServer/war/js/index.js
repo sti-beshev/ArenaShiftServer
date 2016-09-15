@@ -2,7 +2,8 @@
  * index.js
  */
 
-var arenaShiftModule = angular.module("arenaShift", ['ngRoute', 'authModule', 'directivesModule', 'loginModule', 'getShiftModule', 'addShiftModule', 'changeShiftModule']);
+var arenaShiftModule = angular.module("arenaShift", ['ngRoute', 'angularSpinner', 'authModule', 'directivesModule', 
+                                                     'loginModule', 'getShiftModule', 'addShiftModule', 'changeShiftModule']);
 
 arenaShiftModule.controller("MainController", ['$scope', function($scope) {
 }]);

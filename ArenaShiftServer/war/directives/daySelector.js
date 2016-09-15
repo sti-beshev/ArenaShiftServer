@@ -19,6 +19,7 @@ directivesModule.directive("daySelector", function() {
 directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', function($scope, $http, $q) {
 	
 	$scope.daySelector = daySelector = {};
+	$scope.daySelector.showSpinner = false;
 	$scope.daySelector.shiftStatus = "Избери ден...";
 	
 	if($scope.hideShowButton) {
@@ -47,6 +48,8 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', f
 	
 	$scope.daySelector.showShift = function() {
 		
+		$scope.daySelector.showSpinner = true;;
+		
 		$scope.shiftToShow = {};
 		$scope.shiftToShow.year = $scope.daySelector.year.name;
 		$scope.shiftToShow.month = $scope.daySelector.month.name;
@@ -54,6 +57,10 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', f
 		var deferred = $q.defer();
 		
 		$http.post("/GetShiftServlet", $scope.shiftToShow).success(function(data) {
+			
+			$scope.daySelector.showSpinner = false;
+			
+			$scope.daySelector.shiftStatus = "";
 			
 			deferred.resolve(data);
 			
@@ -80,5 +87,12 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', f
 			deferred.reject(reason);
 		});		
  }
+	
+	$scope.daySelector.dateChange = function() {
+		
+		$scope.daySelector.shiftStatus = "";
+		
+		$scope.$broadcast('dateChange',  "");
+	}
 }]);
 

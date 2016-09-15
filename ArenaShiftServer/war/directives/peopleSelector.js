@@ -29,6 +29,8 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 	
 	$scope.peopleSelector = peopleSelector = {};
 	
+	$scope.peopleSelector.showSpinner = false;
+	
 	$scope.peopleSelector.hideShift = true;	// Ако е празна крие смяната.
 	$scope.peopleSelector.shiftStatus = "";
 	
@@ -39,9 +41,9 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 	}
 	
 	$scope.peopleSelector.mehanicy = ["Александър", "Венци", "Иван", "Стилиян"];
-	$scope.peopleSelector.kasierky = ["Анелия", "Гергана", "Елица", "Катя", "Наталия","Цветелина"];
-	$scope.peopleSelector.kasierkyTreta = ["няма", "Анелия", "Гергана", "Елица", "Катя", "Наталия","Цветелина"];
-	$scope.peopleSelector.razporeditely = ["Бинка", "Дафинела", "Наталия", "Цеца"];
+	$scope.peopleSelector.kasierky = ["Анелия", "Гергана", "Елица", "Катя", "Наталия","Цветелина", "Боби"];
+	$scope.peopleSelector.kasierkyTreta = ["няма", "Анелия", "Гергана", "Елица", "Катя", "Наталия","Цветелина", "Боби",];
+	$scope.peopleSelector.razporeditely = ["Бинка", "Дафинела", "Кака", "Наталия", "Боби"];
 	
 	$scope.peopleSelector.panMehanik = {
 		
@@ -101,6 +103,8 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 							this.valid = false;
 						}
 					}
+				} else {
+					this.valid = false;
 				}
 			}
 	};
@@ -139,6 +143,8 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 							this.valid = false;
 						}
 					}
+				} else {
+					this.valid = false;
 				}
 			}
 	};
@@ -177,6 +183,8 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 							this.valid = false;
 						}
 					}
+				} else {
+					this.valid = false;
 				}
 			}
 	};
@@ -215,6 +223,8 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 						this.valid = false;
 					}
 				}
+			} else {
+				this.valid = false;
 			}
 		}
 };
@@ -250,24 +260,22 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			$scope.peopleSelector.shiftStatus = "Смяната не е запаметена";
 		}
 		
-		if($scope.peopleSelector.panMehanik.name !== null && $scope.peopleSelector.cenMehanik.name !== null) {
+		$scope.peopleSelector.panMehanik.valid = true;
+		$scope.peopleSelector.cenMehanik.valid = true;
+		
+		if($scope.peopleSelector.panMehanik.name === null) {
+			$scope.peopleSelector.panMehanik.valid = false;
+		}
+		
+		if($scope.peopleSelector.cenMehanik.name === null) {
+			$scope.peopleSelector.cenMehanik.valid = false;
+		}
+		
+		if($scope.peopleSelector.panMehanik.name === $scope.peopleSelector.cenMehanik.name) {
 			
-			if($scope.peopleSelector.panMehanik.name === $scope.peopleSelector.cenMehanik.name) {
-				$scope.peopleSelector.panMehanik.valid = false;
-				$scope.peopleSelector.cenMehanik.valid = false;
-			}else{
-				$scope.peopleSelector.panMehanik.valid = true;
-				$scope.peopleSelector.cenMehanik.valid = true;
-			}			
-		}else {	
-			
-			if($scope.peopleSelector.panMehanik.name !== null) {
-				$scope.peopleSelector.panMehanik.valid = true;
-			}else{
-				$scope.peopleSelector.cenMehanik.valid = true;
-			}
-				
-		}				
+			$scope.peopleSelector.panMehanik.valid = false;
+			$scope.peopleSelector.cenMehanik.valid = false;
+		}
 	};
 	
 	$scope.peopleSelector.checkKasaForRepeat = function(notFirstCheck) {
@@ -287,29 +295,30 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			$scope.peopleSelector.shiftStatus = "Смяната не е запаметена";
 		}
 		
-		if($scope.peopleSelector.razporeditelOne.name !== null && $scope.peopleSelector.razporeditelTwo.name !== null) {
+		$scope.peopleSelector.razporeditelOne.valid = true;
+		$scope.peopleSelector.razporeditelTwo.valid = true;
+		
+		if($scope.peopleSelector.razporeditelOne.name === null) {
+			$scope.peopleSelector.razporeditelOne.valid = false;
+		}
+		
+		if($scope.peopleSelector.razporeditelTwo.name === null) {
+			$scope.peopleSelector.razporeditelTwo.valid = false;
+		}
+		
+		if($scope.peopleSelector.razporeditelOne.name === $scope.peopleSelector.razporeditelTwo.name) {
 			
-			if($scope.peopleSelector.razporeditelOne.name === $scope.peopleSelector.razporeditelTwo.name) {
-				$scope.peopleSelector.razporeditelOne.valid = false;
-				$scope.peopleSelector.razporeditelTwo.valid = false;
-			}else{
-				$scope.peopleSelector.razporeditelOne.valid = true;
-				$scope.peopleSelector.razporeditelTwo.valid = true;
-			}			
-		}else {	
-			
-			if($scope.peopleSelector.razporeditelOne.name !== null) {
-				$scope.peopleSelector.razporeditelOne.valid = true;
-			}else{
-				$scope.peopleSelector.razporeditelTwo.valid = true;
-			}
-				
-		}				
+			$scope.peopleSelector.razporeditelOne.valid = false;
+			$scope.peopleSelector.razporeditelTwo.valid = false;
+		}
+		
 	};
 	
 	$scope.peopleSelector.saveShift = function() {
 		
 		if($scope.peopleSelector.checkShift() === true) {
+			
+			$scope.peopleSelector.showSpinner = true;
 			
 			var shiftToSave = {};
 
@@ -328,6 +337,8 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			var deferred = $q.defer();
 			
 			$http.post("/AddShiftServlet", shiftToSave).success(function(data) {
+				
+				$scope.peopleSelector.showSpinner = false;
 						
 				deferred.resolve(data);
 				
@@ -355,6 +366,8 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 		
 		if($scope.peopleSelector.checkShift() === true) {
 			
+			$scope.peopleSelector.showSpinner = true;;
+			
 			var shiftToSave = {};
 			
 			shiftToSave.year = $scope.daySelector.getYear();
@@ -372,6 +385,8 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			var deferred = $q.defer();
 			
 			$http.post("/ChangeShiftServlet", shiftToSave).success(function(data) {
+				
+				$scope.peopleSelector.showSpinner = false;
 						
 				deferred.resolve(data);
 				
@@ -399,6 +414,8 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 	 * и когато стане попълва полетата с нея. */
 	$scope.$on('newShift', function(event, newShift) {
 		
+		$scope.peopleSelector.shiftStatus = "";
+		
 		if(newShift !== null) {
 			
 			peopleSelector.panMehanik.name = newShift.panMehanik;
@@ -416,12 +433,28 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			
 			$scope.peopleSelector.hideShift = false;
 			
-		} else {
-			$scope.peopleSelector.hideShift = true;
 		}
+	});
+	
+	$scope.$on('dateChange', function(event, eventName) {
 		
+		$scope.peopleSelector.shiftStatus = "";
+			
+		peopleSelector.panMehanik.name = null;
+		peopleSelector.panKasaOne.name = null;
+		peopleSelector.panKasaTwo.name = null;
+		peopleSelector.panKasaThree.name = null;
+		peopleSelector.razporeditelOne.name = null;
+		peopleSelector.razporeditelTwo.name = null;
+		peopleSelector.cenMehanik.name = null;
+		peopleSelector.cenKasa.name = null;
 		
+		peopleSelector.checkMehanikForRepeat(false);
+		peopleSelector.checkRazporeditelForRepeat(false);
+		peopleSelector.checkKasaForRepeat(false);
 		
+		$scope.peopleSelector.hideShift = false;
+			
 	});
 	
 }]);

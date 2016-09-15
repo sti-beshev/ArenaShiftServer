@@ -7,7 +7,11 @@ loginModule.controller("LoginController", ['$scope', '$http', '$q', '$location',
 	
 	$scope.loginManager = {};
 	
+	$scope.loginManager.showSpinner = false;
+	
 	$scope.loginManager.login = function() {
+		
+		$scope.loginManager.showSpinner = true;
 		
 		$scope.loginInfo = {
 				
@@ -22,6 +26,8 @@ loginModule.controller("LoginController", ['$scope', '$http', '$q', '$location',
 			deferred.resolve(data);
 			
 			deferred.promise.then(function(result) {
+				
+				$scope.loginManager.showSpinner = false;
 				
 				if(result) {		
 					
