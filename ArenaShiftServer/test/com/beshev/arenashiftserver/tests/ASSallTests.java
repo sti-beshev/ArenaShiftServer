@@ -6,5 +6,5 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({AddShiftManagerTest.class, 
 									 ChangeManagerTest.class})
-public class AllTests {
+public class ASSallTests {
 }
