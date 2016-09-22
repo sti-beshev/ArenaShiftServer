@@ -4,14 +4,16 @@
 
 	<input type="checkbox" ng-model="daySelector.year.changeYear">
 	<input type="text" ng-model="daySelector.year.name" ng-disabled="daySelector.year.changeYear == false">
-	&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+	&nbsp; &nbsp; &nbsp; 
 	
+	<label>Месец :</label>
 	<select ng-model="daySelector.month.name" 
 		ng-init="daySelector.month.name = daySelector.months[0]"
 		ng-options="month for month in daySelector.months"
 		ng-change="daySelector.dateChange()">
 	</select>&nbsp; &nbsp; &nbsp; &nbsp;
 	
+	<label>Ден :</label>
 	<select ng-model="daySelector.day.number"
 		ng-init="daySelector.day.number = daySelector.days[0]"
 		ng-options="day for day in daySelector.days"
