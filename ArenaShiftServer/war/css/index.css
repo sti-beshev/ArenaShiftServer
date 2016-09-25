@@ -91,73 +91,129 @@ form {
 	order: 1;
 }
 
-#panMehanik {
+#divPanMehanik {
 
-	width: 100%;
-	margin-top: 5%;
+}
+
+#labelPanMehanik {
+	
+	width: 5%;
 	order: 2;
 }
 
-#kasaOne {
-	
-	width: 30%;
-	margin-top: 3%;
+#selectPanMehanik {
+
+	width: 10%;
 	order: 3;
 }
 
-#kasaTwo {
-	
-	width: 30%;
-	margin-top: 3%;
+#divPanKasa {
+
+}
+
+#labelKasaOne {
+
+	width: 5%;
 	order: 4;
 }
 
-#kasaThree {
-	
-	width: 30%;
-	margin-top: 3%;
+#selectPanKasaOne {
+
+	width: 25%;
 	order: 5;
 }
 
-#razporeditelOne {
-	
-	width: 30%;
-	margin-top: 3%;
+#labelKasaTwo {
+
+	width: 5%;
+	margin-left: 3%;
 	order: 6;
 }
 
-#razporeditelTwo {
-	
-	width: 30%;
-	margin-top: 3%;
+#selectPanKasaTwo {
+
+	width: 25%;
 	order: 7;
 }
 
-#labelCen {
+#labelKasaThree {
 
-	width: 100%;
-	margin-top: 5%;
+	width: 5%;
+	margin-left: 3%;
 	order: 8;
 }
-#cenMehanik {
-	
-	width: 100%;
-	margin-top: 3%;
+
+#selectPanKasaThree {
+
+	width: 25%;
 	order: 9;
 }
 
-#cenKasa {
-	
-	width: 100%;
-	margin-top: 3%;
+#divRazporeditel {
+
+}
+
+#labelRazOne {
+
+	width: 5%;
 	order: 10;
 }
 
-#actionButton {
-	
+#selectRazOne {
+
+	width: 10%;
+	order: 11;	
+}
+
+#labelRazTwo {
+
+	width: 5%;
+	margin-left: 5%;
+	order: 10;
+}
+
+#selectRazTwo {
+
+	width: 10%;
+	order: 11;	
+}
+
+#divLabelCen {
+
 	width: 100%;
-	margin-top: 5%;
-	margin-left: 60%;
-	order: 11;
+}
+
+#labelCenMehanik {
+
+	width: 5%;
+	order: 12;
+}
+
+#selectCenMehanik {
+
+	width: 10%;
+	order: 13;
+}
+
+#divCenKasa {
+
+}
+
+#labelCenKasa {
+
+	width: 5%;
+	order: 12;
+}
+
+#selectCenKasa {
+
+	width: 10%;
+	order: 13;
+}
+
+#divActionButton {
+
+	margin-left: 35%;
+	order: 14;
 }
 
