@@ -2,6 +2,11 @@
 	index.css 
 */
 
+form {
+
+	width: 100%;
+}
+
 #title {
 	
 	text-align: center;
@@ -16,6 +21,62 @@
 	
 	margin-left: 25%;
 }
+
+/* Day Selector ***************************************************************************************/
+
+.daySelectorView {
+
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#cheakBoxYear {
+
+	order: 1;
+}
+
+#textBoxYear {
+
+	order: 2;
+}
+
+#labelMonth {
+
+	margin-left: 3%;
+	order: 3;
+}
+
+#selectMonth {
+
+	margin-left: 1%;
+	order: 4;
+}
+
+#labelDay {
+
+	margin-left: 3%;
+	order: 5;
+}
+
+#selectDay {
+
+	margin-left: 1%;
+	order: 6;
+}
+
+#buttonShow {
+
+	margin-left: 3%;
+	order: 7;
+}
+
+#labelStatus {
+
+	width: 100%;
+	order: 8;
+}
+
+/* People Selector ***********************************************************************************/
 
 .peopleSelectorView {
 	
@@ -100,67 +161,3 @@
 	order: 11;
 }
 
-@media only screen and (max-width: 900px) {
-
-	.viewBody {
-	
-		margin-left: 5%;
-	}
-
-	#kasaOne {
-	
-		width: 100%;
-		margin-top: 2%;
-		order: 3;
-	}
-
-	#kasaTwo {
-	
-		width: 100%;
-		margin-top: 2%;
-		order: 4;
-	}
-
-	#kasaThree {
-	
-		width: 100%;
-		margin-top: 2%;
-		order: 5;
-	}
-
-	#razporeditelOne {
-	
-		width: 100%;
-		margin-top: 2%;
-		order: 6;
-	}
-
-	#razporeditelTwo {
-	
-		width: 100%;
-		margin-top: 2%;
-		order: 7;
-	}
-
-	#actionButton {
-
-		width: 100%;
-		margin-top: 3%;
-		margin-left: 0%;
-		order: 11;
-	}
-
-
-	#selectPanMehanik {
-
-		width: 50%;
-		height: 44px;
-	}
-
-	select {
-
-		width: 50%;
-		height: 44px;
-		font-size: 25px;
-	}
-}
