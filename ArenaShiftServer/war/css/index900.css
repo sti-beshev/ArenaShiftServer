@@ -1,0 +1,170 @@
+/* index900.css */
+
+@media only screen and (max-width: 900px) {
+	
+	a {
+		font-size: 25px;
+	}
+	
+	label {
+        font-size: 25px;
+    }
+
+    form {
+        font-size: 25px;
+    }
+
+    input {
+
+    	width: 100%;
+        font-size: 25px; 
+    }
+
+    button {
+        font-size: 25px;
+    }
+    
+    select {
+
+		width: 50%;
+		height: 44px;
+		font-size: 25px;
+    }
+
+	.viewBody {
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+
+	.viewTitle {
+
+		margin-left: 5%;
+		font-size: 30px;
+	}
+
+	/* Day Selector ****************************************************************************/
+
+	#cheakBoxYear {
+
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	#textBoxYear {
+
+		width: 100%;
+		margin-left: 0%;
+		margin-top: 3%;
+	}
+
+	#labelMonth {
+
+		width: 100%;
+		margin-left: 0%;
+		margin-top: 30%;
+	}
+
+	#selectMonth {
+
+		width: 100%;
+		margin-left: 0%;
+		margin-top: 1%;
+	}
+
+	#labelDay {
+
+		width: 100%;
+		margin-left: 0%;
+		margin-top: 30%;
+	}
+
+	#selectDay {
+
+		width: 100%;
+		margin-left: 0%;
+		margin-top: 1%;
+	}
+
+	#buttonShow {
+
+		width: 100%;
+		margin-left: 0%;
+		margin-top: 5%;
+	}
+
+	#labelStatus {
+
+		margin-top: 5%;
+	}
+
+
+	/* People Selector ****************************************************************************/
+
+	#selectPanMehanik {
+
+		width: 100%;
+	}
+
+	#selectKasaOne {
+		
+		width: 100%;
+	}
+
+	#labelKasaTwo {
+
+		margin-left: 0%;
+	}
+
+	#selectKasaTwo {
+		
+		width: 100%;
+	}
+
+	#labelKasaThree {
+
+		margin-left: 0%;
+	}
+
+	#selectKasaThree {
+		
+		width: 100%;
+	}
+
+	#selectRazOne {
+		
+		width: 100%;
+	}
+
+	#labelRazTwo {
+
+		margin-left: 0%;
+	}
+
+
+	#selectRazTwo {
+		
+		width: 100%;
+	}
+
+	#selectCenMehanik {
+		
+		width: 100%;
+	}
+
+	#selectCenKasa {
+		
+		width: 100%;
+	}
+
+	#divActionButton {
+
+		margin-left: 0%;
+		margin-bottom: 15%;
+		display: flex;
+  		justify-content: center;
+	}
+
+
+
+
+}

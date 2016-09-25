@@ -20,7 +20,7 @@
 			ng-init="daySelector.day.number = daySelector.days[0]"
 			ng-options="day for day in daySelector.days"
 			ng-change="daySelector.dateChange()"
-			id="selectDay">
+			id="selectDay">  
 		</select>
 		
 		<button ng-click="daySelector.showShift()" ng-hide="hideShowButton" id="buttonShow">Покажи</button>
