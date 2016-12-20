@@ -103,7 +103,7 @@ form {
 
 #selectPanMehanik {
 
-	width: 10%;
+	width: initial;
 	order: 3;
 }
 
@@ -161,7 +161,7 @@ form {
 
 #selectRazOne {
 
-	width: 10%;
+	width: initial;
 	order: 11;	
 }
 
@@ -174,7 +174,7 @@ form {
 
 #selectRazTwo {
 
-	width: 10%;
+	width: initial;
 	order: 11;	
 }
 
@@ -191,7 +191,7 @@ form {
 
 #selectCenMehanik {
 
-	width: 10%;
+	width: initial;
 	order: 13;
 }
 
@@ -207,7 +207,7 @@ form {
 
 #selectCenKasa {
 
-	width: 10%;
+	width: initial;
 	order: 13;
 }
 
