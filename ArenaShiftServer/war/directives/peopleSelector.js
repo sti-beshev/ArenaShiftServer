@@ -41,20 +41,30 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 	}
 	
 	$scope.peopleSelector.mehanicy = ["Александър", "Венци", "Иван", "Стилиян"];
-	$scope.peopleSelector.kasierky = ["Анелия", "Багряна", "Гергана", "г. Катя", "м. Катя", "Наталия","Цветелина", "Боби"];
-	$scope.peopleSelector.kasierkyTreta = ["няма", "Анелия", "Багряна", "Гергана", "г. Катя", "Елица", "м. Катя", "Наталия","Цветелина", "Боби"];
+	$scope.peopleSelector.kasierky = ["Анелия", "Багряна", "Гергана", "Катя", "Наталия","Цветелина", "Боби"];
+	$scope.peopleSelector.kasierkyTreta = ["няма", "Анелия", "Багряна", "Гергана", "Катя",  "Наталия","Цветелина", "Боби"];
 	$scope.peopleSelector.razporeditely = ["Бинка", "Дафинела", "Кака", "Наталия", "Боби"];
 	
 	$scope.peopleSelector.panMehanik = {
 		
 			name: null,
-			valid: false
-	};
-	
-	$scope.peopleSelector.cenMehanik = {
-			
-			name: null,
-			valid: false
+			valid: false,
+			validate: function(notFirstCheck) {
+				
+				/* Ако е първатя проверка няма смисъл да се сменя статуса защото e получено от
+				 * сървъра където се знае смяната е валидна. */
+				if(notFirstCheck) {
+					
+					$scope.peopleSelector.shiftStatus = "Смяната не е запаметена";
+				}
+				
+				this.valid = false;
+						
+				if(this.name !== null) {
+					
+					this.valid = true;
+				}
+			}
 	};
 	
 	$scope.peopleSelector.razporeditelOne = {
@@ -98,11 +108,6 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 						}
 					}
 					
-					if($scope.peopleSelector.cenKasa.name !== null) {
-						if($scope.peopleSelector.panKasaOne.name === $scope.peopleSelector.cenKasa.name) {
-							this.valid = false;
-						}
-					}
 				} else {
 					this.valid = false;
 				}
@@ -138,11 +143,6 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 						}
 					}
 					
-					if($scope.peopleSelector.cenKasa.name !== null) {
-						if($scope.peopleSelector.panKasaTwo.name === $scope.peopleSelector.cenKasa.name) {
-							this.valid = false;
-						}
-					}
 				} else {
 					this.valid = false;
 				}
@@ -178,56 +178,12 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 						}
 					}
 					
-					if($scope.peopleSelector.cenKasa.name !== null) {
-						if($scope.peopleSelector.panKasaThree.name === $scope.peopleSelector.cenKasa.name) {
-							this.valid = false;
-						}
-					}
 				} else {
 					this.valid = false;
 				}
 			}
 	};
 
-	$scope.peopleSelector.cenKasa = {
-		
-		name: null,
-		valid: false,
-		validate: function(notFirstCheck) {
-
-			/* Ако е първатя проверка няма смисъл да се сменя статуса защото e получено от
-			 * сървъра където се знае смяната е валидна. */
-			if(notFirstCheck) {
-				
-				$scope.peopleSelector.shiftStatus = "Смяната не е запаметена";
-			}
-			
-			if(this.name !== null) {
-				
-				this.valid = true;
-				
-				if($scope.peopleSelector.panKasaOne.name !== null) {
-					if($scope.peopleSelector.cenKasa.name === $scope.peopleSelector.panKasaOne.name) {
-						this.valid = false;
-					}
-				}
-				
-				if($scope.peopleSelector.panKasaTwo.name !== null) {
-					if($scope.peopleSelector.cenKasa.name === $scope.peopleSelector.panKasaTwo.name) {
-						this.valid = false;
-					}
-				}
-				
-				if($scope.peopleSelector.panKasaThree.name !== null) {
-					if($scope.peopleSelector.cenKasa.name === $scope.peopleSelector.panKasaThree.name) {
-						this.valid = false;
-					}
-				}
-			} else {
-				this.valid = false;
-			}
-		}
-};
 	
 	$scope.peopleSelector.checkShift = function() {
 		
@@ -243,47 +199,20 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			return false;
 		if(this.razporeditelTwo.valid === false) 
 			return false;
-		if(this.cenMehanik.valid === false) 
-			return false;
-		if(this.cenKasa.valid === false) 
-			return false;
 		
 		return true;
 	};
-	
-	$scope.peopleSelector.checkMehanikForRepeat = function (notFirstCheck) {
 
-		/* Ако е първатя проверка няма смисъл да се сменя статуса защото e получено от
-		 * сървъра където се знае смяната е валидна. */
-		if(notFirstCheck) {
-			
-			$scope.peopleSelector.shiftStatus = "Смяната не е запаметена";
-		}
-		
-		$scope.peopleSelector.panMehanik.valid = true;
-		$scope.peopleSelector.cenMehanik.valid = true;
-		
-		if($scope.peopleSelector.panMehanik.name === null) {
-			$scope.peopleSelector.panMehanik.valid = false;
-		}
-		
-		if($scope.peopleSelector.cenMehanik.name === null) {
-			$scope.peopleSelector.cenMehanik.valid = false;
-		}
-		
-		if($scope.peopleSelector.panMehanik.name === $scope.peopleSelector.cenMehanik.name) {
-			
-			$scope.peopleSelector.panMehanik.valid = false;
-			$scope.peopleSelector.cenMehanik.valid = false;
-		}
-	};
 	
+	$scope.peopleSelector.panMehanikChanged = function() {
+		
+		$scope.peopleSelector.shiftStatus = "Смяната не е запаметена";
+	}
 	$scope.peopleSelector.checkKasaForRepeat = function(notFirstCheck) {
 		
 		$scope.peopleSelector.panKasaOne.validate(notFirstCheck);
 		$scope.peopleSelector.panKasaTwo.validate(notFirstCheck);
 		$scope.peopleSelector.panKasaThree.validate(notFirstCheck);
-		$scope.peopleSelector.cenKasa.validate(notFirstCheck);
 	}
 	
 	$scope.peopleSelector.checkRazporeditelForRepeat = function (notFirstCheck) {
@@ -331,8 +260,6 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			shiftToSave.panKasaThree = $scope.peopleSelector.panKasaThree.name;
 			shiftToSave.razporeditelOne = $scope.peopleSelector.razporeditelOne.name;
 			shiftToSave.razporeditelTwo = $scope.peopleSelector.razporeditelTwo.name;
-			shiftToSave.cenMehanik = $scope.peopleSelector.cenMehanik.name;
-			shiftToSave.cenKasa = $scope.peopleSelector.cenKasa.name;
 			
 			var deferred = $q.defer();
 			
@@ -379,8 +306,6 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			shiftToSave.panKasaThree = $scope.peopleSelector.panKasaThree.name;
 			shiftToSave.razporeditelOne = $scope.peopleSelector.razporeditelOne.name;
 			shiftToSave.razporeditelTwo = $scope.peopleSelector.razporeditelTwo.name;
-			shiftToSave.cenMehanik = $scope.peopleSelector.cenMehanik.name;
-			shiftToSave.cenKasa = $scope.peopleSelector.cenKasa.name;
 			
 			var deferred = $q.defer();
 			
@@ -424,12 +349,10 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			peopleSelector.panKasaThree.name = newShift.panKasaThree;
 			peopleSelector.razporeditelOne.name = newShift.razporeditelOne;
 			peopleSelector.razporeditelTwo.name = newShift.razporeditelTwo;
-			peopleSelector.cenMehanik.name = newShift.cenMehanik;
-			peopleSelector.cenKasa.name = newShift.cenKasa;
 			
-			peopleSelector.checkMehanikForRepeat(false);
 			peopleSelector.checkRazporeditelForRepeat(false);
 			peopleSelector.checkKasaForRepeat(false);
+			peopleSelector.panMehanik.validate(false);
 			
 			$scope.peopleSelector.hideShift = false;
 			
@@ -446,12 +369,10 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 		peopleSelector.panKasaThree.name = null;
 		peopleSelector.razporeditelOne.name = null;
 		peopleSelector.razporeditelTwo.name = null;
-		peopleSelector.cenMehanik.name = null;
-		peopleSelector.cenKasa.name = null;
 		
-		peopleSelector.checkMehanikForRepeat(false);
 		peopleSelector.checkRazporeditelForRepeat(false);
 		peopleSelector.checkKasaForRepeat(false);
+		peopleSelector.panMehanik.validate(false);
 		
 		$scope.peopleSelector.hideShift = false;
 			

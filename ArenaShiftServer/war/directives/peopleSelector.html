@@ -11,8 +11,8 @@
 			<div id="divPanMehanik">
 				<label  id="labelPanMehanik">Киномеханик :</label>
 				<select ng-model="peopleSelector.panMehanik.name"  
-							 ng-change="peopleSelector.checkMehanikForRepeat(true)"
-							 ng-class="{'valid' : peopleSelector.panMehanik.valid, 'notValid' : !peopleSelector.panMehanik.valid}"  
+							 ng-change="peopleSelector.panMehanik.validate(true)"
+							 ng-class="{'valid' : peopleSelector.panMehanik.valid, 'notValid' : !peopleSelector.panMehanik.valid}" 
 							 ng-options="mehanik for mehanik in peopleSelector.mehanicy"
 							 ng-disabled="viewOnly"
 							 id="selectPanMehanik">			
@@ -67,30 +67,6 @@
 							 id="selectRazTwo">
 				</select>
 			</div><br><br><br><br>
-			
-			<label id="lableCen"><b>Централ Мол</b></label><br><br>
-			
-			<div id="divCenMehanik">
-				<label  id="labelCenMehanik">Киномеханик :</label>
-				<select ng-model="peopleSelector.cenMehanik.name" 
-							 ng-change="peopleSelector.checkMehanikForRepeat(true)"
-							 ng-class="{'valid' : peopleSelector.cenMehanik.valid, 'notValid' : !peopleSelector.cenMehanik.valid}"  
-							 ng-options="mehanik for mehanik in peopleSelector.mehanicy"
-							 ng-disabled="viewOnly"
-							 id="selectCenMehanik">
-				</select>
-			</div><br><br>
-			
-			<div id="divCenKasa">
-				<label id="labelCenKasa">Касиерка :</label>
-				<select ng-model="peopleSelector.cenKasa.name"  
-							 ng-change="peopleSelector.checkKasaForRepeat(true)"
-							 ng-class="{'valid' : peopleSelector.cenKasa.valid, 'notValid' : !peopleSelector.cenKasa.valid}" 
-							 ng-options="kasa for kasa in peopleSelector.kasierky"
-							 ng-disabled="viewOnly"
-							 id="selectCenKasa">
-				</select>
-			</div><br><br><br>
 			
 			<div id="divActionButton">
 			
