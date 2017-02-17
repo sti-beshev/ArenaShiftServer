@@ -4,7 +4,7 @@ import com.beshev.arenashiftserver.Shift;
 
 public class TestShift {
 	
-	private static Shift testShift = new Shift(2016, 7, 3, "Венци", "Гергана", "Жана", "няма", "Дафинка", "Бинка", "Иван", "Катя");
+	private static Shift testShift = new Shift(2016, 7, 3, "Венци", "Гергана", "Жана", "няма", "Дафинка", "Бинка", "", "");
 
 	public TestShift() {
 	}

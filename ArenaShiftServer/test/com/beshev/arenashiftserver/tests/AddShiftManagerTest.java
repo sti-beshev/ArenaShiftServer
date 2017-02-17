@@ -25,6 +25,7 @@ public class AddShiftManagerTest {
 	  
 	  @Before
 	  public void setUp() {
+		  
 	    helper.setUp();
 	    
 		// Нова година, месец и ден.
@@ -41,7 +42,8 @@ public class AddShiftManagerTest {
 	  public void testSaveShift() {
 		  
 		  // Същестуваща година и месец но нов ден.
-		  String saveStatus = addShiftManager.saveShift(new Shift(2016, 7, 4, "Венци", "Гергана", "Жана", "няма", "Дафинка", "Бинка", "Иван", "Катя"));
+		  String saveStatus = addShiftManager.saveShift(new Shift(2016, 7, 4, "Венци", "Гергана", "Жана", "няма", 
+				  																										"Дафинка", "Бинка", "", ""));
 		  
 		  Shift shift = getShiftManager.getShift(new ShiftDate(2016, 7, 3));
 		  
@@ -55,8 +57,6 @@ public class AddShiftManagerTest {
 		  assertEquals("няма", shift.getPanKasaThree());
 		  assertEquals("Дафинка", shift.getRazporeditelOne());
 		  assertEquals("Бинка", shift.getRazporeditelTwo());
-		  assertEquals("Иван", shift.getCenMehanik());
-		  assertEquals("Катя", shift.getCenKasa());
 		  
 		  assertNotNull(getShiftManager.getShift(new ShiftDate(2016, 7, 4)));
 	  }

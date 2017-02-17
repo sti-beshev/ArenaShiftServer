@@ -28,8 +28,6 @@ public class ChangeShiftManager {
 		dayEntity.setProperty("panKasaThree", shift.getPanKasaThree());
 		dayEntity.setProperty("razporeditelOne", shift.getRazporeditelOne());
 		dayEntity.setProperty("razporeditelTwo", shift.getRazporeditelTwo());
-		dayEntity.setProperty("cenMehanik", shift.getCenMehanik());
-		dayEntity.setProperty("cenKasa", shift.getCenKasa());
 		datastore.put(dayEntity);
 		
 		ChangeManager changeManager = new ChangeManager();

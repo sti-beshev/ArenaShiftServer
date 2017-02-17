@@ -120,11 +120,11 @@ public class ChangeManagerTest {
 			  AddShiftManager addShiftManager = new AddShiftManager();
 			  
 			  addShiftManager.saveShift(new Shift(2016, 1, 1, "Венци", "Цвети", "Гергана", "няма", 
-					  "Дафинка", "Наталия", "Иван", "Катя"));
+					  "Дафинка", "Наталия", "", ""));
 			  addShiftManager.saveShift(new Shift(2016, 1, 2, "Венци", "Елица", "Цвети", "няма", 
-					  "Бинка", "Дафинка", "Иван", "Жана"));
+					  "Бинка", "Дафинка", "", ""));
 			  addShiftManager.saveShift(new Shift(2016, 1, 3, "Александър", "Наталия", "Жана", "няма", 
-					  "Цеца", "Бинка", "Александър", "Гергана"));
+					  "Цеца", "Бинка", "", ""));
 		  }
 
 }

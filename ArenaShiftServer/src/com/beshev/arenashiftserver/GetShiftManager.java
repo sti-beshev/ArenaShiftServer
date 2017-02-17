@@ -40,8 +40,6 @@ public class GetShiftManager {
 			shift.setPanKasaThree((String)shiftEntity.getProperty("panKasaThree"));
 			shift.setRazporeditelOne((String)shiftEntity.getProperty("razporeditelOne"));
 			shift.setRazporeditelTwo((String)shiftEntity.getProperty("razporeditelTwo"));
-			shift.setCenMehanik((String)shiftEntity.getProperty("cenMehanik"));
-			shift.setCenKasa((String)shiftEntity.getProperty("cenKasa"));
 		
 		} catch (EntityNotFoundException e) {
 		
