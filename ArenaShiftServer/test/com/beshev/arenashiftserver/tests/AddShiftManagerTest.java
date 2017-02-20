@@ -7,10 +7,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.beshev.arenashiftserver.AddShiftManager;
-import com.beshev.arenashiftserver.GetShiftManager;
-import com.beshev.arenashiftserver.Shift;
-import com.beshev.arenashiftserver.ShiftDate;
+import com.beshev.arenashiftserver.shift.AddShiftManager;
+import com.beshev.arenashiftserver.shift.GetShiftManager;
+import com.beshev.arenashiftserver.shift.Shift;
+import com.beshev.arenashiftserver.shift.ShiftDate;
 import com.beshev.arenashiftserver.tests.util.TestShift;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;

@@ -9,10 +9,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.beshev.arenashiftserver.AddShiftManager;
 import com.beshev.arenashiftserver.ChangeManager;
-import com.beshev.arenashiftserver.Shift;
-import com.beshev.arenashiftserver.UpdateResponse;
+import com.beshev.arenashiftserver.shift.AddShiftManager;
+import com.beshev.arenashiftserver.shift.Shift;
+import com.beshev.arenashiftserver.update.UpdateResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;

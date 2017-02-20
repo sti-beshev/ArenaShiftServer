@@ -1,4 +1,4 @@
-package com.beshev.arenashiftserver;
+package com.beshev.arenashiftserver.shift;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;

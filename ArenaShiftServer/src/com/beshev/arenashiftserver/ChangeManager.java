@@ -3,6 +3,8 @@ package com.beshev.arenashiftserver;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.beshev.arenashiftserver.shift.Shift;
+import com.beshev.arenashiftserver.update.UpdateResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;

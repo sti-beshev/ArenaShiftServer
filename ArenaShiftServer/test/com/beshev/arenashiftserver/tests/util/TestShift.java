@@ -1,6 +1,6 @@
 package com.beshev.arenashiftserver.tests.util;
 
-import com.beshev.arenashiftserver.Shift;
+import com.beshev.arenashiftserver.shift.Shift;
 
 public class TestShift {
 	

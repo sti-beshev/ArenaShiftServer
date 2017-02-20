@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.beshev.arenashiftserver.GetShiftManager;
-import com.beshev.arenashiftserver.Shift;
-import com.beshev.arenashiftserver.ShiftDate;
+import com.beshev.arenashiftserver.shift.GetShiftManager;
+import com.beshev.arenashiftserver.shift.Shift;
+import com.beshev.arenashiftserver.shift.ShiftDate;
 import com.google.gson.Gson;
 
 

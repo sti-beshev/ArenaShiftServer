@@ -3,16 +3,16 @@ package com.beshev.arenashiftserver.servlets;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.util.Date;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.beshev.arenashiftserver.UpdateClientManager;
-import com.beshev.arenashiftserver.UpdateRequest;
-import com.beshev.arenashiftserver.UpdateResponse;
+import com.beshev.arenashiftserver.event.ArenaShiftEventManager;
+import com.beshev.arenashiftserver.update.UpdateClientManager;
+import com.beshev.arenashiftserver.update.UpdateRequest;
+import com.beshev.arenashiftserver.update.UpdateResponse;
 import com.google.gson.Gson;
 
 @SuppressWarnings("serial")
@@ -34,12 +34,13 @@ public class UpdateServlet  extends HttpServlet {
 			while((textLine = bufferedReader.readLine()) != null) {
 				endMSG += textLine;
 			}
+					
+			bufferedReader.close();
 			
 			updateReques = new Gson().fromJson(endMSG, UpdateRequest.class);
 			
-			System.out.println("Clien DB version : " + updateReques.getDbVersion());
-			
-			bufferedReader.close();
+			new ArenaShiftEventManager().addEvent(updateReques.getUserName(), new Date(), 
+					updateReques.getUserName() + " се свърза със сървъра.");
 			
 			updateResponse = new UpdateClientManager(updateReques).getUpdateResponse();
 			
