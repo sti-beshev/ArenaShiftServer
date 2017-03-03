@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.beshev.arenashiftserver.event.ArenaShiftEventLog;
 import com.beshev.arenashiftserver.event.ArenaShiftEventManager;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @SuppressWarnings("serial")
 public class EventSyncServlet extends HttpServlet {
@@ -31,7 +32,9 @@ public class EventSyncServlet extends HttpServlet {
 					
 			bufferedReader.close();
 			
-			eventLog = new Gson().fromJson(endMSG, ArenaShiftEventLog.class);
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-DD HH:mm:ss.SSS").create();
+			
+			eventLog = gson.fromJson(endMSG, ArenaShiftEventLog.class);
 			
 			new ArenaShiftEventManager().addEventLog(eventLog);
 			    			

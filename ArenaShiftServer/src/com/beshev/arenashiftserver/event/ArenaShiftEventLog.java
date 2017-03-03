@@ -11,6 +11,12 @@ public class ArenaShiftEventLog {
 		
 	}
 
+	public ArenaShiftEventLog(String userName, ArrayList<ArenaShiftEvent> eventsList) {
+		super();
+		this.userName = userName;
+		this.eventsList = eventsList;
+	}
+
 	public String getUserName() {
 		return userName;
 	}

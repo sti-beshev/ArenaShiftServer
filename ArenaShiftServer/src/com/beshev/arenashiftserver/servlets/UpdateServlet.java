@@ -39,9 +39,6 @@ public class UpdateServlet  extends HttpServlet {
 			
 			updateReques = new Gson().fromJson(endMSG, UpdateRequest.class);
 			
-			new ArenaShiftEventManager().addEvent(updateReques.getUserName(), new Date(), 
-					updateReques.getUserName() + " се свърза със сървъра.");
-			
 			updateResponse = new UpdateClientManager(updateReques).getUpdateResponse();
 			
 			resp.setContentType("application/json");
@@ -50,6 +47,10 @@ public class UpdateServlet  extends HttpServlet {
 			bufferedWriter.write(new Gson().toJson(updateResponse));
 		    bufferedWriter.flush();
 		    bufferedWriter.close();
+		    
+			new ArenaShiftEventManager().addEvent(updateReques.getUserName(), 
+																				 new Date(), 
+					                                                             updateReques.getUserName() + " се свърза със сървъра.");
 		    			
 		} catch (IOException e) {}
 		

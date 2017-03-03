@@ -1,6 +1,8 @@
 package com.beshev.arenashiftserver.event;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -22,14 +24,19 @@ public class ArenaShiftEventManager {
 		
 		Key userNameKey = createUserIfNeeded(eventLog.getUserName());
 		
+		List<Entity> entityList = new ArrayList<Entity>();
+		
 		for(ArenaShiftEvent event : eventLog.getEventsList()) {
 			
 			Entity eventEntity = new Entity("ArenaShiftEvent", userNameKey);
 			eventEntity.setProperty("Date", event.getDate());
 			eventEntity.setProperty("Event", event.getEvent());
 			
-			datastore.put(eventEntity);
+			entityList.add(eventEntity);
+			//datastore.put(eventEntity);
 		}
+		
+		datastore.put(entityList);
 	}
 	
 	public void addEvent(String userName, Date date, String event) {
