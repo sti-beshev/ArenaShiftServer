@@ -2,6 +2,7 @@ package com.beshev.arenashiftserver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.beshev.arenashiftserver.shift.Shift;
 import com.beshev.arenashiftserver.update.UpdateResponse;
@@ -77,34 +78,35 @@ public class ChangeManager {
 			// Това ще запише, коя е последната версия.
 			dbLastVersion = (Long)changeList.get(changeList.size() -1).getProperty("changeVersion");
 			
-			for(Entity entity : changeList) {
+			ArrayList<Key> shiftsKeyList = new ArrayList<Key>();
+			
+			for(Entity entity: changeList) {
 				
-				Entity shiftEntity;
+				shiftsKeyList.add((Key)entity.getProperty("dayKey"));
+			}
+			
+			Map<Key, Entity> shiftEntityMap = datastore.get(shiftsKeyList);
+			
+			for(Map.Entry<Key, Entity> entry : shiftEntityMap.entrySet()) {
 				
-				try {
-					
-					shiftEntity = datastore.get((Key)entity.getProperty("dayKey"));
-					
-					Shift shift = new Shift();
-					
-					Long year = (Long)shiftEntity.getProperty("Year");
-					shift.setYear(year.intValue());
-					Long month = (Long)shiftEntity.getProperty("Month");
-					shift.setMonth(month.intValue());
-					Long day = (Long)shiftEntity.getProperty("Day");
-					shift.setDay(Integer.valueOf(day.intValue()));
-					shift.setPanMehanik((String)shiftEntity.getProperty("panMehanik"));
-					shift.setPanKasaOne((String)shiftEntity.getProperty("panKasaOne"));
-					shift.setPanKasaTwo((String)shiftEntity.getProperty("panKasaTwo"));
-					shift.setPanKasaThree((String)shiftEntity.getProperty("panKasaThree"));
-					shift.setRazporeditelOne((String)shiftEntity.getProperty("razporeditelOne"));
-					shift.setRazporeditelTwo((String)shiftEntity.getProperty("razporeditelTwo"));
-					shift.setCenMehanik("");
-					shift.setCenKasa("");
-					
-					shiftList.add(shift);
-					
-				} catch (EntityNotFoundException e) {}
+				Shift shift = new Shift();
+				
+				Long year = (Long)entry.getValue().getProperty("Year");
+				shift.setYear(year.intValue());
+				Long month = (Long)entry.getValue().getProperty("Month");
+				shift.setMonth(month.intValue());
+				Long day = (Long)entry.getValue().getProperty("Day");
+				shift.setDay(Integer.valueOf(day.intValue()));
+				shift.setPanMehanik((String)entry.getValue().getProperty("panMehanik"));
+				shift.setPanKasaOne((String)entry.getValue().getProperty("panKasaOne"));
+				shift.setPanKasaTwo((String)entry.getValue().getProperty("panKasaTwo"));
+				shift.setPanKasaThree((String)entry.getValue().getProperty("panKasaThree"));
+				shift.setRazporeditelOne((String)entry.getValue().getProperty("razporeditelOne"));
+				shift.setRazporeditelTwo((String)entry.getValue().getProperty("razporeditelTwo"));
+				shift.setCenMehanik("");
+				shift.setCenKasa("");
+				
+				shiftList.add(shift);				
 			}
 		}
 		
