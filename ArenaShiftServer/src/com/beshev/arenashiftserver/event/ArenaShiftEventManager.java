@@ -33,7 +33,6 @@ public class ArenaShiftEventManager {
 			eventEntity.setProperty("Event", event.getEvent());
 			
 			entityList.add(eventEntity);
-			//datastore.put(eventEntity);
 		}
 		
 		datastore.put(entityList);
