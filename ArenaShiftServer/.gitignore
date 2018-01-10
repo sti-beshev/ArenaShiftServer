@@ -1,6 +1,12 @@
 *.classpath
 *.project
+gradlew
+gradlew.bat
 /.settings/
+/.gradle
+/gradle
+/bin
+/build
 /war/WEB-INF/classes/
 /war/WEB-INF/lib/
-/war/WEB-INF/appengine-generated/local_db.bin
+/war/WEB-INF/appengine-generated/
