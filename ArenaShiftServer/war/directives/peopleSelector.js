@@ -263,26 +263,26 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			
 			var deferred = $q.defer();
 			
-			$http.post("/AddShiftServlet", shiftToSave).success(function(data) {
-				
-				$scope.peopleSelector.showSpinner = false;
-						
-				deferred.resolve(data);
-				
-				deferred.promise.then(function(result) {
+			$http.put("/rest/shift/add", shiftToSave).success(function(data) {
+			
+			$scope.peopleSelector.showSpinner = false;
 					
-					$scope.peopleSelector.hideShift = true;	// Смяната е запаметена и се скрива.
-					$scope.peopleSelector.shiftStatus = result.message;	// Показва съобщението от сървъра за статуса на запаметената смяна.
-				}),
-				function(err) {
-					
-					console.log(err);
-				};
+			deferred.resolve(data);
+			
+			deferred.promise.then(function(result) {
 				
-			}).error(function(reason) {
+				$scope.peopleSelector.hideShift = true;	// Смяната е запаметена и се скрива.
+				$scope.peopleSelector.shiftStatus = result.message;	// Показва съобщението от сървъра за статуса на запаметената смяна.
+			}),
+			function(err) {
 				
-				deferred.reject(reason);
-			});
+				console.log(err);
+			};
+			
+		}).error(function(reason) {
+			
+			deferred.reject(reason);
+		});
 			
 		} else {
 			$scope.peopleSelector.shiftStatus = "Грешно поле !!!";
@@ -309,7 +309,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			
 			var deferred = $q.defer();
 			
-			$http.post("/ChangeShiftServlet", shiftToSave).success(function(data) {
+			$http.put("/rest/shift/change", shiftToSave).success(function(data) {
 				
 				$scope.peopleSelector.showSpinner = false;
 						
@@ -356,6 +356,9 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			
 			$scope.peopleSelector.hideShift = false;
 			
+		} else {
+			
+			$scope.peopleSelector.hideShift = true;
 		}
 	});
 	

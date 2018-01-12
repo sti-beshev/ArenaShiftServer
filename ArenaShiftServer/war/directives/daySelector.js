@@ -54,9 +54,14 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', f
 		$scope.shiftToShow.year = $scope.daySelector.year.name;
 		$scope.shiftToShow.month = $scope.daySelector.month.name;
 		$scope.shiftToShow.day = $scope.daySelector.day.number;
+		
+		shiftDate = $scope.daySelector.year.name + "/" + 
+							$scope.daySelector.month.name + "/" +
+							$scope.daySelector.day.number;
+		
 		var deferred = $q.defer();
 		
-		$http.post("/GetShiftServlet", $scope.shiftToShow).success(function(data) {
+		$http.get("/rest/shift/get/" + shiftDate).success(function(data) {
 			
 			$scope.daySelector.showSpinner = false;
 			
@@ -66,10 +71,15 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', f
 			
 			deferred.promise.then(function(result) {
 				
-				if(result !== null) {		
+				if(result !== "") {	
+					
 					$scope.daySelector.shiftStatus="";	// Няма грешка за изписване.
+					
 				}else{
+					
 					$scope.daySelector.shiftStatus="Тази смяна е празна....";
+					
+					result = null;
 				}
 				
 				/* Изпраща на всеки, който го интересува получената смяна. 
