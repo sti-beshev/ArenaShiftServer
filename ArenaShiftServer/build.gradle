@@ -41,8 +41,9 @@ dependencies {
 	// Add your dependencies here.
 	
 	compile "com.google.appengine:appengine-api-1.0-sdk:1.9.60"
-	compile group: 'com.google.appengine', name: 'appengine-api-labs', version: '1.9.60'
-	compile group: 'com.google.appengine', name: 'appengine-tools-sdk', version: '1.9.60'
+	
+	providedCompile group: 'com.google.appengine', name: 'appengine-api-labs', version: '1.9.60'
+	providedCompile group: 'com.google.appengine', name: 'appengine-tools-sdk', version: '1.9.60'
 	
 	
 	compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
@@ -77,8 +78,10 @@ appengine {
 
 	run {
 	
+		host = '0.0.0.0'
 		port = 8888
-		jvmFlags = ["-Dappengine.fullscan.seconds=5"]
+		jvmFlags = ["-Dappengine.fullscan.seconds=5"]	// Сканира за промени
+		// Казва къде се намира локалната база даннни
 		jvmFlags = ["-Ddatastore.backing_store=D:/Programming/git/ArenaShiftServer/ArenaShiftServer/war/WEB-INF/appengine-generated/local_db.bin"]
 	}
 
@@ -86,12 +89,15 @@ appengine {
   
     	stopPreviousVersion = true  // default - stop the current version
     	promote = true              // default - & make this the current version
+    	
+    	version = '23-beta'
   }
 
 }
 
+
 group = 'arenashiftserver'   // Generated output GroupId
-version = '22-BETA'          // Version in generated output
+version = '23-BETA'          // Version in generated output
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
