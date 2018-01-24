@@ -22,9 +22,11 @@ public class SyncClientRestManager {
 	public UpdateResponse syncShifts(@PathParam("username") String username,
 																 @PathParam("dbVersion") String dbVersion) {
 		
+		
 		new ArenaShiftEventManager().addEvent(username, 
 				 new Date(), 
                String.format("%s се свърза със сървъра.", username));
+		
 		
 		UpdateResponse updateResponse = new UpdateClientManager(
 				new UpdateRequest(username, Long.valueOf(dbVersion))).getUpdateResponse();

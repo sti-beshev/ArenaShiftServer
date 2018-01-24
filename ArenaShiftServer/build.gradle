@@ -90,7 +90,7 @@ appengine {
     	stopPreviousVersion = true  // default - stop the current version
     	promote = true              // default - & make this the current version
     	
-    	version = '23-beta'
+    	version = '32-beta'
   }
 
 }
