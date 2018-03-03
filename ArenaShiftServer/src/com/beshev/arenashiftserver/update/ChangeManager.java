@@ -1,11 +1,10 @@
-package com.beshev.arenashiftserver;
+package com.beshev.arenashiftserver.update;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.beshev.arenashiftserver.shift.Shift;
-import com.beshev.arenashiftserver.update.UpdateResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -65,7 +64,7 @@ public class ChangeManager {
 	public UpdateResponse getShiftList(long clientDBversion) {
 		
 		long dbLastVersion = 0;
-		List<Shift> shiftList = new ArrayList<Shift>();
+		List<Shift> shiftList = new ArrayList<>();
 		
 		Query q = new Query("Change").setFilter(new FilterPredicate("changeVersion", FilterOperator.GREATER_THAN, clientDBversion));
 		q.addSort("changeVersion", SortDirection.ASCENDING);
@@ -77,7 +76,7 @@ public class ChangeManager {
 			// Това ще запише, коя е последната версия.
 			dbLastVersion = (Long)changeList.get(changeList.size() -1).getProperty("changeVersion");
 			
-			ArrayList<Key> shiftsKeyList = new ArrayList<Key>();
+			ArrayList<Key> shiftsKeyList = new ArrayList<>();
 			
 			for(Entity entity: changeList) {
 				

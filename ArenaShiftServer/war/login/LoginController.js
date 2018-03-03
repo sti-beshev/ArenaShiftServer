@@ -31,7 +31,7 @@ loginModule.controller("LoginController", ['$scope', '$http', '$q', '$location',
 				
 				if(result) {		
 					
-					Auth.loggedInTrue();
+					Auth.loggedInTrue($scope.loginInfo.username, $scope.loginInfo.password);
 					$location.path('/');
 					
 				}else{

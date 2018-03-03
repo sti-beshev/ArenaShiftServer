@@ -8,14 +8,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.beshev.arenashiftserver.ServerMessage;
 import com.beshev.arenashiftserver.shift.AddShiftManager;
 import com.beshev.arenashiftserver.shift.ChangeShiftManager;
 import com.beshev.arenashiftserver.shift.GetShiftManager;
 import com.beshev.arenashiftserver.shift.Shift;
 import com.beshev.arenashiftserver.shift.ShiftDate;
-import com.beshev.arenashiftserver.shift.ShiftStatus;
 
 @Path("/shift")
+@AdminSecure
 public class ShiftRestManager {
 
 	public ShiftRestManager() {
@@ -26,12 +27,12 @@ public class ShiftRestManager {
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ShiftStatus addShift(Shift shift) {
+	public ServerMessage addShift(Shift shift) {
 		
 		AddShiftManager addShiftManager = new AddShiftManager();
 		String status = addShiftManager.saveShift(shift);
 		
-		return new ShiftStatus(status);
+		return new ServerMessage(status);
 	}
 	
 	@GET
@@ -54,12 +55,12 @@ public class ShiftRestManager {
 	@Path("/change")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ShiftStatus changeShift(Shift shift) {
+	public ServerMessage changeShift(Shift shift) {
 		
 		ChangeShiftManager changeShiftManager = new ChangeShiftManager();
 		String status = changeShiftManager.changeShift(shift);
 		
-		return new ShiftStatus(status);
+		return new ServerMessage(status);
 	}
 
 }

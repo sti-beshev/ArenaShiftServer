@@ -8,20 +8,42 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/index900.css">
     <link rel="stylesheet" type="text/css" href="css/addShift.css">
+    
+<!-- Libs ******************************************************************************************** -->
+
     <script src="js/angular.js"></script>
     <script src="js/angular-route.js"></script>
     <script src="js/spin.js"></script>
     <script src="js/angular-spinner.js"></script>
+    
+<!-- Pages ****************************************************************************************** -->
+    
     <script src="js/index.js"></script>
+    
     <script src="login/login.js"></script>
     <script src="login/LoginController.js"></script>
+    
     <script src="getShift/getShift.js"></script>
     <script src="getShift/GetShiftController.js"></script>
+    
     <script src="addShift/addShift.js"></script>
     <script src="addShift/AddShiftController.js"></script>
+    
     <script src="changeShift/changeShift.js"></script>
     <script src="changeShift/ChangeShiftController.js"></script>
+    
+    <script src="users/users.js"></script>
+    <script src="users/UsersController.js"></script>
+    
+    <script src="settings/settings.js"></script>
+    <script src="settings/SettingsController.js"></script>
+   
+<!-- Services **************************************************************************************** --> 
+
     <script src="services/authService.js"></script>
+    
+<!-- Directives ************************************************************************************** -->
+    
     <script src="directives/directives.js"></script>
     <script src="directives/daySelector.js"></script>
     <script src="directives/peopleSelector.js"></script>
@@ -36,7 +58,9 @@
   		
   		<a href="/#/">Смяна</a> 	
   		<a href="/#addShift">Добави</a>
-  		<a href="/#changeShift">Промени</a><br><br>
+  		<a href="/#changeShift">Промени</a>
+  		<a href="/#users">Потребители</a>
+  		<a href="/#settings">Настройки</a><br><br>
   	  	
   		<div ng-view></div>
   	

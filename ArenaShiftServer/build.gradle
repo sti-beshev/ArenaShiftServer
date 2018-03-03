@@ -97,7 +97,7 @@ appengine {
 
 
 group = 'arenashiftserver'   // Generated output GroupId
-version = '23-BETA'          // Version in generated output
+version = '32-BETA'          // Version in generated output
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7

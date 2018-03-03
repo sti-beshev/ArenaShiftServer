@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import com.beshev.arenashiftserver.event.ArenaShiftEventManager;
 import com.beshev.arenashiftserver.event.ArenaShiftUserEvent;
 
+@UserSecure
 @Path("/event")
 public class EventRestManager {
 	

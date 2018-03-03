@@ -25,7 +25,7 @@ directivesModule.directive("peopleSelector", function() {
 	};
 });
 
-directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q', function($scope, $http, $q) {
+directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q', 'Auth',function($scope, $http, $q, Auth) {
 	
 	$scope.peopleSelector = peopleSelector = {};
 	
@@ -263,7 +263,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			
 			var deferred = $q.defer();
 			
-			$http.put("/rest/shift/add", shiftToSave).success(function(data) {
+			$http.put("/rest/shift/add", shiftToSave, {headers : Auth.getBasicAuthHeader()}).success(function(data) {
 			
 			$scope.peopleSelector.showSpinner = false;
 					
@@ -309,7 +309,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			
 			var deferred = $q.defer();
 			
-			$http.put("/rest/shift/change", shiftToSave).success(function(data) {
+			$http.put("/rest/shift/change", shiftToSave, {headers : Auth.getBasicAuthHeader()}).success(function(data) {
 				
 				$scope.peopleSelector.showSpinner = false;
 						

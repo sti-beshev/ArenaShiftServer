@@ -16,7 +16,7 @@ directivesModule.directive("daySelector", function() {
 	};
 });
 
-directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', function($scope, $http, $q) {
+directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', 'Auth', function($scope, $http, $q, Auth) {
 	
 	$scope.daySelector = daySelector = {};
 	$scope.daySelector.showSpinner = false;
@@ -48,7 +48,7 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', f
 	
 	$scope.daySelector.showShift = function() {
 		
-		$scope.daySelector.showSpinner = true;;
+		$scope.daySelector.showSpinner = true;
 		
 		$scope.shiftToShow = {};
 		$scope.shiftToShow.year = $scope.daySelector.year.name;
@@ -61,7 +61,7 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', f
 		
 		var deferred = $q.defer();
 		
-		$http.get("/rest/shift/get/" + shiftDate).success(function(data) {
+		$http.get("/rest/shift/get/" + shiftDate, {headers : Auth.getBasicAuthHeader()}).success(function(data) {
 			
 			$scope.daySelector.showSpinner = false;
 			

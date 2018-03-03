@@ -2,7 +2,6 @@ package com.beshev.arenashiftserver.update;
 
 import java.util.ArrayList;
 
-import com.beshev.arenashiftserver.ChangeManager;
 import com.beshev.arenashiftserver.shift.Shift;
 
 public class UpdateClientManager {

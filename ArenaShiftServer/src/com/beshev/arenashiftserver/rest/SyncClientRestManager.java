@@ -13,6 +13,7 @@ import com.beshev.arenashiftserver.update.UpdateClientManager;
 import com.beshev.arenashiftserver.update.UpdateRequest;
 import com.beshev.arenashiftserver.update.UpdateResponse;
 
+@UserSecure
 @Path("/sync")
 public class SyncClientRestManager {
 

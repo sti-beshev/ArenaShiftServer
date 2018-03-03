@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.beshev.arenashiftserver.LoginInfo;
+import com.beshev.arenashiftserver.user.AdminUserManager;
 import com.google.gson.Gson;
 
 
@@ -20,11 +21,7 @@ public class LoginServlet extends HttpServlet {
 		resp.setContentType("application/json");
 	    resp.setCharacterEncoding("UTF-8");
 	    
-	    Boolean result = false;
-	    
-	    if(loginInfo.getUsername().equals("admin") && loginInfo.getPassword().equals("26dib26are")) {
-	    	result = true;
-	    }
+	    boolean result = new AdminUserManager().checkAdminCredentiols(loginInfo);
 	    
 	    resp.getWriter().write(new Gson().toJson(result));
 		

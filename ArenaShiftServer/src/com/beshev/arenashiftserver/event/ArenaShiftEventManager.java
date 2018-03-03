@@ -24,7 +24,7 @@ public class ArenaShiftEventManager {
 		
 		Key userNameKey = createUserIfNeeded(eventLog.getUserName());
 		
-		List<Entity> entityList = new ArrayList<Entity>();
+		List<Entity> entityList = new ArrayList<>();
 		
 		for(ArenaShiftEvent event : eventLog.getEventsList()) {
 			
