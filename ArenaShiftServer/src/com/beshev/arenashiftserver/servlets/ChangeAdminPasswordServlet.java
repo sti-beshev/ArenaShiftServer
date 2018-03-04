@@ -20,7 +20,16 @@ public class ChangeAdminPasswordServlet extends HttpServlet  {
 		
 		UserChangePassInfo userInfo = new Gson().fromJson(req.getReader(), UserChangePassInfo.class);
 		
-		String serverResponesMessage = new AdminUserManager().changeAdminPassword(userInfo);
+		String serverResponesMessage = "";
+		
+		try {
+			
+			serverResponesMessage = new AdminUserManager().changeAdminPassword(userInfo);
+			
+		}catch (IllegalArgumentException e) {
+			
+			serverResponesMessage = "Паролата трябва да е поне 6 символа.";
+		}
 		
 		resp.setContentType("application/json");
 	    resp.setCharacterEncoding("UTF-8");

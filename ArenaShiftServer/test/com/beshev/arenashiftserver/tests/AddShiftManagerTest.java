@@ -17,7 +17,7 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 public class AddShiftManagerTest {
 
-	 private final LocalServiceTestHelper helper = 
+	  private final LocalServiceTestHelper helper = 
 			  new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 	  
 	  private final AddShiftManager addShiftManager = new AddShiftManager();

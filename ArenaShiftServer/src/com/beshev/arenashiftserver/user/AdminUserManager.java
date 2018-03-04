@@ -34,7 +34,12 @@ public class AdminUserManager {
 		return false;
 	}
 	
-	public String changeAdminPassword(UserChangePassInfo userInfo) {
+	public String changeAdminPassword(UserChangePassInfo userInfo) throws IllegalArgumentException {
+		
+		if(userInfo.getNewPassword().length() < 6) {
+			
+			throw new IllegalArgumentException();
+		}
 		
 		Key adminKey = KeyFactory.createKey("Admin", userInfo.getUsername());
 		
@@ -61,7 +66,7 @@ public class AdminUserManager {
 			if (userInfo.getUsername().equals("admin")) {
 				
 				Entity adminEntity = new Entity("Admin", userInfo.getUsername());
-				adminEntity.setProperty("password", "admin");
+				adminEntity.setProperty("password", "adminadmin");
 				
 				datastore.put(adminEntity);
 			}
