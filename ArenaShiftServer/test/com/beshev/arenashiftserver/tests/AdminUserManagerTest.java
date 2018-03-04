@@ -29,8 +29,8 @@ public class AdminUserManagerTest {
 		
 		datastore = DatastoreServiceFactory.getDatastoreService();
 		
-		adminEntity = new Entity("Admin", "admin");
-		adminEntity.setProperty("password", "adminadmin");
+		adminEntity = new Entity(AdminUserManager.ADMIN_KIND, "admin");
+		adminEntity.setProperty(AdminUserManager.ADMIN_PASSWORD, "adminadmin");
 		
 		adminUserManager = new AdminUserManager();
 	}

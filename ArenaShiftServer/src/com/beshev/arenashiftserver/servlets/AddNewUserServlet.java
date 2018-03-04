@@ -18,7 +18,14 @@ public class AddNewUserServlet  extends HttpServlet{
 		
 		String newUsername = new Gson().fromJson(req.getReader(), String.class);
 		
-		String serverResponesMessage = new ClientUserManager().addClientUser(newUsername);
+		String serverResponesMessage = "";
+		
+		try {		
+			serverResponesMessage = new ClientUserManager().addClientUser(newUsername);	
+			
+		} catch (IllegalArgumentException e) {	
+			serverResponesMessage = "Username can not be empty !";
+		}
 		
 		resp.setContentType("application/json");
 	    resp.setCharacterEncoding("UTF-8");

@@ -18,7 +18,12 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 public class ClientUserManager {
 	
-	private static final String USER_KIND = "User";
+	public static final String USER_KIND = "User";
+	public static final String USER_USERNAME = "username";
+	public static final String CLIENT_USERNAME = "clientUsername";
+	public static final String CLIENT_PASSWORD = "clientPassword";
+	public static final String USER_ACTIVATION_CODE = "activationCode";
+	
 	private DatastoreService datastore;
 
 	public ClientUserManager() {
@@ -27,7 +32,9 @@ public class ClientUserManager {
 		
 	}
 	
-	public String addClientUser(String username) {
+	public String addClientUser(String username) throws IllegalArgumentException {
+		
+		if(username.equals("")) throw new IllegalArgumentException();
 		
 		String resultMessage = "";
 		
@@ -42,10 +49,10 @@ public class ClientUserManager {
 			
 		} catch (EntityNotFoundException e) {
 			
-			Entity userEntity = new Entity("User", username);
-			userEntity.setProperty("clientUsername", genarateRandomString(16, false));
-			userEntity.setProperty("clientPassword", genarateRandomString(16, false));
-			userEntity.setProperty("activationCode", genarateRandomString(6, true));
+			Entity userEntity = new Entity(USER_KIND, username);
+			userEntity.setProperty(CLIENT_USERNAME, genarateRandomString(16, false));
+			userEntity.setProperty(CLIENT_PASSWORD, genarateRandomString(16, false));
+			userEntity.setProperty(USER_ACTIVATION_CODE, genarateRandomString(6, true));
 			
 			datastore.put(userEntity);
 			
@@ -59,8 +66,8 @@ public class ClientUserManager {
 	public boolean checkUserCredentials(String username, String password) {
 		
 		Query q = new Query(USER_KIND)
-			        .setFilter(new FilterPredicate("clientUsername", FilterOperator.EQUAL, username))
-			        .setFilter(new FilterPredicate("clientPassword", FilterOperator.EQUAL, password));
+			        .setFilter(new FilterPredicate(CLIENT_USERNAME, FilterOperator.EQUAL, username))
+			        .setFilter(new FilterPredicate(CLIENT_PASSWORD, FilterOperator.EQUAL, password));
 
 			PreparedQuery pq = datastore.prepare(q);
 			Entity result = pq.asSingleEntity();
@@ -73,7 +80,7 @@ public class ClientUserManager {
 		HashMap<String, String> userInfoMap = null;
 		
 		Query q = new Query(USER_KIND)
-		        .setFilter(new FilterPredicate("activationCode", FilterOperator.EQUAL, activationCode));
+		        .setFilter(new FilterPredicate(USER_ACTIVATION_CODE, FilterOperator.EQUAL, activationCode));
 
 		PreparedQuery pq = datastore.prepare(q);
 		Entity result = pq.asSingleEntity();
@@ -81,17 +88,31 @@ public class ClientUserManager {
 		if(result != null) {
 			
 			userInfoMap = new HashMap<>();
-			userInfoMap.put("username", result.getKey().getName());
-			userInfoMap.put("clientUsername", result.getProperty("clientUsername").toString());
-			userInfoMap.put("clientPassword", result.getProperty("clientPassword").toString());
+			userInfoMap.put(USER_USERNAME, result.getKey().getName());
+			userInfoMap.put(CLIENT_USERNAME, result.getProperty(CLIENT_USERNAME).toString());
+			userInfoMap.put(CLIENT_PASSWORD, result.getProperty(CLIENT_PASSWORD).toString());
 			
 			// Resets the activation code
-			result.setProperty("activationCode", genarateRandomString(6, true));
+			result.setProperty(USER_ACTIVATION_CODE, genarateRandomString(6, true));
 			
 			datastore.put(result);
 		}
 		
 		return userInfoMap;
+	}
+	
+	public ClientUserInfo getUserInfo(String username) throws EntityNotFoundException {
+		
+		ClientUserInfo clientUserInfo = null;
+		
+		Entity userEntity = datastore.get(KeyFactory.createKey(USER_KIND, username));
+		
+		clientUserInfo = new ClientUserInfo(userEntity.getKey().getName(),
+				userEntity.getProperty(CLIENT_USERNAME).toString(),
+				userEntity.getProperty(CLIENT_PASSWORD).toString(),
+				userEntity.getProperty(USER_ACTIVATION_CODE).toString());
+		
+		return clientUserInfo;
 	}
 	
 	private static String genarateRandomString(int lettersCount, boolean onlyNumbers) {

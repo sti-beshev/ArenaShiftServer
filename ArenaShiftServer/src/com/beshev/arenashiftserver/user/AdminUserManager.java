@@ -10,7 +10,10 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 public class AdminUserManager {
 	
-	DatastoreService datastore;
+	public static final String ADMIN_KIND = "Admin";
+	public static final String ADMIN_PASSWORD = "password";
+	
+	private DatastoreService datastore;
 
 	public AdminUserManager() {
 		
@@ -20,13 +23,13 @@ public class AdminUserManager {
 	
 	public boolean checkAdminCredentiols(LoginInfo loginInfo) {
 		
-		Key adminKey = KeyFactory.createKey("Admin", loginInfo.getUsername());
+		Key adminKey = KeyFactory.createKey(ADMIN_KIND, loginInfo.getUsername());
 		
 		try {
 			
 			Entity adminEntity = datastore.get(adminKey);
 			
-			if (adminEntity.getProperty("password").equals(loginInfo.getPassword())) return true;
+			if (adminEntity.getProperty(ADMIN_PASSWORD).equals(loginInfo.getPassword())) return true;
 					
 		} catch (EntityNotFoundException e) {}
 
@@ -36,20 +39,17 @@ public class AdminUserManager {
 	
 	public String changeAdminPassword(UserChangePassInfo userInfo) throws IllegalArgumentException {
 		
-		if(userInfo.getNewPassword().length() < 6) {
-			
-			throw new IllegalArgumentException();
-		}
+		if(userInfo.getNewPassword().length() < 6) throw new IllegalArgumentException();
 		
-		Key adminKey = KeyFactory.createKey("Admin", userInfo.getUsername());
+		Key adminKey = KeyFactory.createKey(ADMIN_KIND, userInfo.getUsername());
 		
 		try {
 			
 			Entity adminEntity = datastore.get(adminKey);
 			
-			if (adminEntity.getProperty("password").equals(userInfo.getCurrentPassword())) {
+			if (adminEntity.getProperty(ADMIN_PASSWORD).equals(userInfo.getCurrentPassword())) {
 				
-				adminEntity.setProperty("password", userInfo.getNewPassword());
+				adminEntity.setProperty(ADMIN_PASSWORD, userInfo.getNewPassword());
 				
 				datastore.put(adminEntity);
 			
@@ -65,8 +65,8 @@ public class AdminUserManager {
 			
 			if (userInfo.getUsername().equals("admin")) {
 				
-				Entity adminEntity = new Entity("Admin", userInfo.getUsername());
-				adminEntity.setProperty("password", "adminadmin");
+				Entity adminEntity = new Entity(ADMIN_KIND, userInfo.getUsername());
+				adminEntity.setProperty(ADMIN_PASSWORD, "adminadmin");
 				
 				datastore.put(adminEntity);
 			}
