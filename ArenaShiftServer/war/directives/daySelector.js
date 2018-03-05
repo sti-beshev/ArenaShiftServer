@@ -71,20 +71,20 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', '
 			
 			deferred.promise.then(function(result) {
 				
-				if(result !== "") {	
+				if(result.isError === false) {	
 					
 					$scope.daySelector.shiftStatus="";	// Няма грешка за изписване.
 					
+					/* Изпраща на всеки, който го интересува получената смяна. 
+					 * Конкретно 'peopleSelector'.*/
+					$scope.$broadcast('newShift', result.payload);
+					
 				}else{
 					
-					$scope.daySelector.shiftStatus="Тази смяна е празна....";
+					$scope.daySelector.shiftStatus=result.message;
 					
 					result = null;
 				}
-				
-				/* Изпраща на всеки, който го интересува получената смяна. 
-				 * Конкретно 'peopleSelector'.*/
-				$scope.$broadcast('newShift', result);
 							
 			}),
 			function(err) {

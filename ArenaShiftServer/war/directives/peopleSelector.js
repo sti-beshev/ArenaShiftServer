@@ -208,6 +208,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 		
 		$scope.peopleSelector.shiftStatus = "Смяната не е запаметена";
 	}
+	
 	$scope.peopleSelector.checkKasaForRepeat = function(notFirstCheck) {
 		
 		$scope.peopleSelector.panKasaOne.validate(notFirstCheck);
@@ -271,8 +272,13 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			
 			deferred.promise.then(function(result) {
 				
-				$scope.peopleSelector.hideShift = true;	// Смяната е запаметена и се скрива.
-				$scope.peopleSelector.shiftStatus = result.message;	// Показва съобщението от сървъра за статуса на запаметената смяна.
+				if(result.isError === false) {
+					
+					$scope.peopleSelector.hideShift = true;	// Смяната е запаметена и се скрива.
+				}
+				
+				// Показва съобщението от сървъра за статуса на запаметената смяна.
+				$scope.peopleSelector.shiftStatus = result.message;	
 			}),
 			function(err) {
 				
@@ -317,8 +323,14 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 				
 				deferred.promise.then(function(result) {
 					
-					$scope.peopleSelector.hideShift = true;	// Смяната е запаметена и се скрива.
-					$scope.peopleSelector.shiftStatus = result.message;	// Показва съобщението от сървъра за статуса на запаметената смяна.
+					if(result.isError === false) {
+						
+						$scope.peopleSelector.hideShift = true;	// Смяната е запаметена и се скрива.
+					}
+					
+					// Показва съобщението от сървъра за статуса на запаметената смяна.
+					$scope.peopleSelector.shiftStatus = result.message;	
+					
 				}),
 				function(err) {
 					

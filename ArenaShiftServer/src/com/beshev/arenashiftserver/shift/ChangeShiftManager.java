@@ -1,5 +1,6 @@
 package com.beshev.arenashiftserver.shift;
 
+import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.update.ChangeManager;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -8,12 +9,8 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 public class ChangeShiftManager {
-
-	public ChangeShiftManager() {
-		
-	}
 	
-	public String changeShift(Shift shift) {
+	public ServerResponseMessage<String> changeShift(Shift shift) {
 		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		
@@ -35,7 +32,7 @@ public class ChangeShiftManager {
 		changeManager.addChange(dayEntity.getKey());
 		
 		
-		return "Смяната е променена и запаметена";
+		return new ServerResponseMessage<>("The shift is corrected", false, null);
 	}
 
 }

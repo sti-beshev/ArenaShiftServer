@@ -1,20 +1,20 @@
 package com.beshev.arenashiftserver;
 
-public class ServerMessage {
+public class ServerResponseMessage<T> {
 	
 	private String message;
 	private boolean isError;
-
-	public ServerMessage(String message) {
+	private T payload;
+	
+	public ServerResponseMessage() {
 		
-		this.message = message;
-		this.isError = false;
 	}
 
-	public ServerMessage(String message, boolean isError) {
+	public ServerResponseMessage(String message, boolean isError, T payload) {
 		
 		this.message = message;
 		this.isError = isError;
+		this.payload = payload;
 	}
 
 	public String getMessage() {
@@ -31,6 +31,14 @@ public class ServerMessage {
 
 	public void setError(boolean isError) {
 		this.isError = isError;
+	}
+
+	public T getPayload() {
+		return payload;
+	}
+
+	public void setPayload(T payload) {
+		this.payload = payload;
 	}
 
 }

@@ -61,10 +61,5 @@ public class UpdateServlet  extends HttpServlet {
 		if(bufferedWriter != null) {
 			bufferedWriter.close();
 		}
-		
-		if(updateReques != null) {
-			
-			
-		}
 	}
 }

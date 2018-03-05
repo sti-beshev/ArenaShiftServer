@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.beshev.arenashiftserver.ServerMessage;
+import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.shift.ChangeShiftManager;
 import com.beshev.arenashiftserver.shift.Shift;
 import com.google.gson.Gson;
@@ -20,12 +20,12 @@ public class ChangeShiftServlet extends HttpServlet {
 		Shift shift = new Gson().fromJson(req.getReader(), Shift.class);
 		
 		ChangeShiftManager changeShiftManager = new ChangeShiftManager();
-		String status = changeShiftManager.changeShift(shift);
+		ServerResponseMessage<String> serverResponseMessage = changeShiftManager.changeShift(shift);
 		
 		resp.setContentType("application/json");
 	    resp.setCharacterEncoding("UTF-8");
 		
-		resp.getWriter().write(new Gson().toJson(new ServerMessage(status)));
+		resp.getWriter().write(new Gson().toJson(serverResponseMessage));
 		
 	}
 }

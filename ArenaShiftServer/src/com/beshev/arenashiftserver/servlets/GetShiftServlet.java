@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.shift.GetShiftManager;
 import com.beshev.arenashiftserver.shift.Shift;
 import com.beshev.arenashiftserver.shift.ShiftDate;
@@ -19,12 +20,12 @@ public class GetShiftServlet extends HttpServlet {
 		
 		ShiftDate shiftDate = new Gson().fromJson(req.getReader(), ShiftDate.class);
 		
-		Shift shift = new GetShiftManager().getShift(shiftDate);
+		ServerResponseMessage<Shift> serverResponseMessage = new GetShiftManager().getShift(shiftDate);
 		
 		resp.setContentType("application/json");
 	    resp.setCharacterEncoding("UTF-8");
 	    
-	    resp.getWriter().write(new Gson().toJson(shift));
+	    resp.getWriter().write(new Gson().toJson(serverResponseMessage));
 		
 	}
 }

@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.beshev.arenashiftserver.LoginInfo;
+import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.user.AdminUserManager;
 import com.beshev.arenashiftserver.user.UserChangePassInfo;
 import com.google.appengine.api.datastore.DatastoreService;
@@ -55,11 +56,12 @@ public class AdminUserManagerTest {
 	  public void changeAdminPasswordTest() {
 		  
 		  UserChangePassInfo userInfo = new UserChangePassInfo("admin", "adminadmin", "newpass");
-		  adminUserManager.changeAdminPassword(userInfo);
+		  ServerResponseMessage<String> serverResponseMessage = adminUserManager.changeAdminPassword(userInfo);
 		  
 		  LoginInfo loginInfo = new LoginInfo("admin", "newpass");
 		  boolean result = adminUserManager.checkAdminCredentiols(loginInfo);
 		  
+		  assertFalse(serverResponseMessage.isError());
 		  assertTrue(result);
 	  }
 	  
@@ -68,11 +70,6 @@ public class AdminUserManagerTest {
 		  
 		  UserChangePassInfo userInfo = new UserChangePassInfo("admin", "adminadmin", "pass");
 		  adminUserManager.changeAdminPassword(userInfo);
-		  
-		  LoginInfo loginInfo = new LoginInfo("admin", "pass");
-		  boolean result = adminUserManager.checkAdminCredentiols(loginInfo);
-		  
-		  assertFalse(result);
 	  }
 	  
 	  @Test

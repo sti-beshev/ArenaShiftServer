@@ -1,5 +1,6 @@
 package com.beshev.arenashiftserver.shift;
 
+import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.update.ChangeManager;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -17,9 +18,10 @@ public class AddShiftManager {
 		datastore = DatastoreServiceFactory.getDatastoreService();
 	}
 	
-	public String saveShift(Shift shift) {
+	public ServerResponseMessage<String> saveShift(Shift shift) {
 		
-		String status = "Смяна за този ден съществува вече";
+		boolean haveError = false;
+		String status = "";
 		
 		Key yearKey = KeyFactory.createKey("Year", shift.getYear());
 		
@@ -45,7 +47,12 @@ public class AddShiftManager {
 			.getKey();
 		
 		try {
+			
 			datastore.get(dayKey);
+			
+			status = "This day already have a shift";
+			haveError = true;
+			
 		} catch (EntityNotFoundException e) {
 			
 			Entity dayEntity = new Entity("Day", shift.getDay(), monthKey);
@@ -64,10 +71,10 @@ public class AddShiftManager {
 			ChangeManager changeManager = new ChangeManager();
 			changeManager.addChange(dayKey);
 			
-			status = "Смяната е запаметена";
+			status = " The shift is added";
 		}
 		
-		return status;
+		return new ServerResponseMessage<>(status, haveError, null);
 	}
 	
 	

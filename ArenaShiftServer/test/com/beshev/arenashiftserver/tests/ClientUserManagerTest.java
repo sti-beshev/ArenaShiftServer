@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.user.ClientUserInfo;
 import com.beshev.arenashiftserver.user.ClientUserManager;
 import com.google.appengine.api.datastore.DatastoreService;
@@ -48,7 +49,7 @@ public class ClientUserManagerTest {
 		  
 		  String username = "John";
 		  
-		  clientUserManager.addClientUser(username);
+		  ServerResponseMessage<String> serverResponseMessage = clientUserManager.addClientUser(username);
 		  
 		  Entity userEntity = datastore.get(KeyFactory.createKey(ClientUserManager.USER_KIND, username));
 		  
@@ -56,6 +57,7 @@ public class ClientUserManagerTest {
 		  assertNotNull(userEntity.getProperty(ClientUserManager.CLIENT_USERNAME));
 		  assertNotNull(userEntity.getProperty(ClientUserManager.CLIENT_PASSWORD));
 		  assertNotNull(userEntity.getProperty(ClientUserManager.USER_ACTIVATION_CODE));
+		  assertFalse(serverResponseMessage.isError());
 	  }
 	  
 	  @Test
@@ -66,9 +68,10 @@ public class ClientUserManagerTest {
 		  clientUserManager.addClientUser(username);
 		  
 		  // Trying to add the same username
-		  String resultMSG = clientUserManager.addClientUser(username);
+		  ServerResponseMessage<String> serverResponseMessage = clientUserManager.addClientUser(username);
 		  
-		  assertEquals(username + " is taken !", resultMSG);
+		  assertTrue(serverResponseMessage.isError());
+		  assertEquals(username + " is taken !", serverResponseMessage.getMessage());
 	  }
 	  
 	  @Test( expected = IllegalArgumentException.class)

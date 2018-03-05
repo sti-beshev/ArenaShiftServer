@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -32,7 +33,9 @@ public class ClientUserManager {
 		
 	}
 	
-	public String addClientUser(String username) throws IllegalArgumentException {
+	public ServerResponseMessage<String> addClientUser(String username) throws IllegalArgumentException {
+		
+		boolean haveError = false;
 		
 		if(username.equals("")) throw new IllegalArgumentException();
 		
@@ -45,6 +48,7 @@ public class ClientUserManager {
 			@SuppressWarnings("unused")
 			Entity userEntity = datastore.get(userEntityKey);
 			
+			haveError = true;
 			resultMessage = username + " is taken !";
 			
 		} catch (EntityNotFoundException e) {
@@ -60,7 +64,7 @@ public class ClientUserManager {
 			
 		}
 		
-		return resultMessage;
+		return new ServerResponseMessage<>(resultMessage, haveError, null);
 	}
 	
 	public boolean checkUserCredentials(String username, String password) {

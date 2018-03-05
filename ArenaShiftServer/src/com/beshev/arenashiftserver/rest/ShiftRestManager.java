@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.beshev.arenashiftserver.ServerMessage;
+import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.shift.AddShiftManager;
 import com.beshev.arenashiftserver.shift.ChangeShiftManager;
 import com.beshev.arenashiftserver.shift.GetShiftManager;
@@ -27,18 +27,18 @@ public class ShiftRestManager {
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ServerMessage addShift(Shift shift) {
+	public ServerResponseMessage<String> addShift(Shift shift) {
 		
 		AddShiftManager addShiftManager = new AddShiftManager();
-		String status = addShiftManager.saveShift(shift);
+		ServerResponseMessage<String> serverResponseMessage = addShiftManager.saveShift(shift);
 		
-		return new ServerMessage(status);
+		return serverResponseMessage;
 	}
 	
 	@GET
 	@Path("/get/{year}/{month}/{day}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Shift getShift(@PathParam("year") String year,
+	public ServerResponseMessage<Shift> getShift(@PathParam("year") String year,
 										@PathParam("month") String month,
 										@PathParam("day") String day) {
 		
@@ -46,21 +46,21 @@ public class ShiftRestManager {
 																	 Integer.parseInt(month), 
 																	 Integer.parseInt(day));
 				
-		Shift shift = new GetShiftManager().getShift(shiftDate);
+		ServerResponseMessage<Shift> serverResponseMessage = new GetShiftManager().getShift(shiftDate);
 		
-		return shift;
+		return serverResponseMessage;
 	}
 	
 	@PUT
 	@Path("/change")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ServerMessage changeShift(Shift shift) {
+	public ServerResponseMessage<String> changeShift(Shift shift) {
 		
 		ChangeShiftManager changeShiftManager = new ChangeShiftManager();
-		String status = changeShiftManager.changeShift(shift);
+		ServerResponseMessage<String> serverResponseMessage = changeShiftManager.changeShift(shift);
 		
-		return new ServerMessage(status);
+		return serverResponseMessage;
 	}
 
 }

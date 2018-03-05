@@ -1,6 +1,7 @@
 package com.beshev.arenashiftserver.user;
 
 import com.beshev.arenashiftserver.LoginInfo;
+import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -37,7 +38,11 @@ public class AdminUserManager {
 		return false;
 	}
 	
-	public String changeAdminPassword(UserChangePassInfo userInfo) throws IllegalArgumentException {
+	public ServerResponseMessage<String> changeAdminPassword(UserChangePassInfo userInfo) 
+			throws IllegalArgumentException {
+		
+		boolean haveError = false;
+		String status = "";
 		
 		if(userInfo.getNewPassword().length() < 6) throw new IllegalArgumentException();
 		
@@ -52,10 +57,13 @@ public class AdminUserManager {
 				adminEntity.setProperty(ADMIN_PASSWORD, userInfo.getNewPassword());
 				
 				datastore.put(adminEntity);
+				
+				status = "Password is changed";
 			
 			} else {
 				
-				return "Грешна парола";
+				haveError = true;
+				status = "Wrong password";
 			}
 			
 			
@@ -69,10 +77,12 @@ public class AdminUserManager {
 				adminEntity.setProperty(ADMIN_PASSWORD, "adminadmin");
 				
 				datastore.put(adminEntity);
+				
+				status = "Password is changed";
 			}
 		}
 		
-		return "Password changed";
+		return new ServerResponseMessage<>(status, haveError, null);
 	}
 
 }

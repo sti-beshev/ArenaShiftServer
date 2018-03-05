@@ -1,5 +1,6 @@
 package com.beshev.arenashiftserver.shift;
 
+import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -13,11 +14,12 @@ public class GetShiftManager {
 		
 	}
 	
-	public Shift getShift(ShiftDate shiftDate) {
+	public ServerResponseMessage<Shift> getShift(ShiftDate shiftDate) {
 		
-		/* Важно е да е null защото ако не намери смяна ще върне, null който е нужен
-		 * на клиента за да знае че няма таква смяна. */
 		Shift shift = null;
+		
+		boolean haveError = false;
+		String status = "";
 		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		
@@ -42,10 +44,13 @@ public class GetShiftManager {
 			shift.setRazporeditelTwo((String)shiftEntity.getProperty("razporeditelTwo"));
 		
 		} catch (EntityNotFoundException e) {
+			
+			haveError = true;
+			status = "No shift for this day";
 		
 		}
 		
-		return shift;
+		return new ServerResponseMessage<>(status, haveError, shift);
 	}
 
 }
