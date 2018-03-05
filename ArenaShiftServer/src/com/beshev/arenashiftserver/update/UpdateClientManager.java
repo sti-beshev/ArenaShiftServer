@@ -9,7 +9,7 @@ public class UpdateClientManager {
 	private UpdateRequest updateRequest;
 	private ChangeManager changeManager;
 	
-	/*  Този клас не се тества защото е прост. Ако бъде променен трябва да се напише тест.*/
+	// This class is not tested because is too simple. If you changed - add tests.
 	public UpdateClientManager(UpdateRequest updateRequest) {
 		
 		this.updateRequest = updateRequest;
@@ -18,7 +18,7 @@ public class UpdateClientManager {
 	
 	public UpdateResponse getUpdateResponse () {
 		
-		// Това е празния response, който ще бъде върнат ако няма промени.
+		// This is a empty response to return if there are no changes.
 		UpdateResponse updateResponse = new UpdateResponse(0, new ArrayList<Shift>());
 		
 		if (((Long)changeManager.getLastChange().getProperty("changeVersion")) > updateRequest.getDbVersion()) {

@@ -69,7 +69,7 @@ public class AdminUserManager {
 			
 		} catch (EntityNotFoundException e) {
 			
-			// Ако няма админ създай го.
+			// This will create admin if there is none
 			
 			if (userInfo.getUsername().equals("admin")) {
 				

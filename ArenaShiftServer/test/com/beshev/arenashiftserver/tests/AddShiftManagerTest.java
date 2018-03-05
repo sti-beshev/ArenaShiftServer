@@ -22,15 +22,15 @@ public class AddShiftManagerTest {
 	  
 	  private final AddShiftManager addShiftManager = new AddShiftManager();
 	  private final GetShiftManager getShiftManager = new GetShiftManager();
+	  private ServerResponseMessage<String> serverResponseMessage;
 	  
 	  @Before
 	  public void setUp() {
 		  
 	    helper.setUp();
 	    
-		// Нова година, месец и ден.
-		addShiftManager.saveShift(TestShift.getTestShift());
-		
+		// This is just a normal shift to be used in tests
+		serverResponseMessage = addShiftManager.saveShift(TestShift.getTestShift());
 	  }
 
 	  @After
@@ -41,17 +41,13 @@ public class AddShiftManagerTest {
 	  @Test
 	  public void testSaveShift() {
 		  
-		  // Същестуваща година и месец но нов ден.
-		  ServerResponseMessage<String> serverResponseMessage = addShiftManager.saveShift(new Shift(2016, 7, 4, "Венци", "Гергана", "Жана", "няма", 
-				  																										"Дафинка", "Бинка", "", ""));
-		  
 		  ServerResponseMessage<Shift> serverResponseMessageWithShift = getShiftManager.getShift(new ShiftDate(2016, 7, 3));
 		  Shift shift = serverResponseMessageWithShift.getPayload();
 		  
 		  assertFalse(serverResponseMessage.isError());
+		  
 		  assertFalse(serverResponseMessageWithShift.isError());
 		  
-		  assertEquals("Смяната е запаметена", serverResponseMessage.getMessage());
 		  assertEquals(2016, shift.getYear());
 		  assertEquals(7, shift.getMonth());
 		  assertEquals(3, shift.getDay());
@@ -62,10 +58,10 @@ public class AddShiftManagerTest {
 		  assertEquals("Дафинка", shift.getRazporeditelOne());
 		  assertEquals("Бинка", shift.getRazporeditelTwo());
 		  
-		  assertNotNull( getShiftManager.getShift( new ShiftDate( 2016, 7, 4 ) ).getPayload() );
+		  assertNotNull( getShiftManager.getShift( new ShiftDate( 2016, 7, 3 ) ).getPayload() );
 	  }
 	  
-	  /* Да запамети смяна в ден, в който вече има смяна. */
+	  // Trying to save shift in day that already have a shift saved
 	  @Test
 	  public void testSaveShiftSecondTime() {
 		  
@@ -73,7 +69,7 @@ public class AddShiftManagerTest {
 		  Shift shift = getShiftManager.getShift( new ShiftDate( 2016, 7, 3 ) ).getPayload();
 		  
 		  assertTrue(serverResponseMessage.isError());
-		  assertEquals("Смяна за този ден съществува вече", serverResponseMessage.getMessage());
+		  assertEquals("This day already have a shift", serverResponseMessage.getMessage());
 		  assertEquals("Венци", shift.getPanMehanik());
 		  
 	  }

@@ -29,21 +29,20 @@ public class ChangeManager {
 		
 		Entity oldChange = getLastChange();
 		
-		/* Ако това е първата промяна ще върне 'null' и затова проверявам. */
+		Entity newChange = new Entity("Change");
+		
+		// If this is the first change 'oldChange' will be 'null'
 		if(oldChange != null) {
 			
-			Entity newChange = new Entity("Change");
 			newChange.setProperty("changeVersion", (Long)oldChange.getProperty("changeVersion")+1);
-			newChange.setProperty("dayKey", dayKey);
-			datastore.put(newChange);
 			
-		} else {
-			
-			Entity newChange = new Entity("Change");
+		} else {		
 			newChange.setProperty("changeVersion", 1);
-			newChange.setProperty("dayKey", dayKey);
-			datastore.put(newChange);
 		}
+
+		newChange.setProperty("dayKey", dayKey);
+		datastore.put(newChange);
+		
 	}
 	
 	public Entity getLastChange() {
@@ -73,7 +72,7 @@ public class ChangeManager {
 		
 		if(!(changeList.isEmpty())) {
 			
-			// Това ще запише, коя е последната версия.
+			// This will be the last know change version to send to the client
 			dbLastVersion = (Long)changeList.get(changeList.size() -1).getProperty("changeVersion");
 			
 			ArrayList<Key> shiftsKeyList = new ArrayList<>();

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.beshev.arenashiftserver.shift.AddShiftManager;
 import com.beshev.arenashiftserver.shift.Shift;
+import com.beshev.arenashiftserver.tests.util.TestShift;
 import com.beshev.arenashiftserver.update.ChangeManager;
 import com.beshev.arenashiftserver.update.UpdateResponse;
 import com.google.appengine.api.datastore.DatastoreService;
@@ -18,6 +19,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
@@ -42,9 +44,37 @@ public class ChangeManagerTest {
 		helper.tearDown();
 	}
 
-	/* За сега се тества от 'getShiftListTest()'. */
 	@Test
-	public void addChangeTest() {
+	public void addChangeTest() throws EntityNotFoundException {
+		
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		
+		Shift shift = TestShift.getTestShift();
+		
+        Key monthKey = new KeyFactory.Builder("Year", shift.getYear()).addChild("Month", shift.getMonth()).getKey();
+		
+		Entity dayEntity = new Entity("Day", shift.getDay(), monthKey);
+		dayEntity.setProperty("Year", shift.getYear());
+		dayEntity.setProperty("Month", shift.getMonth());
+		dayEntity.setProperty("Day", shift.getDay());
+		dayEntity.setProperty("panMehanik", shift.getPanMehanik());
+		dayEntity.setProperty("panKasaOne", shift.getPanKasaOne());
+		dayEntity.setProperty("panKasaTwo", shift.getPanKasaTwo());
+		dayEntity.setProperty("panKasaThree", shift.getPanKasaThree());
+		dayEntity.setProperty("razporeditelOne", shift.getRazporeditelOne());
+		dayEntity.setProperty("razporeditelTwo", shift.getRazporeditelTwo());
+		datastore.put(dayEntity);
+		
+		Key dayKey = new KeyFactory.Builder("Year", shift.getYear()).addChild("Month", shift.getMonth()).addChild("Day", shift.getDay()).getKey();
+		
+		changeManager.addChange(dayKey);
+		
+		Entity lastChange = changeManager.getLastChange();
+		Entity testDayEntity = datastore.get((Key)lastChange.getProperty("dayKey"));
+		
+		assertEquals((long)shift.getYear(), testDayEntity.getProperty("Year"));
+		assertEquals((long)shift.getMonth(), testDayEntity.getProperty("Month"));
+		assertEquals((long)shift.getDay(), testDayEntity.getProperty("Day"));
 
 	}
 
@@ -107,7 +137,7 @@ public class ChangeManagerTest {
 		List<Shift> shiftList = updateResponse.getChangesList();
 
 		assertTrue(shiftList.isEmpty());	
-		assertEquals(0, updateResponse.getDbVersion());		// Нула защото няма промяна и не е нужна версия.
+		assertEquals(0, updateResponse.getDbVersion());
 	}
 
 	private void setUpChanges(ChangeManager changeManager) {
