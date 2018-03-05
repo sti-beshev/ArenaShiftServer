@@ -50,7 +50,7 @@ public class UpdateServlet  extends HttpServlet {
 		    
 			new ArenaShiftEventManager().addEvent(updateReques.getUserName(), 
 																				 new Date(), 
-					                                                             updateReques.getUserName() + " се свърза със сървъра.");
+					                                                             updateReques.getUserName() + " connected to server");
 		    			
 		} catch (IOException e) {}
 		
