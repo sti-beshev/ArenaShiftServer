@@ -10,9 +10,14 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 public class ChangeShiftManager {
 	
-	public ServerResponseMessage<String> changeShift(Shift shift) {
+	private DatastoreService datastore;
+	
+	public ChangeShiftManager() {
 		
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		datastore = DatastoreServiceFactory.getDatastoreService();
+	}
+	
+	public ServerResponseMessage<String> changeShift(Shift shift) {
 		
 		Key monthKey = new KeyFactory.Builder("Year", shift.getYear()).addChild("Month", shift.getMonth()).getKey();
 		

@@ -9,9 +9,12 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 public class GetShiftManager {
+	
+	DatastoreService datastore;
 
 	public GetShiftManager() {
 		
+		datastore = DatastoreServiceFactory.getDatastoreService();
 	}
 	
 	public ServerResponseMessage<Shift> getShift(ShiftDate shiftDate) {
@@ -20,8 +23,6 @@ public class GetShiftManager {
 		
 		boolean haveError = false;
 		String status = "";
-		
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		
 		Key dayKey = new KeyFactory.Builder("Year", shiftDate.getYear())
 		.addChild("Month", shiftDate.getMonth())
