@@ -32,8 +32,11 @@ public class AdminUserManager {
 			
 			if (adminEntity.getProperty(ADMIN_PASSWORD).equals(loginInfo.getPassword())) return true;
 					
-		} catch (EntityNotFoundException e) {}
-
+		} catch (EntityNotFoundException e) {
+			
+			// This will create admin if there is none
+			return createDefaultAdminIfNeeded(loginInfo.getUsername());
+		}
 		
 		return false;
 	}
@@ -67,22 +70,24 @@ public class AdminUserManager {
 			}
 			
 			
-		} catch (EntityNotFoundException e) {
-			
-			// This will create admin if there is none
-			
-			if (userInfo.getUsername().equals("admin")) {
-				
-				Entity adminEntity = new Entity(ADMIN_KIND, userInfo.getUsername());
-				adminEntity.setProperty(ADMIN_PASSWORD, "adminadmin");
-				
-				datastore.put(adminEntity);
-				
-				status = "Password is changed";
-			}
-		}
+		} catch (EntityNotFoundException e) {}
 		
 		return new ServerResponseMessage<>(status, haveError, null);
+	}
+	
+	private boolean createDefaultAdminIfNeeded(String username) {
+		
+		if (username.equals("admin")) {
+			
+			Entity adminEntity = new Entity(ADMIN_KIND, username);
+			adminEntity.setProperty(ADMIN_PASSWORD, "adminadmin");
+			
+			datastore.put(adminEntity);
+			
+			return true;
+		}
+		
+		return false;
 	}
 
 }

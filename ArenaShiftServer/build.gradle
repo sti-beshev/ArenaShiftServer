@@ -1,3 +1,6 @@
+/* WARNING : App specific variables are in 'gradle.properties'. */
+
+
 buildscript {      // Configuration for building
 
   repositories {
@@ -16,8 +19,9 @@ buildscript {      // Configuration for building
 repositories { 
   // repositories for JARs you access in your code
   maven {
-  
-    url 'https://maven-central.storage.googleapis.com'             // Google's mirror of Maven Central
+	  
+    // Google's mirror of Maven Central
+    url 'https://maven-central.storage.googleapis.com' 
   }
 
 //maven {
@@ -30,7 +34,7 @@ repositories {
 
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'org.akhikhl.gretty'
+//apply plugin: 'org.akhikhl.gretty'
 apply plugin: "com.google.cloud.tools.appengine-standard"
 
 dependencies {
@@ -61,28 +65,29 @@ dependencies {
 
 sourceSets {
     
-    
-    main.java.srcDirs = ["src"]
-	test.java.srcDirs "test"
+    main.java.srcDirs = [sourceDir]
+	test.java.srcDirs testDir
 }
 
-gretty {
+/*gretty {
 
 	webAppDirName = 'war'
     httpPort = 8888
     contextPath = '/'
     servletContainer = 'jetty9'  // What App Engine Flexible uses
-}
+}*/
 
 appengine {
 
 	run {
 	
-		host = '0.0.0.0'
-		port = 8888
-		jvmFlags = ["-Dappengine.fullscan.seconds=5"]	// Сканира за промени
-		// Казва къде се намира локалната база даннни
-		jvmFlags = ["-Ddatastore.backing_store=D:/Programming/git/ArenaShiftServer/ArenaShiftServer/war/WEB-INF/appengine-generated/local_db.bin"]
+		host = localServerHostname
+		port = localServerPort.toInteger()
+		
+		// Scan source code for changes
+		jvmFlags = [jvmFlagFiveSecondsScan]	
+		// Where is the local database
+		jvmFlags = [jvmFlagLocalDBlocation]
 	}
 
     deploy {   // deploy configuration
@@ -90,14 +95,14 @@ appengine {
     	stopPreviousVersion = true  // default - stop the current version
     	promote = true              // default - & make this the current version
     	
-    	version = '32-beta'
+    	version = appVersion
   }
 
 }
 
 
-group = 'arenashiftserver'   // Generated output GroupId
-version = '32-BETA'          // Version in generated output
+group = groupName   // Generated output GroupId
+version = appVersion          // Version in generated output
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
