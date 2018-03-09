@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+
+<html ng-app="arenaShift">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arena Shift Server</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/index900.css">
+    <link rel="stylesheet" type="text/css" href="css/addShift.css">
+    
+<!-- Libs ******************************************************************************************** -->
+
+    <script src="libs/angular.js"></script>
+    <script src="libs/angular-route.js"></script>
+    <script src="libs/spin.js"></script>
+    <script src="libs/angular-spinner.js"></script>
+    
+<!-- Pages ****************************************************************************************** -->
+    
+    <script src="index.js"></script>
+    
+    <script src="login/login.js"></script>
+    <script src="login/LoginController.js"></script>
+    
+    <script src="getShift/getShift.js"></script>
+    <script src="getShift/GetShiftController.js"></script>
+    
+    <script src="addShift/addShift.js"></script>
+    <script src="addShift/AddShiftController.js"></script>
+    
+    <script src="changeShift/changeShift.js"></script>
+    <script src="changeShift/ChangeShiftController.js"></script>
+    
+    <script src="users/users.js"></script>
+    <script src="users/UsersController.js"></script>
+    
+    <script src="settings/settings.js"></script>
+    <script src="settings/SettingsController.js"></script>
+   
+<!-- Services **************************************************************************************** --> 
+
+    <script src="services/authService.js"></script>
+    
+<!-- Directives ************************************************************************************** -->
+    
+    <script src="directives/directives.js"></script>
+    <script src="directives/daySelector.js"></script>
+    <script src="directives/peopleSelector.js"></script>
+    
+  </head>
+
+  <body ng-controller="MainController">
+  
+  	<div id='mainDiv'>
+  		
+  		<h1 id="title">Arena Shift</h1>
+  		
+  		<a href="/#/">Смяна</a> 	
+  		<a href="/#addShift">Добави</a>
+  		<a href="/#changeShift">Промени</a>
+  		<a href="/#users">Потребители</a>
+  		<a href="/#settings">Настройки</a><br><br>
+  	  	
+  		<div ng-view></div>
+  	
+  	</div>
+    
+  </body>
+  
+</html>

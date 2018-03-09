@@ -1,0 +1,29 @@
+<!-- users.html -->
+
+<div ng-app='usersModule'>
+
+	<h3 class="viewTitle">Потребители</h3><br><br>
+	
+	<div ng-controller="UsersController" class="viewBody">
+	
+		<form>
+	
+			<div id="labelAddUser"><label><b>Добави Потребител</b></label></div><br><br>
+				
+				<div id="divAddUser">
+					<label  id="labelUsername">Име :</label>
+					<input type="text"
+								ng-model="userManager.inputAddUser"
+								required/>
+					<button ng-click="userManager.addUserButtonClicked()">Добави</button><br><br>
+					
+					<b><label ng-bind="userManager.addUserStatus"></label></b>
+				</div><br><br>
+				
+			</form>
+	
+	</div>
+	
+	<span us-spinner="{radius:20, width:2, length:56, lines:17}" spinner-on="userManager.showSpinner"></span>
+	
+</div>

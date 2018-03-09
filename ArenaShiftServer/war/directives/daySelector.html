@@ -1,0 +1,36 @@
+<!-- daySelector.html -->
+
+<div class="daySelectorView">
+
+	<form>
+	
+		<input type="checkbox" ng-model="daySelector.year.changeYear" id="cheakBoxYear">
+		<input type="text" ng-model="daySelector.year.name" ng-disabled="daySelector.year.changeYear == false" id="textBoxYear">
+		
+		<label id="labelMonth">Месец :</label>
+		<select ng-model="daySelector.month.name" 
+			ng-init="daySelector.month.name = daySelector.months[0]"
+			ng-options="month for month in daySelector.months"
+			ng-change="daySelector.dateChange()"
+			id="selectMonth">
+		</select>
+		
+		<label id="labelDay">Ден :</label>
+		<select ng-model="daySelector.day.number"
+			ng-init="daySelector.day.number = daySelector.days[0]"
+			ng-options="day for day in daySelector.days"
+			ng-change="daySelector.dateChange()"
+			id="selectDay">  
+		</select>
+		
+		<button ng-click="daySelector.showShift()" ng-hide="hideShowButton" id="buttonShow">Покажи</button>
+		
+	</form><br><br><br><br>
+	
+	<b><label ng-bind="daySelector.shiftStatus" id="labelStatus"></label></b>
+	
+	<span us-spinner="{radius:20, width:2, length:56, lines:17}" spinner-on="daySelector.showSpinner"></span>
+
+</div><br><br><br><br>
+
+<div ng-transclude></div>

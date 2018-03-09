@@ -1,0 +1,82 @@
+<!-- peopleSelector.html -->
+
+<div class="peopleSelectorView">
+
+	<b><label ng-bind="peopleSelector.shiftStatus" id="labelShiftStatus"></label></b><br><br><br>
+	
+	<form  ng-hide="peopleSelector.hideShift">
+		
+			<div id="labelPan"><label><b>Панорама Мол</b></label></div><br><br>
+			
+			<div id="divPanMehanik">
+				<label  id="labelPanMehanik">Киномеханик :</label>
+				<select ng-model="peopleSelector.panMehanik.name"  
+							 ng-change="peopleSelector.panMehanik.validate(true)"
+							 ng-class="{'valid' : peopleSelector.panMehanik.valid, 'notValid' : !peopleSelector.panMehanik.valid}" 
+							 ng-options="mehanik for mehanik in peopleSelector.mehanicy"
+							 ng-disabled="viewOnly"
+							 id="selectPanMehanik">			
+				</select>	
+			</div><br><br>
+				
+			<div id="divPanKasa">
+				<label id="labelKasaOne">Касиерка 1 :</label>
+				<select ng-model="peopleSelector.panKasaOne.name"  
+							 ng-change="peopleSelector.checkKasaForRepeat(true)"
+							 ng-class="{'valid' : peopleSelector.panKasaOne.valid, 'notValid' : !peopleSelector.panKasaOne.valid}" 
+							 ng-options="kasa for kasa in peopleSelector.kasierky"
+							 ng-disabled="viewOnly"
+							 id="selectKasaOne">
+				</select>
+				
+				<label id="labelKasaTwo">Касиерка 2 :</label>
+				<select ng-model="peopleSelector.panKasaTwo.name"  
+							 ng-change="peopleSelector.checkKasaForRepeat(true)"
+							 ng-class="{'valid' : peopleSelector.panKasaTwo.valid, 'notValid' : !peopleSelector.panKasaTwo.valid}" 
+							 ng-options="kasa for kasa in peopleSelector.kasierky"
+							 ng-disabled="viewOnly"
+							 id="selectKasaTwo">
+				</select>
+					
+				<label id="labelKasaThree">Касиерка 3 :</label>
+				<select ng-model="peopleSelector.panKasaThree.name"  
+							 ng-change="peopleSelector.checkKasaForRepeat(true)"
+							 ng-class="{'valid' : peopleSelector.panKasaThree.valid, 'notValid' : !peopleSelector.panKasaThree.valid}" 
+							 ng-options="kasa for kasa in peopleSelector.kasierkyTreta"
+							 ng-disabled="viewOnly"
+							 id="selectKasaThree">
+				</select>
+			</div><br><br>
+			
+			<div id="divRazporeditel">
+				<label id="labelRazOne">Разпоредител 1 :</label>
+				<select ng-model="peopleSelector.razporeditelOne.name" 
+							 ng-change="peopleSelector.checkRazporeditelForRepeat(true)"
+							 ng-class="{'valid' : peopleSelector.razporeditelOne.valid, 'notValid' : !peopleSelector.razporeditelOne.valid}"  
+							 ng-options="razporeditel for razporeditel in peopleSelector.razporeditely"
+							 ng-disabled="viewOnly"
+							 id="selectRazOne">
+				</select>	
+				
+				<label id="labelRazTwo">Разпоредител 2 :</label>
+				<select ng-model="peopleSelector.razporeditelTwo.name" 
+							 ng-change="peopleSelector.checkRazporeditelForRepeat(true)"
+							 ng-class="{'valid' : peopleSelector.razporeditelTwo.valid, 'notValid' : !peopleSelector.razporeditelTwo.valid}"  
+							 ng-options="razporeditel for razporeditel in peopleSelector.razporeditely"
+							 ng-disabled="viewOnly"
+							 id="selectRazTwo">
+				</select>
+			</div><br><br><br><br>
+			
+			<div id="divActionButton">
+			
+				<button class="actionButton" ng-click="peopleSelector.addShift()" ng-hide="hideButtonAddShift">Добави</button>
+				<button class="actionButton" ng-click="peopleSelector.changeShift()" ng-hide="hideButtonChangeShift">Промени</button>
+			
+			</div>
+		
+	</form>
+	
+	<span us-spinner="{radius:20, width:2, length:56, lines:17}" spinner-on="peopleSelector.showSpinner"></span>
+
+</div>	

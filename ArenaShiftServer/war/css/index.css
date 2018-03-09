@@ -1,0 +1,219 @@
+/* 
+	index.css 
+*/
+
+form {
+
+	width: 100%;
+}
+
+#title {
+	
+	text-align: center;
+}
+
+.viewTitle {
+	
+	margin-left: 20%;
+}
+
+.viewBody {
+	
+	margin-left: 25%;
+}
+
+/* Day Selector ***************************************************************************************/
+
+.daySelectorView {
+
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#cheakBoxYear {
+
+	order: 1;
+}
+
+#textBoxYear {
+
+	order: 2;
+}
+
+#labelMonth {
+
+	margin-left: 3%;
+	order: 3;
+}
+
+#selectMonth {
+
+	margin-left: 1%;
+	order: 4;
+}
+
+#labelDay {
+
+	margin-left: 3%;
+	order: 5;
+}
+
+#selectDay {
+
+	margin-left: 1%;
+	order: 6;
+}
+
+#buttonShow {
+
+	margin-left: 3%;
+	order: 7;
+}
+
+#labelStatus {
+
+	width: 100%;
+	order: 8;
+}
+
+/* People Selector ***********************************************************************************/
+
+.peopleSelectorView {
+	
+	display: flex;
+	flex-wrap: wrap;
+}
+
+
+#labelPan {
+	
+	width: 100%;
+	order: 1;
+}
+
+#divPanMehanik {
+
+}
+
+#labelPanMehanik {
+	
+	width: 5%;
+	order: 2;
+}
+
+#selectPanMehanik {
+
+	width: initial;
+	order: 3;
+}
+
+#divPanKasa {
+
+}
+
+#labelKasaOne {
+
+	width: 5%;
+	order: 4;
+}
+
+#selectPanKasaOne {
+
+	width: 25%;
+	order: 5;
+}
+
+#labelKasaTwo {
+
+	width: 5%;
+	margin-left: 3%;
+	order: 6;
+}
+
+#selectPanKasaTwo {
+
+	width: 25%;
+	order: 7;
+}
+
+#labelKasaThree {
+
+	width: 5%;
+	margin-left: 3%;
+	order: 8;
+}
+
+#selectPanKasaThree {
+
+	width: 25%;
+	order: 9;
+}
+
+#divRazporeditel {
+
+}
+
+#labelRazOne {
+
+	width: 5%;
+	order: 10;
+}
+
+#selectRazOne {
+
+	width: initial;
+	order: 11;	
+}
+
+#labelRazTwo {
+
+	width: 5%;
+	margin-left: 5%;
+	order: 10;
+}
+
+#selectRazTwo {
+
+	width: initial;
+	order: 11;	
+}
+
+#divLabelCen {
+
+	width: 100%;
+}
+
+#labelCenMehanik {
+
+	width: 5%;
+	order: 12;
+}
+
+#selectCenMehanik {
+
+	width: initial;
+	order: 13;
+}
+
+#divCenKasa {
+
+}
+
+#labelCenKasa {
+
+	width: 5%;
+	order: 12;
+}
+
+#selectCenKasa {
+
+	width: initial;
+	order: 13;
+}
+
+#divActionButton {
+
+	margin-left: 35%;
+	order: 14;
+}
+

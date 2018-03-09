@@ -1,0 +1,110 @@
+/* WARNING : App specific variables are in 'gradle.properties'. */
+
+
+buildscript {      // Configuration for building
+
+  repositories {
+  
+    jcenter()      // Bintray's repository - a fast Maven Central mirror & more
+    mavenCentral()
+  }
+  
+  dependencies {
+  
+    classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
+    classpath 'org.akhikhl.gretty:gretty:+'
+  }
+}
+
+repositories { 
+  // repositories for JARs you access in your code
+  maven {
+	  
+    // Google's mirror of Maven Central
+    url 'https://maven-central.storage.googleapis.com'
+  }
+
+//maven {
+//  url 'https://oss.sonatype.org/content/repositories/snapshots' // SNAPSHOT repository if needed
+//}
+
+  jcenter()
+  mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+//apply plugin: 'org.akhikhl.gretty'
+apply plugin: "com.google.cloud.tools.appengine-standard"
+
+dependencies {
+
+	providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+	providedCompile 'com.google.appengine:appengine:+'
+	
+	// Add your dependencies here.
+	
+	compile "com.google.appengine:appengine-api-1.0-sdk:1.9.60"
+	
+	providedCompile group: 'com.google.appengine', name: 'appengine-api-labs', version: '1.9.60'
+	providedCompile group: 'com.google.appengine', name: 'appengine-tools-sdk', version: '1.9.60'
+	
+	
+	compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+	
+	compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.25'
+	compile group: 'org.zalando.phrs', name: 'jersey-media-json-gson', version: '0.1'
+	
+	testCompile group: 'junit', name: 'junit', version: '4.12'
+	
+	testCompile group: 'com.google.appengine', name: 'appengine-testing', version: '1.9.60'
+	testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: '1.9.60'
+	
+
+}
+
+sourceSets {
+    
+    main.java.srcDirs = [sourceDir]
+	test.java.srcDirs testDir
+}
+
+/*gretty {
+
+	webAppDirName = 'war'
+    httpPort = 8888
+    contextPath = '/'
+    servletContainer = 'jetty9'  // What App Engine Flexible uses
+}*/
+
+appengine {
+
+	run {
+	
+		host = localServerHostname
+		port = localServerPort.toInteger()
+		
+		webAppDirName = 'war'
+		
+		// Scan source code for changes
+		jvmFlags = [jvmFlagFiveSecondsScan]	
+		// Where is the local database
+		jvmFlags = [jvmFlagLocalDBlocation]
+	}
+
+    deploy {   // deploy configuration
+  
+    	stopPreviousVersion = true  // default - stop the current version
+    	promote = true              // default - & make this the current version
+    	
+    	version = appVersion
+  }
+
+}
+
+
+group = groupName   // Generated output GroupId
+version = appVersion          // Version in generated output
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
