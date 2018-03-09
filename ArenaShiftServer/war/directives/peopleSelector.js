@@ -12,14 +12,13 @@ directivesModule.directive("peopleSelector", function() {
 		controller: 'PeopleSelectorController',
 		scope: {
 			
-			hideButtonSaveShift: '=hidebuttonsave',	// Крие бутона 'Добави' ако не е нужен.
-			hideButtonChangeShift: '=hidebuttonchange',	// Крие бутона 'Промени' ако не е нужен.
-			viewOnly: '=viewonly'	// Прави всички полета да не мога да бъдат променяни.
+			hideButtonAddShift: '=hidebuttonsave',	// Hides the button 'Покажи' if is not needed.
+			hideButtonChangeShift: '=hidebuttonchange',	// Hides the button 'Промени' if is not needed.
+			viewOnly: '=viewonly'	// The shift can't be edited.
 		},
 		link: function($scope, $elem, $attrs, daySelector) {
 			
-			/* Това дава контролера на 'daySelector' за да мога чрез негови функции
-			 * да имам достъп до полетата му. */
+			// Gives access to 'daySelector' directive. 
 		    $scope.daySelector = daySelector;
 		}
 	};
@@ -31,11 +30,11 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 	
 	$scope.peopleSelector.showSpinner = false;
 	
-	$scope.peopleSelector.hideShift = true;	// Ако е празна крие смяната.
+	$scope.peopleSelector.hideShift = true;	// If the shifts is empty - hide it.
 	$scope.peopleSelector.shiftStatus = "";
 	
-	// Ако е на страницата за добавяне на смяна не трябва да крие полетата.
-	if($scope.hideButtonSaveShift === false) {
+	// Don't hide the shift if the button 'Add Shift' is present.
+	if($scope.hideButtonAddShift === false) {
 		
 		$scope.peopleSelector.hideShift = false;
 	}
@@ -51,8 +50,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			valid: false,
 			validate: function(notFirstCheck) {
 				
-				/* Ако е първатя проверка няма смисъл да се сменя статуса защото e получено от
-				 * сървъра където се знае смяната е валидна. */
+				// If the shift is received from the server there is no need to validate it.
 				if(notFirstCheck) {
 					
 					$scope.peopleSelector.shiftStatus = "Смяната не е запаметена";
@@ -85,8 +83,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			valid: false,
 			validate: function(notFirstCheck) {
 				
-				/* Ако е първатя проверка няма смисъл да се сменя статуса защото e получено от
-				 * сървъра където се знае смяната е валидна. */
+				//If the shift is received from the server there is no need to validate it.
 				if(notFirstCheck) {
 					
 					$scope.peopleSelector.shiftStatus = "Смяната не е запаметена";
@@ -120,8 +117,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			valid: false,
 			validate: function(notFirstCheck) {
 
-				/* Ако е първатя проверка няма смисъл да се сменя статуса защото e получено от
-				 * сървъра където се знае смяната е валидна. */
+				// If the shift is received from the server there is no need to validate it.
 				if(notFirstCheck) {
 					
 					$scope.peopleSelector.shiftStatus = "Смяната не е запаметена";
@@ -155,8 +151,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			valid: false,
 			validate: function(notFirstCheck) {
 
-				/* Ако е първатя проверка няма смисъл да се сменя статуса защото e получено от
-				 * сървъра където се знае смяната е валидна. */
+				// If the shift is received from the server there is no need to validate it.
 				if(notFirstCheck) {
 					
 					$scope.peopleSelector.shiftStatus = "Смяната не е запаметена";
@@ -218,8 +213,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 	
 	$scope.peopleSelector.checkRazporeditelForRepeat = function (notFirstCheck) {
 
-		/* Ако е първатя проверка няма смисъл да се сменя статуса защото e получено от
-		 * сървъра където се знае смяната е валидна. */
+		// If the shift is received from the server there is no need to validate it.
 		if(notFirstCheck) {
 			
 			$scope.peopleSelector.shiftStatus = "Смяната не е запаметена";
@@ -244,58 +238,17 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 		
 	};
 	
-	$scope.peopleSelector.saveShift = function() {
+	$scope.peopleSelector.addShift = function() {
 		
-		if($scope.peopleSelector.checkShift() === true) {
-			
-			$scope.peopleSelector.showSpinner = true;
-			
-			var shiftToSave = {};
-
-			shiftToSave.year = $scope.daySelector.getYear();
-			shiftToSave.month = $scope.daySelector.getMonth();
-			shiftToSave.day = $scope.daySelector.getDay();
-			shiftToSave.panMehanik = $scope.peopleSelector.panMehanik.name;
-			shiftToSave.panKasaOne = $scope.peopleSelector.panKasaOne.name;
-			shiftToSave.panKasaTwo = $scope.peopleSelector.panKasaTwo.name;
-			shiftToSave.panKasaThree = $scope.peopleSelector.panKasaThree.name;
-			shiftToSave.razporeditelOne = $scope.peopleSelector.razporeditelOne.name;
-			shiftToSave.razporeditelTwo = $scope.peopleSelector.razporeditelTwo.name;
-			
-			var deferred = $q.defer();
-			
-			$http.put("/rest/shift/add", shiftToSave, {headers : Auth.getBasicAuthHeader()}).success(function(data) {
-			
-			$scope.peopleSelector.showSpinner = false;
-					
-			deferred.resolve(data);
-			
-			deferred.promise.then(function(result) {
-				
-				if(result.isError === false) {
-					
-					$scope.peopleSelector.hideShift = true;	// Смяната е запаметена и се скрива.
-				}
-				
-				// Показва съобщението от сървъра за статуса на запаметената смяна.
-				$scope.peopleSelector.shiftStatus = result.message;	
-			}),
-			function(err) {
-				
-				console.log(err);
-			};
-			
-		}).error(function(reason) {
-			
-			deferred.reject(reason);
-		});
-			
-		} else {
-			$scope.peopleSelector.shiftStatus = "Грешно поле !!!";
-		}
+		$scope.peopleSelector.saveShift("/rest/shift/add");
 	}
 	
 	$scope.peopleSelector.changeShift = function() {
+		
+		$scope.peopleSelector.saveShift("/rest/shift/change");
+	}
+	
+	$scope.peopleSelector.saveShift = function(httpAddress) {
 		
 		if($scope.peopleSelector.checkShift() === true) {
 			
@@ -315,7 +268,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 			
 			var deferred = $q.defer();
 			
-			$http.put("/rest/shift/change", shiftToSave, {headers : Auth.getBasicAuthHeader()}).success(function(data) {
+			$http.put(httpAddress, shiftToSave, {headers : Auth.getBasicAuthHeader()}).success(function(data) {
 				
 				$scope.peopleSelector.showSpinner = false;
 						
@@ -325,10 +278,10 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 					
 					if(result.isError === false) {
 						
-						$scope.peopleSelector.hideShift = true;	// Смяната е запаметена и се скрива.
+						$scope.peopleSelector.hideShift = true;	// Hides the shift because is saved.
 					}
 					
-					// Показва съобщението от сървъра за статуса на запаметената смяна.
+					// Show the message from the server.
 					$scope.peopleSelector.shiftStatus = result.message;	
 					
 				}),
@@ -347,8 +300,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 		}
 	}
 	
-	/* Тази функция слуша за получаване на нова смяна от друга директива
-	 * и когато стане попълва полетата с нея. */
+	// This function receives shift from other directives and shows it.
 	$scope.$on('newShift', function(event, newShift) {
 		
 		$scope.peopleSelector.shiftStatus = "";
@@ -374,6 +326,7 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 		}
 	});
 	
+	// The date changed so hide the current shift.
 	$scope.$on('dateChange', function(event, eventName) {
 		
 		$scope.peopleSelector.shiftStatus = "";

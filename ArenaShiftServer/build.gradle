@@ -21,7 +21,7 @@ repositories {
   maven {
 	  
     // Google's mirror of Maven Central
-    url 'https://maven-central.storage.googleapis.com' 
+    url 'https://maven-central.storage.googleapis.com'
   }
 
 //maven {
@@ -83,6 +83,8 @@ appengine {
 	
 		host = localServerHostname
 		port = localServerPort.toInteger()
+		
+		webAppDirName = 'war'
 		
 		// Scan source code for changes
 		jvmFlags = [jvmFlagFiveSecondsScan]	

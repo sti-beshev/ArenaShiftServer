@@ -35,7 +35,7 @@ loginModule.controller("LoginController", ['$scope', '$http', '$q', '$location',
 					$location.path('/');
 					
 				}else{
-					//Грешна парола или юзърнайм
+					
 					$scope.loginManager.password = "";
 					$scope.loginManager.errorStatus = "Wrong username or password";
 				}

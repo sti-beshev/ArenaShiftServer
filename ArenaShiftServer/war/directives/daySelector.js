@@ -11,7 +11,7 @@ directivesModule.directive("daySelector", function() {
 		controller: 'DaySelectorController',
 		transclude: true,
 		scope: {	
-			hideShowButton: '=showbutton'	// Крие бутона 'Покажи' ако не е нужен.
+			hideShowButton: '=showbutton'	// Hides the button 'Покажи' if is not needed.
 		}
 	};
 });
@@ -40,8 +40,7 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', '
 			changeYear: false
 	};
 	
-	/* Тези три функции служат да дадът достъп на други директиви до полетата на тази. 
-	 * Конкретно 'peopleSelector' ги използва в момента. */
+	/* This functions give access to  this variables  from other directives.   */
 	this.getYear = function() {	return $scope.daySelector.year.name;		};
 	this.getMonth = function() {	return $scope.daySelector.month.name;		};
 	this.getDay = function() {	return $scope.daySelector.day.number;		};
@@ -73,10 +72,9 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', '
 				
 				if(result.isError === false) {	
 					
-					$scope.daySelector.shiftStatus="";	// Няма грешка за изписване.
+					$scope.daySelector.shiftStatus="";	// No errors to show.
 					
-					/* Изпраща на всеки, който го интересува получената смяна. 
-					 * Конкретно 'peopleSelector'.*/
+					/* Broadcast the recived shift. Curently 'peopleSelector' depends on it. */
 					$scope.$broadcast('newShift', result.payload);
 					
 				}else{
