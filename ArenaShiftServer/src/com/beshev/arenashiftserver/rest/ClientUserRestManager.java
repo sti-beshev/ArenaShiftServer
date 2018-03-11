@@ -38,7 +38,7 @@ public class ClientUserRestManager {
 			
 			new ArenaShiftEventManager().addEvent(userInfoMap.get(ClientUserManager.USER_USERNAME), 
 																											 new Date(), 
-																											 "User is activated");
+																											 "User is activated");  
 		}
 		
 		return userInfoMap;
