@@ -34,6 +34,13 @@ public class ClientUserRestManager {
 		
 		HashMap<String, String> userInfoMap = new ClientUserManager().activateUser(activationCode);
 		
+		if(userInfoMap != null) { 
+			
+			new ArenaShiftEventManager().addEvent(userInfoMap.get(ClientUserManager.USER_USERNAME), 
+																											 new Date(), 
+																											 "User is activated");
+		}
+		
 		return userInfoMap;
 	}
 	
