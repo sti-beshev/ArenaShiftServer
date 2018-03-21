@@ -8,6 +8,8 @@ import org.junit.runners.Suite;
 									 ChangeManagerTest.class,
 									 ArenaShiftEventManagerTest.class,
 									 AdminUserManagerTest.class,
-									 ClientUserManagerTest.class})
+									 ClientUserManagerTest.class,
+									 UserLabelManagerTest.class,
+									 UserAuthTest.class})
 public class ASSallTests {
 }

@@ -6,26 +6,32 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.event.ArenaShiftEventManager;
 import com.beshev.arenashiftserver.event.ArenaShiftUserEvent;
 import com.beshev.arenashiftserver.update.UpdateClientManager;
 import com.beshev.arenashiftserver.update.UpdateRequest;
 import com.beshev.arenashiftserver.update.UpdateResponse;
 import com.beshev.arenashiftserver.user.ClientUserManager;
+import com.beshev.arenashiftserver.user.UserInfoManager;
+import com.beshev.arenashiftserver.user.UserLabelManager;
+import com.beshev.arenashiftserver.user.WorkerInfo;
 
 @Path("/user")
-public class ClientUserRestManager {
+public class ClientUserRest {
 
 	@GET
 	@Path("/activate/{activationCode}")
@@ -82,6 +88,34 @@ public class ClientUserRestManager {
             eventManager.addEvent(username, date, event.getUserEvent());
 		}
 		
+	}
+	
+	@GET
+	@Path("/usernames/{label}")
+	@AdminSecure
+	@Produces(MediaType.APPLICATION_JSON)
+	public ServerResponseMessage<List<String>> getUsernamesOfLabel(@PathParam("label") String userLabel) {
+		
+		return new UserLabelManager().getUsernamesOfLabel(userLabel);
+	}
+	
+	@GET
+	@Path("/workers")
+	@AdminSecure
+	@Produces(MediaType.APPLICATION_JSON)
+	public ServerResponseMessage<List<WorkerInfo>> getAllWorkersInfo() {
+		
+		return new UserInfoManager().getAllWorkersInfo();
+	}
+	
+	@POST
+	@Path("/worker/update")
+	@AdminSecure
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ServerResponseMessage<Void> updateWorkerInfo(WorkerInfo workerInfo) {
+		
+		return new UserInfoManager().changeWorkerInfo(workerInfo);
 	}
 
 }

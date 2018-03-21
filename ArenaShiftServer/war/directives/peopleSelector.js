@@ -24,7 +24,8 @@ directivesModule.directive("peopleSelector", function() {
 	};
 });
 
-directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q', 'Auth',function($scope, $http, $q, Auth) {
+directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q', 'Auth', 'WorkersService',
+	function($scope, $http, $q, Auth, WorkersService) {
 	
 	$scope.peopleSelector = peopleSelector = {};
 	
@@ -38,11 +39,20 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 		
 		$scope.peopleSelector.hideShift = false;
 	}
+
 	
-	$scope.peopleSelector.mehanicy = ["Венци", "Стилиян"];
-	$scope.peopleSelector.kasierky = ["Анелия", "Багряна", "Ивка", "Катя", "Наталия", "Боби"];
-	$scope.peopleSelector.kasierkyTreta = ["няма", "Анелия", "Багряна", "Ивка", "Катя",  "Наталия", "Боби"];
-	$scope.peopleSelector.razporeditely = ["Бинка", "Дафинела", "Кака", "Наталия", "Боби"];
+	$scope.peopleSelector.mehanicy = WorkersService.getMechanicNames(false);
+	$scope.peopleSelector.kasierky = WorkersService.getConcessionNames(false);
+	$scope.peopleSelector.kasierkyTreta = WorkersService.getConcessionNames(false);
+	$scope.peopleSelector.razporeditely = WorkersService.getUsherNames(false);
+	
+	$scope.$watch('peopleSelector.kasierkyTreta', function() {
+        
+		if($scope.peopleSelector.kasierkyTreta !== undefined) {
+			
+			$scope.peopleSelector.kasierkyTreta.push('няма');
+		}	
+    });
 	
 	$scope.peopleSelector.panMehanik = {
 		
@@ -344,6 +354,24 @@ directivesModule.controller('PeopleSelectorController', ['$scope', '$http', '$q'
 		
 		$scope.peopleSelector.hideShift = false;
 			
+	});
+	
+	$scope.$on('workersLoadedFromServer', function(event, workerLabel, workersNamesArray) {
+		
+		if(workerLabel === "mechanic") {
+			
+			$scope.peopleSelector.mehanicy = workersNamesArray.slice();
+		}
+		
+		if(workerLabel === "concession") {
+			$scope.peopleSelector.kasierky = workersNamesArray.slice();
+			$scope.peopleSelector.kasierkyTreta = workersNamesArray.slice();
+			$scope.peopleSelector.kasierkyTreta.push("няма");
+		}
+		
+		if(workerLabel === "usher") {
+			$scope.peopleSelector.razporeditely = workersNamesArray.slice();
+		}
 	});
 	
 }]);

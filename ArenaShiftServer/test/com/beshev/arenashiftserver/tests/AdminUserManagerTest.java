@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import com.beshev.arenashiftserver.LoginInfo;
 import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.user.AdminUserManager;
-import com.beshev.arenashiftserver.user.UserChangePassInfo;
+import com.beshev.arenashiftserver.user.AdminChangePassInfo;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -55,7 +55,7 @@ public class AdminUserManagerTest {
 	  @Test
 	  public void changeAdminPasswordTest() {
 		  
-		  UserChangePassInfo userInfo = new UserChangePassInfo("admin", "adminadmin", "newpass");
+		  AdminChangePassInfo userInfo = new AdminChangePassInfo("admin", "adminadmin", "newpass");
 		  ServerResponseMessage<String> serverResponseMessage = adminUserManager.changeAdminPassword(userInfo);
 		  
 		  LoginInfo loginInfo = new LoginInfo("admin", "newpass");
@@ -68,7 +68,7 @@ public class AdminUserManagerTest {
 	  @Test(expected = IllegalArgumentException.class)
 	  public void changeAdminPasswordSmallPasswordTest() {
 		  
-		  UserChangePassInfo userInfo = new UserChangePassInfo("admin", "adminadmin", "pass");
+		  AdminChangePassInfo userInfo = new AdminChangePassInfo("admin", "adminadmin", "pass");
 		  adminUserManager.changeAdminPassword(userInfo);
 	  }
 	  

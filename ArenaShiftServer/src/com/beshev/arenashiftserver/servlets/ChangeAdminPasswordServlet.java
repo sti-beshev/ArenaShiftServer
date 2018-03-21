@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.beshev.arenashiftserver.user.UserChangePassInfo;
+import com.beshev.arenashiftserver.user.AdminChangePassInfo;
 import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.user.AdminUserManager;
 import com.google.gson.Gson;
@@ -18,7 +18,7 @@ public class ChangeAdminPasswordServlet extends HttpServlet  {
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		
-		UserChangePassInfo userInfo = new Gson().fromJson(req.getReader(), UserChangePassInfo.class);
+		AdminChangePassInfo userInfo = new Gson().fromJson(req.getReader(), AdminChangePassInfo.class);
 		
 		ServerResponseMessage<String> serverResponesMessage;
 		

@@ -17,9 +17,9 @@ import com.beshev.arenashiftserver.shift.ShiftDate;
 
 @Path("/shift")
 @AdminSecure
-public class ShiftRestManager {
+public class ShiftRest {
 
-	public ShiftRestManager() {
+	public ShiftRest() {
 		
 	}
 	

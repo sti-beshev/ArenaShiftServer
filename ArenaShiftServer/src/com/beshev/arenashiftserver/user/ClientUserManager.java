@@ -24,6 +24,8 @@ public class ClientUserManager {
 	public static final String CLIENT_USERNAME = "clientUsername";
 	public static final String CLIENT_PASSWORD = "clientPassword";
 	public static final String USER_ACTIVATION_CODE = "activationCode";
+	public static final String USER_LABEL = "label";
+	public static final String USER_IS_WORKING = "isWorking";
 	
 	private DatastoreService datastore;
 
@@ -33,15 +35,15 @@ public class ClientUserManager {
 		
 	}
 	
-	public ServerResponseMessage<String> addClientUser(String username) throws IllegalArgumentException {
+	public ServerResponseMessage<String> addClientUser(UserInfo userInfo) throws IllegalArgumentException {
 		
 		boolean haveError = false;
 		
-		if(username.equals("")) throw new IllegalArgumentException();
+		if(userInfo.getUsername().equals("")) throw new IllegalArgumentException();
 		
 		String resultMessage = "";
 		
-		Key userEntityKey = KeyFactory.createKey(USER_KIND, username);
+		Key userEntityKey = KeyFactory.createKey(USER_KIND, userInfo.getUsername());
 		
 		try {
 			
@@ -49,34 +51,24 @@ public class ClientUserManager {
 			Entity userEntity = datastore.get(userEntityKey);
 			
 			haveError = true;
-			resultMessage = username + " is taken !";
+			resultMessage = userInfo.getUsername()+ " is taken !";
 			
 		} catch (EntityNotFoundException e) {
 			
-			Entity userEntity = new Entity(USER_KIND, username);
+			Entity userEntity = new Entity(USER_KIND, userInfo.getUsername());
 			userEntity.setProperty(CLIENT_USERNAME, genarateRandomString(16, false));
 			userEntity.setProperty(CLIENT_PASSWORD, genarateRandomString(16, false));
 			userEntity.setProperty(USER_ACTIVATION_CODE, genarateRandomString(6, true));
+			userEntity.setProperty(USER_LABEL, userInfo.getLabel());
+			userEntity.setProperty(USER_IS_WORKING, userInfo.isWorking());
 			
 			datastore.put(userEntity);
 			
-			resultMessage = username + " is added";
+			resultMessage = userInfo.getUsername() + " is added as " + userInfo.getLabel();
 			
 		}
 		
 		return new ServerResponseMessage<>(resultMessage, haveError, null);
-	}
-	
-	public boolean checkUserCredentials(String username, String password) {
-		
-		Query q = new Query(USER_KIND)
-			        .setFilter(new FilterPredicate(CLIENT_USERNAME, FilterOperator.EQUAL, username))
-			        .setFilter(new FilterPredicate(CLIENT_PASSWORD, FilterOperator.EQUAL, password));
-
-			PreparedQuery pq = datastore.prepare(q);
-			Entity result = pq.asSingleEntity();
-		
-		return (result != null);
 	}
 	
 	public HashMap<String, String> activateUser(String activationCode) {
@@ -103,20 +95,6 @@ public class ClientUserManager {
 		}
 		
 		return userInfoMap;
-	}
-	
-	public ClientUserInfo getUserInfo(String username) throws EntityNotFoundException {
-		
-		ClientUserInfo clientUserInfo = null;
-		
-		Entity userEntity = datastore.get(KeyFactory.createKey(USER_KIND, username));
-		
-		clientUserInfo = new ClientUserInfo(userEntity.getKey().getName(),
-				userEntity.getProperty(CLIENT_USERNAME).toString(),
-				userEntity.getProperty(CLIENT_PASSWORD).toString(),
-				userEntity.getProperty(USER_ACTIVATION_CODE).toString());
-		
-		return clientUserInfo;
 	}
 	
 	private static String genarateRandomString(int lettersCount, boolean onlyNumbers) {

@@ -1,0 +1,4 @@
+// TODO
+
+* When user is added or status of user is changed it should reflect on other 
+components that are interested.
