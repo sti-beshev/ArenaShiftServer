@@ -36,7 +36,7 @@ directivesModule.controller('DaySelectorController', ['$scope', '$http', '$q', '
 		                        ];			
 	$scope.daySelector.year = {
 				
-			name: 2017,
+			name: 2019,
 			changeYear: false
 	};
 	

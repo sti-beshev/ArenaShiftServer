@@ -113,7 +113,7 @@ public class ClientUserRest {
 	@AdminSecure
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ServerResponseMessage<Void> updateWorkerInfo(WorkerInfo workerInfo) {
+	public ServerResponseMessage<String> updateWorkerInfo(WorkerInfo workerInfo) {
 		
 		return new UserInfoManager().changeWorkerInfo(workerInfo);
 	}

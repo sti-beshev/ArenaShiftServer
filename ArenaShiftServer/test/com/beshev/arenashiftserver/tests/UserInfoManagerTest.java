@@ -71,7 +71,7 @@ public class UserInfoManagerTest {
 	@Test
 	public void changeWorkerInfo() {
 		
-		ServerResponseMessage<Void> serverResponseMessage = userInfoManager.changeWorkerInfo(new WorkerInfo("Kimbo", "Not usher", true));
+		ServerResponseMessage<String> serverResponseMessage = userInfoManager.changeWorkerInfo(new WorkerInfo("Kimbo", "Not usher", true));
 		
 		WorkerInfo workerInfo = null;
 		

@@ -11,7 +11,7 @@ buildscript {      // Configuration for building
   
   dependencies {
   
-    classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
+    classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.3.5'
     classpath 'org.akhikhl.gretty:gretty:+'
   }
 }
@@ -40,7 +40,7 @@ apply plugin: "com.google.cloud.tools.appengine-standard"
 dependencies {
 
 	providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
-	providedCompile 'com.google.appengine:appengine:+'
+	providedCompile 'com.google.appengine:appengine:1.9.60'
 	
 	// Add your dependencies here.
 	
@@ -94,6 +94,7 @@ appengine {
 
     deploy {   // deploy configuration
   
+  		//projectId = 'arenashiftserver'
     	stopPreviousVersion = true  // default - stop the current version
     	promote = true              // default - & make this the current version
     	
@@ -102,9 +103,11 @@ appengine {
 
 }
 
+//appengine.deploy.projectId
+
 
 group = groupName   // Generated output GroupId
 version = appVersion          // Version in generated output
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8

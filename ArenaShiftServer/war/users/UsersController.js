@@ -106,8 +106,6 @@ usersModule.controller("UsersController", ['$scope', '$http', '$q', 'Auth',
 					isWorking : $scope.userManager.checkBoxIsWorkingToChange
 			}
 			
-			console.log(workerInfo);
-			
 			$scope.userManager.updateWorkerInfo(workerInfo);
 			
 		} else {

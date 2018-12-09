@@ -57,9 +57,9 @@ public class UserInfoManager {
 		return new ServerResponseMessage<List<WorkerInfo>>("", false, workersInfoList);
 	}
 	
-	public ServerResponseMessage<Void> changeWorkerInfo(WorkerInfo workerInfo) {
+	public ServerResponseMessage<String> changeWorkerInfo(WorkerInfo workerInfo) {
 		
-		ServerResponseMessage<Void> serverResponseMessage;
+		ServerResponseMessage<String> serverResponseMessage;
 		
 		try {
 			
@@ -69,11 +69,11 @@ public class UserInfoManager {
 			
 			datastore.put(userEntity);
 			
-			serverResponseMessage = new ServerResponseMessage<Void>("Status changed", false, null);
+			serverResponseMessage = new ServerResponseMessage<String>("Status changed", false, null);
 			
 		} catch (EntityNotFoundException e) {
 		
-			serverResponseMessage = new ServerResponseMessage<Void>("Status not changed...... server error", true, null);
+			serverResponseMessage = new ServerResponseMessage<String>("Status not changed...... server error", true, null);
 		}
 		
 		return serverResponseMessage;
