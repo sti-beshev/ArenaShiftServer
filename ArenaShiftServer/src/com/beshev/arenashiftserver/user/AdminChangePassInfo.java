@@ -1,16 +1,16 @@
 package com.beshev.arenashiftserver.user;
 
-public class UserChangePassInfo {
+public class AdminChangePassInfo {
 	
 	private String username;
 	private String currentPassword;
 	private String newPassword;
 
-	public UserChangePassInfo() {
+	public AdminChangePassInfo() {
 		
 	}
 	
-	public UserChangePassInfo(String username, String currentPassword, String newPassword) {
+	public AdminChangePassInfo(String username, String currentPassword, String newPassword) {
 		
 		this.username = username;
 		this.currentPassword = currentPassword;

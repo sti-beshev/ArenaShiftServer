@@ -1,13 +1,17 @@
 package com.beshev.arenashiftserver.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import com.beshev.arenashiftserver.ServerResponseMessage;
-import com.beshev.arenashiftserver.user.ClientUserInfo;
 import com.beshev.arenashiftserver.user.ClientUserManager;
+import com.beshev.arenashiftserver.user.UserInfo;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -48,12 +52,16 @@ public class ClientUserManagerTest {
 	  public void addClientUserTest() throws EntityNotFoundException {
 		  
 		  String username = "John";
+		  String label = "visitor";
+		  boolean isWorking = true;
 		  
-		  ServerResponseMessage<String> serverResponseMessage = clientUserManager.addClientUser(username);
+		  ServerResponseMessage<String> serverResponseMessage = clientUserManager.addClientUser(new UserInfo(username, label, isWorking));
 		  
 		  Entity userEntity = datastore.get(KeyFactory.createKey(ClientUserManager.USER_KIND, username));
 		  
 		  assertNotNull(userEntity);
+		  assertEquals(label, userEntity.getProperty(ClientUserManager.USER_LABEL));
+		  assertEquals(isWorking, userEntity.getProperty(ClientUserManager.USER_IS_WORKING));
 		  assertNotNull(userEntity.getProperty(ClientUserManager.CLIENT_USERNAME));
 		  assertNotNull(userEntity.getProperty(ClientUserManager.CLIENT_PASSWORD));
 		  assertNotNull(userEntity.getProperty(ClientUserManager.USER_ACTIVATION_CODE));
@@ -64,11 +72,12 @@ public class ClientUserManagerTest {
 	  public void addClientUserUsernameExistTest() {
 		  
 		  String username = "John";
+		  String label = "visitor";
 		  
-		  clientUserManager.addClientUser(username);
+		  clientUserManager.addClientUser(new UserInfo(username, label, true));
 		  
 		  // Trying to add the same username
-		  ServerResponseMessage<String> serverResponseMessage = clientUserManager.addClientUser(username);
+		  ServerResponseMessage<String> serverResponseMessage = clientUserManager.addClientUser(new UserInfo(username, label, true));
 		  
 		  assertTrue(serverResponseMessage.isError());
 		  assertEquals(username + " is taken !", serverResponseMessage.getMessage());
@@ -77,39 +86,6 @@ public class ClientUserManagerTest {
 	  @Test( expected = IllegalArgumentException.class)
 	  public void addClientUserEmptyUsername() {
 		  
-		  clientUserManager.addClientUser("");
+		  clientUserManager.addClientUser(new UserInfo("", "visitor", true));
 	  }
-	  
-	  @Test
-	  public void checkUserCredentialsRightCredentials() throws EntityNotFoundException {
-		  
-		  String username = "John";
-		  
-		  clientUserManager.addClientUser(username);
-			  
-		  ClientUserInfo clientUserInfo  = clientUserManager.getUserInfo(username);
-			  
-		  boolean result = clientUserManager.checkUserCredentials(clientUserInfo.getClientUsername(), 
-					  clientUserInfo.getClientPassword());
-		  
-		  assertTrue(result);
-
-	  }
-	  
-	  @Test
-	  public void checkUserCredentialsWrongCredentials() throws EntityNotFoundException {
-		  
-		  String username = "John";
-		  
-		  clientUserManager.addClientUser(username);
-			  
-		  ClientUserInfo clientUserInfo  = clientUserManager.getUserInfo(username);
-			  
-		  boolean result = clientUserManager.checkUserCredentials(clientUserInfo.getClientUsername(), 
-					  "xcVbG56AaS8Kjl");
-		  
-		  assertFalse(result);
-
-	  }
-
 }

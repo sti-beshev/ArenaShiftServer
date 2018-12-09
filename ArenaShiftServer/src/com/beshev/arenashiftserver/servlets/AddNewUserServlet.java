@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.user.ClientUserManager;
+import com.beshev.arenashiftserver.user.UserInfo;
 import com.google.gson.Gson;
 
 public class AddNewUserServlet  extends HttpServlet{
@@ -18,13 +19,13 @@ public class AddNewUserServlet  extends HttpServlet{
 		
 		boolean haveError = false;
 		
-		String newUsername = new Gson().fromJson(req.getReader(), String.class);
+		UserInfo userInfo = new Gson().fromJson(req.getReader(), UserInfo.class);
 		
 		ServerResponseMessage<String> serverResponesMessage;
 		
 		try {
 			
-			serverResponesMessage = new ClientUserManager().addClientUser(newUsername);	
+			serverResponesMessage = new ClientUserManager().addClientUser(userInfo);	
 			
 		} catch (IllegalArgumentException e) {
 			

@@ -3,6 +3,8 @@
   <application>arenashiftserver</application>
   <version>21</version>
 
+	<runtime>java8</runtime>
+	<url-stream-handler>urlfetch</url-stream-handler>
   <!--
     Allows App Engine to send multiple requests to one instance in parallel:
   -->

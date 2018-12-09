@@ -12,7 +12,7 @@ The frontend is written in HTML5 with [AngularJS](https://angularjs.org/).
 * The backend is written in Java 7 and it uses Java EE features.
 * It is completely ready to be deployed to [Google App Engine](https://cloud.google.com/appengine/).
 * For database uses [Google Cloud Datastore](https://cloud.google.com/appengine/docs/standard/java/datastore/). A high scalability NoSQL database with high performance.
-* Have a fully functional REST API usin [Jersey](https://jersey.github.io/).
+* Have a fully functional REST API using [Jersey](https://jersey.github.io/).
 * Tested with unit and integration tests using [JUnit 4](https://junit.org/junit4/).
 
 ## Others

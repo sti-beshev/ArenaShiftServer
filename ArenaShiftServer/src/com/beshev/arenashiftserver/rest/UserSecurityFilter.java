@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.Provider;
 import javax.xml.bind.DatatypeConverter;
 
-import com.beshev.arenashiftserver.user.ClientUserManager;
+import com.beshev.arenashiftserver.user.UserAuth;
 
 @Provider
 @UserSecure
@@ -51,7 +51,7 @@ public class UserSecurityFilter implements ContainerRequestFilter {
 		final String username = tokenizer.nextToken();
 		final String password = tokenizer.nextToken();
 
-		boolean authenticationStatus = new ClientUserManager().checkUserCredentials(username, password);
+		boolean authenticationStatus = UserAuth.checkUserCredentials(username, password);
 		
 		return authenticationStatus;
 		

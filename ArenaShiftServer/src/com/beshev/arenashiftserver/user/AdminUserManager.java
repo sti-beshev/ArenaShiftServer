@@ -41,7 +41,7 @@ public class AdminUserManager {
 		return false;
 	}
 	
-	public ServerResponseMessage<String> changeAdminPassword(UserChangePassInfo userInfo) 
+	public ServerResponseMessage<String> changeAdminPassword(AdminChangePassInfo userInfo) 
 			throws IllegalArgumentException {
 		
 		boolean haveError = false;
