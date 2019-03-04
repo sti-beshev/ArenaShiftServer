@@ -2,21 +2,51 @@
  * index.js
  */
 
-var arenaShiftModule = angular.module("arenaShift", ['ngRoute', 'angularSpinner', 'authModule', 
+var arenaShiftModule = angular.module("arenaShift", ['ngRoute', 'angularSpinner', 'authModule', 'ngCookies',
 	'directivesModule', 'loginModule', 'getShiftModule', 'addShiftModule', 'changeShiftModule', 
 	'usersModule', 'settingsModule', 'servicesModule']);
 
-arenaShiftModule.controller("MainController", ['$scope', function($scope) {
+arenaShiftModule.controller("MainController", ['$scope', '$location', 'Auth', function($scope, $location, Auth) {
+	
+	$scope.main = {};
+	
+	$scope.main.hideLogoutButton = true;
+	
+	if(Auth.isAdmin()) {
+		
+		$scope.main.hideLogoutButton = false;
+	}     
+	
+	$scope.main.logout = function() {
+		
+		$scope.main.hideLogoutButton = true;
+		
+		Auth.logout();
+		
+		$location.path('/login');
+	}
+	
+	$scope.$on('loginEvent', function(event, data) {
+		
+	    if(data) {
+	    	
+	    	$scope.main.hideLogoutButton = false;
+	    	
+	    } else {
+	    	
+	    	$scope.main.hideLogoutButton = true;
+	    }
+	});
 }]);
 
 arenaShiftModule.run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
+	
     $rootScope.$on('$routeChangeStart', function (event) {
     	
     	if(!Auth.isAdmin()) {
     		
-            $location.path('/login');
+            $location.path('/login');         
     	}
-       
     });
 }]);
 

@@ -4,7 +4,8 @@
 
 var servicesModule = angular.module("servicesModule", []);
 
-servicesModule.factory('WorkersService', ['$rootScope','$http', '$q', 'Auth', function($rootScope,$http, $q, Auth) {
+servicesModule.factory('WorkersService', ['$rootScope','$http', '$q', 'Auth', 
+	function($rootScope,$http, $q, Auth) {
 	
 	var mechanic = {
 			namesArray: ['няма'],

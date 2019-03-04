@@ -4,17 +4,20 @@
 	
 	<h3 class="viewTitle">Log In</h3><br><br>
 	
-	<div  ng-controller="LoginController" class="viewBody">
+	<div  ng-controller="LoginController" ng-init="init()" class="viewBody">
 	
-		<b><label ng-bind="loginManager.errorStatus"></label></b><br><br>
+		<b><label ng-bind="loginManager.actionStatus"></label></b><br><br>
 		
-		<form name="form">
+		<span us-spinner="{radius:10, width:2, length: 4}" spinner-on="loginManager.showSpinner"></span>
+		
+		<form name="form" ng-hide="loginManager.hideLoginForm">
 			<label>Username</label><br>
 			<input ng-model="loginManager.username" type="text" required><br><br>
 			<label>Password</label><br>
 			<input ng-model="loginManager.password" type="password" required><br><br>
+			<label>Remember Me:</label>
+			<input ng-model="loginManager.rememberMe" type="checkbox"><br><br>
 			<button ng-click="loginManager.login()" ng-disabled="form.$invalid">Login</button>
-			<span us-spinner="{radius:10, width:2, length: 4}" spinner-on="loginManager.showSpinner"></span>
 		</form>
 	</div>
 		
