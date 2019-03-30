@@ -15,6 +15,9 @@ import com.beshev.arenashiftserver.update.UpdateRequest;
 import com.beshev.arenashiftserver.update.UpdateResponse;
 import com.google.gson.Gson;
 
+/**
+ * LEGACY - not in use!!!
+ */
 @SuppressWarnings("serial")
 public class UpdateServlet  extends HttpServlet {
 	

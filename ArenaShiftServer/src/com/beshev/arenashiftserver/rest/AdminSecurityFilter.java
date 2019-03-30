@@ -11,7 +11,7 @@ import javax.ws.rs.ext.Provider;
 import javax.xml.bind.DatatypeConverter;
 
 import com.beshev.arenashiftserver.LoginInfo;
-import com.beshev.arenashiftserver.user.AdminUserManager;
+import com.beshev.arenashiftserver.user.AdminUserManagerCrypto;
 
 
 @Provider
@@ -53,7 +53,7 @@ public class AdminSecurityFilter  implements ContainerRequestFilter {
 		final String username = tokenizer.nextToken();
 		final String password = tokenizer.nextToken();
 
-		boolean authenticationStatus = new AdminUserManager().checkAdminCredentiols(new LoginInfo(username, password));
+		boolean authenticationStatus = new AdminUserManagerCrypto().checkAdminCredentiols(new LoginInfo(username, password));
 		
 		return authenticationStatus;
 		

@@ -38,7 +38,8 @@ usersModule.controller("UsersController", ['$scope', '$http', '$q', 'Auth',
 		
 		var deferred = $q.defer();
 		
-		$http.post("/AddNewUserServlet", newUserInfo).success(function(data) {
+		$http.put("/rest/user/worker/add/", newUserInfo, {headers : Auth.getBasicAuthHeader()})
+		.success(function(data) {
 			
 			deferred.resolve(data);
 			
@@ -90,7 +91,8 @@ usersModule.controller("UsersController", ['$scope', '$http', '$q', 'Auth',
 		
 		return isChanged;
 	}
-	
+
+//*************************************************************************************************************************************************************
 	$scope.userManager.changeStatusClicked = function() {
 		
 		if($scope.userManager.checkForChange()) {
@@ -113,7 +115,8 @@ usersModule.controller("UsersController", ['$scope', '$http', '$q', 'Auth',
 			$scope.userManager.changeUserStatus = "Nothing to change...";
 		}
 	}
-	
+
+//*************************************************************************************************************************************************************
 	$scope.userManager.downloadAllWorkers = function() {
 		
 		$scope.userManager.showSpinne = true;	
@@ -144,6 +147,7 @@ usersModule.controller("UsersController", ['$scope', '$http', '$q', 'Auth',
 		});		
 	}
 	
+//*************************************************************************************************************************************************************
 	$scope.userManager.downloadAllWorkers();
 	
 	$scope.userManager.userChanged = function() {
@@ -159,6 +163,7 @@ usersModule.controller("UsersController", ['$scope', '$http', '$q', 'Auth',
 		});
 	}
 	
+//*************************************************************************************************************************************************************	
 	$scope.userManager.updateWorkerInfo = function(workerInfo) {
 		
 		$scope.userManager.showSpinne = true;	

@@ -11,7 +11,9 @@ import com.beshev.arenashiftserver.shift.ChangeShiftManager;
 import com.beshev.arenashiftserver.shift.Shift;
 import com.google.gson.Gson;
 
-
+/**
+ * LEGACY - not in use!!!
+ */
 @SuppressWarnings("serial")
 public class ChangeShiftServlet extends HttpServlet {
 	

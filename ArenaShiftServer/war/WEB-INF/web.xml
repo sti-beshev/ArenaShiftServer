@@ -4,42 +4,6 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-
-	<servlet>
-		<servlet-name>AddShiftServlet</servlet-name>
-		<servlet-class>com.beshev.arenashiftserver.servlets.AddShiftServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AddShiftServlet</servlet-name>
-		<url-pattern>/AddShiftServlet</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>GetShiftServlet</servlet-name>
-		<servlet-class>com.beshev.arenashiftserver.servlets.GetShiftServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GetShiftServlet</servlet-name>
-		<url-pattern>/GetShiftServlet</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>ChangeShiftServlet</servlet-name>
-		<servlet-class>com.beshev.arenashiftserver.servlets.ChangeShiftServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ChangeShiftServlet</servlet-name>
-		<url-pattern>/ChangeShiftServlet</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>UpdateServlet</servlet-name>
-		<servlet-class>com.beshev.arenashiftserver.servlets.UpdateServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>UpdateServlet</servlet-name>
-		<url-pattern>/UpdateServlet</url-pattern>
-	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>LoginServlet</servlet-name>
@@ -51,30 +15,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>EventSyncServlet</servlet-name>
-		<servlet-class>com.beshev.arenashiftserver.servlets.EventSyncServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EventSyncServlet</servlet-name>
-		<url-pattern>/EventSyncServlet</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
 		<servlet-name>ChangeAdminPasswordServlet</servlet-name>
 		<servlet-class>com.beshev.arenashiftserver.servlets.ChangeAdminPasswordServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ChangeAdminPasswordServlet</servlet-name>
 		<url-pattern>/ChangeAdminPasswordServlet</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>AddNewUserServlet</servlet-name>
-		<servlet-class>com.beshev.arenashiftserver.servlets.AddNewUserServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AddNewUserServlet</servlet-name>
-		<url-pattern>/AddNewUserServlet</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

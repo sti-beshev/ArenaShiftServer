@@ -8,9 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.user.ClientUserManager;
-import com.beshev.arenashiftserver.user.UserInfo;
+import com.beshev.arenashiftserver.user.WorkerInfo;
 import com.google.gson.Gson;
 
+/**
+ * LEGACY - not in use!!!
+ */
 public class AddNewUserServlet  extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
@@ -19,13 +22,13 @@ public class AddNewUserServlet  extends HttpServlet{
 		
 		boolean haveError = false;
 		
-		UserInfo userInfo = new Gson().fromJson(req.getReader(), UserInfo.class);
+		WorkerInfo workerInfo = new Gson().fromJson(req.getReader(), WorkerInfo.class);
 		
 		ServerResponseMessage<String> serverResponesMessage;
 		
 		try {
 			
-			serverResponesMessage = new ClientUserManager().addClientUser(userInfo);	
+			serverResponesMessage = new ClientUserManager().addClientUser(workerInfo);	
 			
 		} catch (IllegalArgumentException e) {
 			

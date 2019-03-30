@@ -108,6 +108,27 @@ public class ClientUserRest {
 		return new UserInfoManager().getAllWorkersInfo();
 	}
 	
+	@PUT
+	@Path("/worker/add")
+	@AdminSecure
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ServerResponseMessage<String> addWorker(WorkerInfo workerInfo) {
+		
+		ServerResponseMessage<String> serverResponesMessage;
+		
+		try {
+			
+			serverResponesMessage = new ClientUserManager().addClientUser(workerInfo);	
+			
+		} catch (IllegalArgumentException e) {
+			
+			serverResponesMessage = new ServerResponseMessage<String>("Username can not be empty !", true, null);
+		}
+		
+		return serverResponesMessage;
+	}
+	
 	@POST
 	@Path("/worker/update")
 	@AdminSecure

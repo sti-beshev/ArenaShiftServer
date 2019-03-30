@@ -51,7 +51,7 @@ public class ShiftRest {
 		return serverResponseMessage;
 	}
 	
-	@PUT
+	@PUT // It is correct to be 'POST' but the client needs it to be a 'PUT'
 	@Path("/change")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

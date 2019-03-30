@@ -12,6 +12,9 @@ import com.beshev.arenashiftserver.event.ArenaShiftEventManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+/**
+ * LEGACY - not in use!!!
+ */
 @SuppressWarnings("serial")
 public class EventSyncServlet extends HttpServlet {
 

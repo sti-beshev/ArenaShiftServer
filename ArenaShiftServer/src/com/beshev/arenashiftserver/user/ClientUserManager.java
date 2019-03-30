@@ -35,15 +35,15 @@ public class ClientUserManager {
 		
 	}
 	
-	public ServerResponseMessage<String> addClientUser(UserInfo userInfo) throws IllegalArgumentException {
+	public ServerResponseMessage<String> addClientUser(WorkerInfo workerInfo) throws IllegalArgumentException {
 		
 		boolean haveError = false;
 		
-		if(userInfo.getUsername().equals("")) throw new IllegalArgumentException();
+		if(workerInfo.getUsername().equals("")) throw new IllegalArgumentException();
 		
 		String resultMessage = "";
 		
-		Key userEntityKey = KeyFactory.createKey(USER_KIND, userInfo.getUsername());
+		Key userEntityKey = KeyFactory.createKey(USER_KIND, workerInfo.getUsername());
 		
 		try {
 			
@@ -51,20 +51,20 @@ public class ClientUserManager {
 			Entity userEntity = datastore.get(userEntityKey);
 			
 			haveError = true;
-			resultMessage = userInfo.getUsername()+ " is taken !";
+			resultMessage = workerInfo.getUsername()+ " is taken !";
 			
 		} catch (EntityNotFoundException e) {
 			
-			Entity userEntity = new Entity(USER_KIND, userInfo.getUsername());
+			Entity userEntity = new Entity(USER_KIND, workerInfo.getUsername());
 			userEntity.setProperty(CLIENT_USERNAME, genarateRandomString(16, false));
 			userEntity.setProperty(CLIENT_PASSWORD, genarateRandomString(16, false));
 			userEntity.setProperty(USER_ACTIVATION_CODE, genarateRandomString(6, true));
-			userEntity.setProperty(USER_LABEL, userInfo.getLabel());
-			userEntity.setProperty(USER_IS_WORKING, userInfo.isWorking());
+			userEntity.setProperty(USER_LABEL, workerInfo.getLabel());
+			userEntity.setProperty(USER_IS_WORKING, workerInfo.isWorking());
 			
 			datastore.put(userEntity);
 			
-			resultMessage = userInfo.getUsername() + " is added as " + userInfo.getLabel();
+			resultMessage = workerInfo.getUsername() + " is added as " + workerInfo.getLabel();
 			
 		}
 		

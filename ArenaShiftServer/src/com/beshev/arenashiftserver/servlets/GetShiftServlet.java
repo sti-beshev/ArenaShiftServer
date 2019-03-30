@@ -12,7 +12,9 @@ import com.beshev.arenashiftserver.shift.Shift;
 import com.beshev.arenashiftserver.shift.ShiftDate;
 import com.google.gson.Gson;
 
-
+/**
+ * LEGACY - not in use!!!
+ */
 @SuppressWarnings("serial")
 public class GetShiftServlet extends HttpServlet {
 	
