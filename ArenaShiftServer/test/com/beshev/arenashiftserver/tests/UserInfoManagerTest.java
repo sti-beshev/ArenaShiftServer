@@ -1,16 +1,17 @@
 package com.beshev.arenashiftserver.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import com.beshev.arenashiftserver.ServerResponseMessage;
 import com.beshev.arenashiftserver.user.ClientUserManager;
-import com.beshev.arenashiftserver.user.UserInfo;
 import com.beshev.arenashiftserver.user.UserInfoManager;
 import com.beshev.arenashiftserver.user.WorkerInfo;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -37,9 +38,9 @@ public class UserInfoManagerTest {
 	 public void setUp() {
 	    helper.setUp();
 	    
-	    clientUserManager.addClientUser(new UserInfo("Bobo", "Usher", true));
-	    clientUserManager.addClientUser(new UserInfo("Jonh", "Usher", true));
-	    clientUserManager.addClientUser(new UserInfo("Kimbo", "Usher", false));
+	    clientUserManager.addClientUser(new WorkerInfo("Bobo", "Usher", true));
+	    clientUserManager.addClientUser(new WorkerInfo("Jonh", "Usher", true));
+	    clientUserManager.addClientUser(new WorkerInfo("Kimbo", "Usher", false));
 	    
 	  }
 

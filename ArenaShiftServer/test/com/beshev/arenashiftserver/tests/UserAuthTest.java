@@ -10,8 +10,8 @@ import org.junit.Test;
 import com.beshev.arenashiftserver.user.ClientUserInfo;
 import com.beshev.arenashiftserver.user.ClientUserManager;
 import com.beshev.arenashiftserver.user.UserAuth;
-import com.beshev.arenashiftserver.user.UserInfo;
 import com.beshev.arenashiftserver.user.UserInfoManager;
+import com.beshev.arenashiftserver.user.WorkerInfo;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
@@ -47,7 +47,7 @@ public class UserAuthTest {
 		String username = "John";
 		String label = "visitor";
 
-		clientUserManager.addClientUser(new UserInfo(username, label, false));
+		clientUserManager.addClientUser(new WorkerInfo(username, label, false));
 
 		ClientUserInfo clientUserInfo  = userInfoManager.getUserInfo(username);
 
@@ -64,7 +64,7 @@ public class UserAuthTest {
 		String username = "John";
 		String label = "visitor";
 
-		clientUserManager.addClientUser(new UserInfo(username, label, false));
+		clientUserManager.addClientUser(new WorkerInfo(username, label, false));
 
 		ClientUserInfo clientUserInfo  = userInfoManager.getUserInfo(username);
 
