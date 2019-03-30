@@ -1,36 +1,35 @@
 package com.beshev.arenashiftserver.user;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.beshev.arenashiftserver.LoginInfo;
 import com.beshev.arenashiftserver.ServerResponseMessage;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
-public class AdminUserManager {
+public class AdminUserManagerCrypto extends AdminUserManager {
 	
-	public static final String ADMIN_KIND = "Admin";
-	public static final String ADMIN_PASSWORD = "password";
-	
-	protected DatastoreService datastore;
+	private static final int NUMBER_OF_ROUNDS = 4;  // 4 is the smallest possible
 
-	public AdminUserManager() {
-		
-		datastore = DatastoreServiceFactory.getDatastoreService();
+	public AdminUserManagerCrypto() {
+		super();
 		
 	}
 	
+	@Override
 	public boolean checkAdminCredentiols(LoginInfo loginInfo) {
 		
 		Key adminKey = KeyFactory.createKey(ADMIN_KIND, loginInfo.getUsername());
 		
 		try {
 			
-			Entity adminEntity = datastore.get(adminKey);
+			String adminPassword = datastore.get(adminKey)
+																.getProperty(ADMIN_PASSWORD)
+																.toString();
 			
-			if (adminEntity.getProperty(ADMIN_PASSWORD).equals(loginInfo.getPassword())) return true;
+			if (BCrypt.checkpw(loginInfo.getPassword(), adminPassword)) return true;
 					
 		} catch (EntityNotFoundException e) {
 			
@@ -41,6 +40,7 @@ public class AdminUserManager {
 		return false;
 	}
 	
+	@Override
 	public ServerResponseMessage<String> changeAdminPassword(AdminChangePassInfo userInfo) 
 			throws IllegalArgumentException {
 		
@@ -55,9 +55,10 @@ public class AdminUserManager {
 			
 			Entity adminEntity = datastore.get(adminKey);
 			
-			if (adminEntity.getProperty(ADMIN_PASSWORD).equals(userInfo.getCurrentPassword())) {
+			if (checkAdminCredentiols(new LoginInfo(userInfo.getUsername(), userInfo.getCurrentPassword()))) {
 				
-				adminEntity.setProperty(ADMIN_PASSWORD, userInfo.getNewPassword());
+				adminEntity.setProperty(ADMIN_PASSWORD, 
+						BCrypt.hashpw(userInfo.getNewPassword(), BCrypt.gensalt(NUMBER_OF_ROUNDS)));
 				
 				datastore.put(adminEntity);
 				
@@ -75,12 +76,13 @@ public class AdminUserManager {
 		return new ServerResponseMessage<>(status, haveError, null);
 	}
 	
+	@Override
 	protected boolean createDefaultAdminIfNeeded(String username) {
 		
 		if (username.equals("admin")) {
 			
 			Entity adminEntity = new Entity(ADMIN_KIND, username);
-			adminEntity.setProperty(ADMIN_PASSWORD, "adminadmin");
+			adminEntity.setProperty(ADMIN_PASSWORD, BCrypt.hashpw("adminadmin", BCrypt.gensalt(NUMBER_OF_ROUNDS)));
 			
 			datastore.put(adminEntity);
 			

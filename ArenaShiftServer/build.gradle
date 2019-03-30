@@ -51,6 +51,7 @@ dependencies {
 	
 	
 	compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+	compile group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
 	
 	compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.25'
 	compile group: 'org.zalando.phrs', name: 'jersey-media-json-gson', version: '0.1'

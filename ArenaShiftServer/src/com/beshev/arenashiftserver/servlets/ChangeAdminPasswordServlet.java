@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.beshev.arenashiftserver.user.AdminChangePassInfo;
 import com.beshev.arenashiftserver.ServerResponseMessage;
-import com.beshev.arenashiftserver.user.AdminUserManager;
+import com.beshev.arenashiftserver.user.AdminChangePassInfo;
+import com.beshev.arenashiftserver.user.AdminUserManagerCrypto;
 import com.google.gson.Gson;
 
 public class ChangeAdminPasswordServlet extends HttpServlet  {
@@ -23,7 +23,7 @@ public class ChangeAdminPasswordServlet extends HttpServlet  {
 		ServerResponseMessage<String> serverResponesMessage;
 		
 		try {		
-			serverResponesMessage = new AdminUserManager().changeAdminPassword(userInfo);
+			serverResponesMessage = new AdminUserManagerCrypto().changeAdminPassword(userInfo);
 			
 		}catch (IllegalArgumentException e) {
 			serverResponesMessage = new ServerResponseMessage<>("Password must be at least 6 characters long !", true, null);
