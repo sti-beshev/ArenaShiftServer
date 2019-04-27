@@ -2,9 +2,9 @@ package com.beshev.arenashiftserver.user;
 
 public class WorkerInfo {
 	
-	private String username;
-	private String label;
-	private boolean isWorking;
+	protected String username;
+	protected String label;
+	protected boolean isWorking;
 
 	public WorkerInfo() {}
 

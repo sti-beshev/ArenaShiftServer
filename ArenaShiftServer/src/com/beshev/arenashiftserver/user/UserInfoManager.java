@@ -57,6 +57,27 @@ public class UserInfoManager {
 		return new ServerResponseMessage<List<WorkerInfo>>("", false, workersInfoList);
 	}
 	
+	public ServerResponseMessage<List<ExtendedWorkerInfo>> getAllExtendedWorkersInfo() {
+		
+		List<ExtendedWorkerInfo> workersInfoList = new ArrayList<>();
+		
+		Query q = new Query(ClientUserManager.USER_KIND);
+		
+		PreparedQuery pq = datastore.prepare(q);
+		
+		List<Entity> usersEntityList = pq.asList(FetchOptions.Builder.withDefaults());
+		
+		for (Entity entity : usersEntityList) {
+			
+			workersInfoList.add(new ExtendedWorkerInfo(entity.getKey().getName(), 
+					(String)entity.getProperty(ClientUserManager.USER_LABEL), 
+					(String)entity.getProperty(ClientUserManager.USER_ACTIVATION_CODE), 
+					(Boolean)entity.getProperty(ClientUserManager.USER_IS_WORKING)));
+		}
+		
+		return new ServerResponseMessage<List<ExtendedWorkerInfo>>("", false, workersInfoList);
+	}
+	
 	public ServerResponseMessage<String> changeWorkerInfo(WorkerInfo workerInfo) {
 		
 		ServerResponseMessage<String> serverResponseMessage;

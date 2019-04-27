@@ -26,6 +26,7 @@ import com.beshev.arenashiftserver.update.UpdateClientManager;
 import com.beshev.arenashiftserver.update.UpdateRequest;
 import com.beshev.arenashiftserver.update.UpdateResponse;
 import com.beshev.arenashiftserver.user.ClientUserManager;
+import com.beshev.arenashiftserver.user.ExtendedWorkerInfo;
 import com.beshev.arenashiftserver.user.UserInfoManager;
 import com.beshev.arenashiftserver.user.UserLabelManager;
 import com.beshev.arenashiftserver.user.WorkerInfo;
@@ -103,9 +104,9 @@ public class ClientUserRest {
 	@Path("/workers")
 	@AdminSecure
 	@Produces(MediaType.APPLICATION_JSON)
-	public ServerResponseMessage<List<WorkerInfo>> getAllWorkersInfo() {
+	public ServerResponseMessage<List<ExtendedWorkerInfo>> getAllWorkersInfo() {
 		
-		return new UserInfoManager().getAllWorkersInfo();
+		return new UserInfoManager().getAllExtendedWorkersInfo();
 	}
 	
 	@PUT

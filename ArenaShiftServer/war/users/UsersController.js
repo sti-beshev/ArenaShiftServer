@@ -9,6 +9,8 @@ usersModule.controller("UsersController", ['$scope', '$http', '$q', 'Auth',
 	
 	$scope.userManager.showSpinner = false;
 	
+	$scope.userManager.userActivationCode = "activation code";
+	
 	// Add User ******************************************************************************************
 	
 	$scope.userManager.inputAddUser = "";
@@ -158,6 +160,7 @@ usersModule.controller("UsersController", ['$scope', '$http', '$q', 'Auth',
 				
 				$scope.userManager.selectChangeWorkerLabel = user.label;
 				$scope.userManager.checkBoxIsWorkingToChange = user.isWorking;
+				$scope.userManager.userActivationCode = user.activationCode;
 			}
 			
 		});
